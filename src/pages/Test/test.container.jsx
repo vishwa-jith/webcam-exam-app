@@ -13,14 +13,18 @@ const Test = () => {
       }, 5000)
     );
   }, [webcamRef]);
-  useEffect(() => {
-    return () => {
-      clearInterval(captureTimer);
-    };
-  });
+  // useEffect(() => {
+  //   return () => {
+  //     clearInterval(captureTimer);
+  //   };
+  // });
   return (
     <>
-      <TestView webcamRef={webcamRef} takeScreenShoot={takeScreenShoot} src={src}/>
+      <TestView
+        webcamRef={webcamRef}
+        takeScreenShoot={takeScreenShoot}
+        src={src}
+      />
     </>
   );
 };
