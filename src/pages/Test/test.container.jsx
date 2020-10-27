@@ -20,10 +20,7 @@ const Test = () => {
   });
   return (
     <>
-      {src !== null && (
-        <img src={src} alt="sample" width="100px" height="100px" />
-      )}
-      <TestView webcamRef={webcamRef} takeScreenShoot={takeScreenShoot} />
+      <TestView webcamRef={webcamRef} takeScreenShoot={takeScreenShoot} src={src}/>
     </>
   );
 };
