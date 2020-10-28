@@ -4,10 +4,13 @@ import Test from "./pages/Test";
 import Settings from "./pages/Settings";
 import Help from "./pages/Help";
 import Home from "./pages/LandingPage";
+import TestTopic from "./pages/TestTopic";
+
 const Routes = () => {
   return (
     <Switch>
       <Route component={Test} path="/test" exact />
+      <Route component={TestTopic} path="/testtopics" exact />
       <Route component={Settings} path="/settings/home" exact />
       <Route component={Settings} path="/settings/personal" exact />
       <Route component={Settings} path="/settings/company" exact />
