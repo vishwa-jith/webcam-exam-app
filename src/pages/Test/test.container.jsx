@@ -10,10 +10,10 @@ const Test = () => {
   const [answers, setAnswers] = useState([]);
   const [question_no, setQuestion_No] = useState(0);
   const questions = [
-    { topic: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
-    { topic: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
-    { topic: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
-    { topic: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
+    { question: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
+    { question: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
+    { question: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
+    { question: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
   ];
   const takeScreenShoot = useCallback(() => {
     setCaptureTimer(

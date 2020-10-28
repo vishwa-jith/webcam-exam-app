@@ -10,6 +10,9 @@ import {
   List,
   ListItem,
   Button,
+  Stepper,
+  Step,
+  StepLabel,
 } from "@material-ui/core";
 const videoConstraints = {
   width: 1280,
@@ -55,67 +58,107 @@ const TestView = ({
       )} */}
       <Grid container justify="center" alignItems="center" xs={12}>
         <Grid item md={10} xs={12}>
-          <Box my={4}>
+          <Box py={2}>
             <Paper>
-              <Typography variant="h6">
-                {questions[question_no].topic}
-              </Typography>
-              <List dense>
-                {questions[question_no].options.map((opt, index) => {
-                  return (
-                    <ListItem button id={`${index}`} onClick={handleAnswers}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={
-                              answers.length !== question_no &&
-                              answers[question_no] === index
-                            }
-                            onChange={handleAnswers}
-                            name={`${index}`}
+              <Box py={2} mx={1}>
+                <Stepper activeStep={question_no} alternativeLabel>
+                  {questions.map((data, index) => {
+                    return (
+                      <Step key={index}>
+                        <StepLabel>{data.question}</StepLabel>
+                      </Step>
+                    );
+                  })}
+                </Stepper>
+                <Grid container justify="center" alignItems="center" xs={12}>
+                  <Grid item xs={12} md={10}>
+                    <Typography variant="h6">
+                      {questions[question_no].question}
+                    </Typography>
+                    <List dense>
+                      {questions[question_no].options.map((opt, index) => {
+                        return (
+                          <ListItem
+                            button
                             id={`${index}`}
+                            onClick={handleAnswers}
+                          >
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  checked={
+                                    answers.length !== question_no &&
+                                    answers[question_no] === index
+                                  }
+                                  onChange={handleAnswers}
+                                  name={`${index}`}
+                                  id={`${index}`}
+                                  color="primary"
+                                />
+                              }
+                              label={opt}
+                            />
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                    <Grid
+                      container
+                      justify="space-around"
+                      alignItems="center"
+                      xs={12}
+                    >
+                      <Grid item>
+                        {question_no === 0 ? (
+                          <Button
+                            disabled={true}
                             color="primary"
-                          />
-                        }
-                        label={opt}
-                      />
-                    </ListItem>
-                  );
-                })}
-              </List>
-              <Grid
-                container
-                justify="space-around"
-                alignItems="center"
-                xs={12}
-              >
-                <Grid item>
-                  {question_no === 0 ? (
-                    <Button disabled={true}>Start</Button>
-                  ) : (
-                    <Button
-                      onClick={() => {
-                        handleQuestion(-1);
-                      }}
-                    >
-                      Previous
-                    </Button>
-                  )}
+                            size="small"
+                            variant="outlined"
+                          >
+                            Start
+                          </Button>
+                        ) : (
+                          <Button
+                            onClick={() => {
+                              handleQuestion(-1);
+                            }}
+                            color="primary"
+                            size="small"
+                            variant="outlined"
+                          >
+                            Previous
+                          </Button>
+                        )}
+                      </Grid>
+                      <Grid item>
+                        {question_no === questions.length - 1 ? (
+                          <Button
+                            color="primary"
+                            size="small"
+                            variant="contained"
+                          >
+                            Submit
+                          </Button>
+                        ) : (
+                          answers.length >= question_no + 1 && (
+                            <Button
+                              onClick={() => {
+                                handleQuestion(1);
+                              }}
+                              color="primary"
+                              size="small"
+                              variant="contained"
+                            >
+                              Next
+                            </Button>
+                          )
+                        )}
+                      </Grid>
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  {question_no === questions.length - 1 ? (
-                    <Button>Submit</Button>
-                  ) : (
-                    <Button
-                      onClick={() => {
-                        handleQuestion(1);
-                      }}
-                    >
-                      Next
-                    </Button>
-                  )}
-                </Grid>
-              </Grid>
+              </Box>
             </Paper>
           </Box>
         </Grid>
