@@ -51,20 +51,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TopicCardView = function ({
-  done,
-  markscored,
+  testtopicdata,
   expanded,
   handleExpandClick,
 }) {
   const classes = useStyles();
   return (
-    <Grid item xs={12} lg={3}>
+    <Grid item xs={12} lg={4}>
       <Card className={classes.root}>
         <Box p={1}>
           <CardHeader
             avatar={
               <>
-                {done ? (
+                {testtopicdata.is_test_taken ? (
                   <Box mt={1}>
                     <AssignmentTurnedInIcon className={classes.assdone} />
                   </Box>
@@ -80,36 +79,41 @@ const TopicCardView = function ({
               </IconButton>
             }
           />
-          <CardActionArea component={Link} to="/test">
+          <CardActionArea
+            component={Link}
+            to={!testtopicdata.is_test_taken ? "/test" : "#"}
+          >
             <Box p={3}>
               <Typography variant="h5" className={classes.fullfontcard}>
-                Mathematics
+                {testtopicdata.topic}
               </Typography>
-              {!done ? (
-                <Box px={2}>
-                  <Link style={{ textDecoration: "none" }}>
-                    <Typography
-                      style={{
-                        textAlign: "right",
-                        color: "red",
-                        fontWeight: "bolder",
-                      }}
-                    >
-                      Take Test
-                    </Typography>
-                  </Link>
+              {!testtopicdata.is_test_taken ? (
+                <Box>
+                  <Typography
+                    style={{
+                      textAlign: "left",
+                      color: "red",
+                      fontWeight: "bolder",
+                    }}
+                  >
+                    Take Test
+                  </Typography>
                 </Box>
               ) : (
-                <></>
+                <Box>
+                  <Typography style={{ color: "green", fontWeight: "bolder" }}>
+                    Completed
+                  </Typography>
+                </Box>
               )}
 
               <Box py={2}>
                 <Typography variant="p" className={classes.commontextcard}>
-                  Total Marks: 100
+                  Total Marks: {testtopicdata.total_marks}
                 </Typography>
                 <br></br>
                 <Typography variant="p" className={classes.commontextcard}>
-                  Pass Mark: 35
+                  Pass Mark: {Math.round(0.35 * testtopicdata.total_marks)}
                 </Typography>
               </Box>
             </Box>
@@ -117,21 +121,29 @@ const TopicCardView = function ({
           <CardActions>
             <Grid container>
               <Grid item xs={8}>
-                {done ? (
+                {testtopicdata.is_test_taken ? (
                   <CardContent>
                     <Typography
-                      variant="h6"
+                      variant="p"
                       style={{
                         fontWeight: "bolder",
-                        color: markscored >= 35 ? "green" : "red",
+                        fontSize: "1.2em",
+                        color:
+                          testtopicdata.score >=
+                          0.35 * testtopicdata.total_marks
+                            ? "green"
+                            : "red",
                       }}
                     >
-                      {markscored}/100
+                      {testtopicdata.score}/{testtopicdata.total_marks}
                     </Typography>
                   </CardContent>
                 ) : (
                   <CardContent>
-                    <Typography variant="p" style={{ fontWeight: "bolder" }}>
+                    <Typography
+                      variant="p"
+                      style={{ fontWeight: "bolder", fontSize: "1.2em" }}
+                    >
                       Not Completed
                     </Typography>
                   </CardContent>
@@ -153,9 +165,7 @@ const TopicCardView = function ({
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Description:</Typography>
-            <Typography paragraph>
-              Mathematics exam is based on your math knowledge
-            </Typography>
+            <Typography paragraph>{testtopicdata.description}</Typography>
           </CardContent>
         </Collapse>
       </Card>

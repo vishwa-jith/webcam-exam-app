@@ -11,6 +11,7 @@ const Subjects = () => {
       description: "",
     },
   ]);
+  console.log(testTopic);
   useEffect(() => {
     getTestTopics()
       .then((data) => {
@@ -22,7 +23,7 @@ const Subjects = () => {
   }, []);
   return (
     <div>
-      <TestTopicView />
+      <TestTopicView testTopic={testTopic} />
     </div>
   );
 };

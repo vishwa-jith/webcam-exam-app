@@ -9,8 +9,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  FormControlLabel,
-  Checkbox,
   FormControl,
   InputLabel,
   OutlinedInput,
@@ -94,18 +92,6 @@ const Registration2View = ({
             }
           />
         </FormControl>
-        <FormControlLabel
-          control={
-            <Checkbox
-              id="is_doctor"
-              name="is_doctor"
-              checked={registrationDetails.is_doctor}
-              color="primary"
-              onChange={handleChange}
-            />
-          }
-          label="I am a Doctor"
-        />
       </form>
       <Button
         color="primary"

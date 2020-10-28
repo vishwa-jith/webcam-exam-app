@@ -1,12 +1,11 @@
 import React from "react";
 import TopicCardView from "./topiccard.view";
 
-const TopicCard = function ({ done, markscored, expanded, handleExpandClick }) {
+const TopicCard = function ({ testtopicdata, expanded, handleExpandClick }) {
   return (
     <>
       <TopicCardView
-        done={done}
-        markscored={markscored}
+        testtopicdata={testtopicdata}
         expanded={expanded}
         handleExpandClick={handleExpandClick}
       />
