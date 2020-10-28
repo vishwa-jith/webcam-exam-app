@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TestTopicView = () => {
+const TestTopicView = ({ testTopic }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [done, setdone] = useState(true);
@@ -66,7 +66,11 @@ const TestTopicView = () => {
           </Box>
           <Box px={2}>
             <Grid item>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                href="tel: 044-22413531"
+              >
                 Contact Exam Cell
               </Button>
             </Grid>
@@ -75,18 +79,16 @@ const TestTopicView = () => {
       </Box>
       <Box m={5}>
         <div className={classes.root1}>
-          <Grid
-            container
-            spacing={10}
-            justify="space-evenly"
-            alignItems="baseline"
-          >
-            <TopicCard
-              done={done}
-              markscored={markscored}
-              expanded={expanded}
-              handleExpandClick={handleExpandClick}
-            />
+          <Grid container spacing={10} justify="" alignItems="center">
+            {testTopic.map((data) => {
+              return (
+                <TopicCard
+                  testtopicdata={data}
+                  expanded={expanded}
+                  handleExpandClick={handleExpandClick}
+                />
+              );
+            })}
           </Grid>
         </div>
       </Box>
