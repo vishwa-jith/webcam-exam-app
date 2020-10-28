@@ -8,4 +8,4 @@ export const SIDEBAR_PATH_LIST = [
   "/testtopics",
 ];
 export const drawerWidth = 240;
-export const baseUrl = "https://sample-working-backend.herokuapp.com/";
+export const baseUrl = "http://localhost:8000/";

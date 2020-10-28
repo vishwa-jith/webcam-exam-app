@@ -32,43 +32,12 @@ export const getUserList = async () => {
   });
   return response.data;
 };
-//Get User Chat
-export const getUserChat = async (id) => {
+
+//Test Details
+export const getTestTopics = async () => {
   const token = localStorage.getItem("token");
   const bearer = "Bearer " + token;
-  var response = await axios.get(baseUrl + `chats/${id}`, {
-    headers: {
-      Authorization: bearer,
-    },
-  });
-  return response.data;
-};
-//Add User Chat
-export const addUserChat = async (data) => {
-  const token = localStorage.getItem("token");
-  const bearer = "Bearer " + token;
-  var response = await axios.post(baseUrl + `chats/new`, data, {
-    headers: {
-      Authorization: bearer,
-    },
-  });
-  return response.data;
-};
-//Delete User Chat
-export const deleteUserChats = async (data) => {
-  const token = localStorage.getItem("token");
-  const bearer = "Bearer " + token;
-  var response = await axios.put(baseUrl + `chats/delete`, data, {
-    headers: {
-      Authorization: bearer,
-    },
-  });
-  return response.data;
-};
-export const notifyNewMessages = async () => {
-  const token = localStorage.getItem("token");
-  const bearer = "Bearer " + token;
-  var response = await axios.get(baseUrl + `users/notify`, {
+  var response = await axios.get(baseUrl + `test-topic`, {
     headers: {
       Authorization: bearer,
     },
