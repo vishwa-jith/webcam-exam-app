@@ -5,6 +5,7 @@ export const SIDEBAR_PATH_LIST = [
   "/settings/company",
   "/help",
   "/logout",
+  "/testtopics",
 ];
 export const drawerWidth = 240;
 export const baseUrl = "https://sample-working-backend.herokuapp.com/";
