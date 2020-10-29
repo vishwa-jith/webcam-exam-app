@@ -19,6 +19,7 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { makeStyles } from "@material-ui/core/styles";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   field: {
-    margin: theme.spacing(1, 0),
+    //margin: theme.spacing(1, 0),
   },
 }));
 const Login = ({
@@ -60,42 +61,55 @@ const Login = ({
         </ListItem>
       </List>
       <form autoComplete="off">
-        <TextField
-          className={classes.field}
-          variant="outlined"
-          label="User Name"
-          id="username"
-          name="username"
-          size="small"
-          value={loginDetails.username}
-          onChange={handleChange}
-        />
-        <FormControl variant="outlined" size="small">
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <OutlinedInput
-            id="password"
-            name="password"
-            type={showPass ? "text" : "password"}
-            value={loginDetails.password}
-            onChange={handleChange}
-            labelWidth={70}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPass ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
+        <Box my={2}>
+          <FormControl
+            variant="outlined"
+            size="small"
+            style={{ width: "269px" }}
+          >
+            <InputLabel htmlFor="User Name">User Name</InputLabel>
+            <OutlinedInput
+              className={classes.field}
+              value={loginDetails.username}
+              onChange={handleChange}
+              labelWidth={85}
+              endAdornment={
+                <InputAdornment position="end">
+                  <AccountCircle style={{ color: "#777" }} />
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+        </Box>
+        <Box mb={3}>
+          <FormControl variant="outlined" size="small">
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <OutlinedInput
+              id="password"
+              name="password"
+              type={showPass ? "text" : "password"}
+              value={loginDetails.password}
+              onChange={handleChange}
+              labelWidth={70}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPass ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+        </Box>
         <Link to="/">Don't Have an Account ?</Link>
       </form>
+
       <Button color="primary" variant="contained" onClick={handleSubmit}>
-        Login
+        <Box px={2}>Login</Box>
       </Button>
     </Box>
   );

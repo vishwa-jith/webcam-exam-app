@@ -61,6 +61,7 @@ const Registration1View = ({
           size="small"
           value={registrationDetails.firstname}
           onChange={handleChange}
+          style={{ width: "270px" }}
         />
         <TextField
           className={classes.field}
@@ -71,8 +72,11 @@ const Registration1View = ({
           size="small"
           value={registrationDetails.lastname}
           onChange={handleChange}
+          style={{ width: "270px" }}
         />
-        <Link to="/login">Already Have an account ?</Link>
+        <Box py={2}>
+          <Link to="/login">Already Have an account ?</Link>
+        </Box>
       </form>
       <Button color="primary" variant="contained" onClick={handleStep}>
         Next
