@@ -18,6 +18,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   field: {
-    margin: theme.spacing(1, 0),
+    //margin: theme.spacing(1, 0),
   },
 }));
 const Registration2View = ({
@@ -60,16 +61,28 @@ const Registration2View = ({
         </ListItem>
       </List>
       <form autoComplete="off">
-        <TextField
-          className={classes.field}
-          variant="outlined"
-          label="User Name"
-          id="username"
-          name="username"
-          size="small"
-          value={registrationDetails.username}
-          onChange={handleChange}
-        />
+        <Box my={2}>
+          <FormControl
+            variant="outlined"
+            size="small"
+            style={{ width: "269px" }}
+          >
+            <InputLabel htmlFor="User Name">User Name</InputLabel>
+            <OutlinedInput
+              id="username"
+              name="username"
+              className={classes.field}
+              value={registrationDetails.username}
+              onChange={handleChange}
+              labelWidth={85}
+              endAdornment={
+                <InputAdornment position="end">
+                  <AccountCircle style={{ color: "#777" }} />
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+        </Box>
         <FormControl variant="outlined" size="small">
           <InputLabel htmlFor="password">Password</InputLabel>
           <OutlinedInput
