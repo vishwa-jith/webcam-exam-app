@@ -3,14 +3,7 @@ import TestTopicView from "./testtopic.view.jsx";
 import { getTestTopics } from "../../components/utils/requests";
 
 const Subjects = () => {
-  const [testTopic, setTestTopic] = useState([
-    {
-      topic: "",
-      is_test_taken: false,
-      score: 0,
-      description: "",
-    },
-  ]);
+  const [testTopic, setTestTopic] = useState([]);
   const [expandedList, setExpandedList] = useState([]);
   const [anchorE1List, setAnchorE1List] = useState([]);
   const handleExpandClick = (topic_no) => {

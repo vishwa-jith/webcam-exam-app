@@ -38,19 +38,20 @@ const TestTopicView = ({
       </Box>
       <Box m={5}>
         <Grid container spacing={5} alignItems="center">
-          {testTopic.map((data, index) => {
-            return (
-              <TopicCard
-                topic_no={index}
-                testtopicdata={data}
-                expandedList={expandedList}
-                handleExpandClick={handleExpandClick}
-                anchorE1List={anchorE1List}
-                handleAnchorE1Click={handleAnchorE1Click}
-                handleAnchorE1Close={handleAnchorE1Close}
-              />
-            );
-          })}
+          {testTopic.length > 0 &&
+            testTopic.map((data, index) => {
+              return (
+                <TopicCard
+                  topic_no={index}
+                  testtopicdata={data}
+                  expandedList={expandedList}
+                  handleExpandClick={handleExpandClick}
+                  anchorE1List={anchorE1List}
+                  handleAnchorE1Click={handleAnchorE1Click}
+                  handleAnchorE1Close={handleAnchorE1Close}
+                />
+              );
+            })}
         </Grid>
       </Box>
     </>
