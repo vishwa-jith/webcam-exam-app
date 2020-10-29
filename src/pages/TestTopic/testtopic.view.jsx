@@ -4,7 +4,14 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import TopicCard from "./components";
 
-const TestTopicView = ({ testTopic, handleExpandClick, expandedList }) => {
+const TestTopicView = ({
+  testTopic,
+  handleExpandClick,
+  expandedList,
+  anchorE1List,
+  handleAnchorE1Click,
+  handleAnchorE1Close,
+}) => {
   return (
     <>
       <Box p={5}>
@@ -38,6 +45,9 @@ const TestTopicView = ({ testTopic, handleExpandClick, expandedList }) => {
                 testtopicdata={data}
                 expandedList={expandedList}
                 handleExpandClick={handleExpandClick}
+                anchorE1List={anchorE1List}
+                handleAnchorE1Click={handleAnchorE1Click}
+                handleAnchorE1Close={handleAnchorE1Close}
               />
             );
           })}

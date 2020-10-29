@@ -16,7 +16,7 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import Box from "@material-ui/core/Box";
 import { CardActionArea } from "@material-ui/core";
 import { Link } from "react-router-dom";
-
+import { Popover, List, ListItem, ListItemText } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   assign: {
     color: theme.palette.warning.main,
@@ -55,6 +55,9 @@ const TopicCardView = function ({
   testtopicdata,
   expandedList,
   handleExpandClick,
+  anchorE1List,
+  handleAnchorE1Click,
+  handleAnchorE1Close,
 }) {
   const classes = useStyles();
   return (
@@ -75,11 +78,37 @@ const TopicCardView = function ({
             }
             title="TEST - 1"
             action={
-              <IconButton>
+              <IconButton
+                aria-describedby={topic_no}
+                onClick={(event) => {
+                  handleAnchorE1Click(event, topic_no);
+                }}
+              >
                 <MoreVertIcon />
               </IconButton>
             }
           />
+          <Popover
+            id={topic_no}
+            open={Boolean(anchorE1List[topic_no])}
+            anchorEl={anchorE1List[topic_no]}
+            onClose={handleAnchorE1Close}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            elevation={1}
+          >
+            <List dense>
+              <ListItem dense button>
+                <ListItemText>Mark as Complete</ListItemText>
+              </ListItem>
+            </List>
+          </Popover>
           <CardActionArea
             component={Link}
             to={!testtopicdata.is_test_taken ? "/test" : "#"}

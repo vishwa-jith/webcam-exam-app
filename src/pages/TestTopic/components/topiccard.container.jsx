@@ -6,6 +6,9 @@ const TopicCard = function ({
   expandedList,
   handleExpandClick,
   topic_no,
+  anchorE1List,
+  handleAnchorE1Click,
+  handleAnchorE1Close,
 }) {
   return (
     <>
@@ -14,6 +17,9 @@ const TopicCard = function ({
         testtopicdata={testtopicdata}
         expandedList={expandedList}
         handleExpandClick={handleExpandClick}
+        anchorE1List={anchorE1List}
+        handleAnchorE1Click={handleAnchorE1Click}
+        handleAnchorE1Close={handleAnchorE1Close}
       />
     </>
   );
