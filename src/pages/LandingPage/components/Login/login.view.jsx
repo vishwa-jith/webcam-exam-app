@@ -71,6 +71,8 @@ const Login = ({
             <OutlinedInput
               className={classes.field}
               value={loginDetails.username}
+              id="username"
+              name="username"
               onChange={handleChange}
               labelWidth={85}
               endAdornment={
