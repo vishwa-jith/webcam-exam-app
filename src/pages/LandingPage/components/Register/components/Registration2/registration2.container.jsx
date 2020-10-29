@@ -5,7 +5,7 @@ const Registration2 = ({
   registrationDetails,
   handleChange,
   handleStep,
-  addUser,
+  handleSignUp,
 }) => {
   const [showPass, setShowPass] = useState(false);
   const handleClickShowPassword = () => {
@@ -21,7 +21,7 @@ const Registration2 = ({
         showPass={showPass}
         handleChange={handleChange}
         handleStep={handleStep}
-        addUser={addUser}
+        handleSignUp={handleSignUp}
         handleClickShowPassword={handleClickShowPassword}
         handleMouseDownPassword={handleMouseDownPassword}
       />

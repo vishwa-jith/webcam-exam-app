@@ -24,7 +24,7 @@ const LoginView = () => {
     loginUser(loginDetails)
       .then((res) => {
         localStorage.setItem("token", res.token);
-        history.push("/chatconsultant");
+        history.push("/testtopics");
       })
       .catch((error) => console.log(error));
   };

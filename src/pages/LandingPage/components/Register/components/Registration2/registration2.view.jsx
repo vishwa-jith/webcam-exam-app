@@ -3,7 +3,6 @@ import {
   Button,
   Box,
   Typography,
-  TextField,
   IconButton,
   List,
   ListItem,
@@ -41,7 +40,7 @@ const Registration2View = ({
   showPass,
   handleChange,
   handleStep,
-  addUser,
+  handleSignUp,
   handleMouseDownPassword,
   handleClickShowPassword,
 }) => {
@@ -106,11 +105,7 @@ const Registration2View = ({
           />
         </FormControl>
       </form>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() => addUser(registrationDetails)}
-      >
+      <Button color="primary" variant="contained" onClick={handleSignUp}>
         Register
       </Button>
     </Box>

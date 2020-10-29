@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { addUser } from "../../../../components/utils/requests";
 import RegisterView from "./register.view";
+import { useHistory } from "react-router-dom";
 const Register = () => {
+  const history = useHistory();
   const initialRegistrationDetails = {
     firstname: "",
     lastname: "",
@@ -31,11 +33,18 @@ const Register = () => {
       setStep(step - 1);
     }
   };
+  const handleSignUp = () => {
+    addUser(registrationDetails)
+      .then(() => {
+        history.push("/login");
+      })
+      .catch((error) => console.log(error));
+  };
   return (
     <>
       <RegisterView
         registrationDetails={registrationDetails}
-        addUser={addUser}
+        handleSignUp={handleSignUp}
         handleChange={handleChange}
         handleStep={handleStep}
         step={step}
