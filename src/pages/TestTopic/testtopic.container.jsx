@@ -11,20 +11,35 @@ const Subjects = () => {
       description: "",
     },
   ]);
-  console.log(testTopic);
+  const [expandedList, setExpandedList] = useState([]);
+  const handleExpandClick = (topic_no) => {
+    setExpandedList(
+      expandedList.map((bool, index) => {
+        if (index === topic_no) {
+          return !bool;
+        }
+        return bool;
+      })
+    );
+  };
   useEffect(() => {
     getTestTopics()
       .then((data) => {
         setTestTopic(data);
+        setExpandedList(data.map(() => false));
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
   return (
-    <div>
-      <TestTopicView testTopic={testTopic} />
-    </div>
+    <>
+      <TestTopicView
+        testTopic={testTopic}
+        expandedList={expandedList}
+        handleExpandClick={handleExpandClick}
+      />
+    </>
   );
 };
 

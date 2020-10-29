@@ -1,60 +1,12 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TopicCard from "./components";
 
-const useStyles = makeStyles((theme) => ({
-  assign: {
-    color: theme.palette.warning.main,
-  },
-  assdone: {
-    color: theme.palette.success.main,
-  },
-  root1: {
-    color: "white",
-  },
-  root: {
-    maxWidth: 345,
-    textAlign: "left",
-    background: theme.palette.background.paper,
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-  fullfontcard: {
-    textTransform: "uppercase",
-    color: "#555",
-  },
-  commontextcard: {
-    fontSize: "1.3em",
-    textAlign: "left",
-    color: theme.palette.primary.main,
-  },
-}));
-
-const TestTopicView = ({ testTopic }) => {
-  const classes = useStyles();
-  const [expanded, setExpanded] = useState(false);
-  const [done, setdone] = useState(true);
-  const markscored = 60;
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-  const history = useHistory();
-
+const TestTopicView = ({ testTopic, handleExpandClick, expandedList }) => {
   return (
-    <div>
+    <>
       <Box p={5}>
         <Grid container xs={12} justify="flex-end" alignItems="flex-start">
           <Box px={2}>
@@ -78,21 +30,20 @@ const TestTopicView = ({ testTopic }) => {
         </Grid>
       </Box>
       <Box m={5}>
-        <div className={classes.root1}>
-          <Grid container spacing={10} justify="" alignItems="center">
-            {testTopic.map((data) => {
-              return (
-                <TopicCard
-                  testtopicdata={data}
-                  expanded={expanded}
-                  handleExpandClick={handleExpandClick}
-                />
-              );
-            })}
-          </Grid>
-        </div>
+        <Grid container spacing={5} alignItems="center">
+          {testTopic.map((data, index) => {
+            return (
+              <TopicCard
+                topic_no={index}
+                testtopicdata={data}
+                expandedList={expandedList}
+                handleExpandClick={handleExpandClick}
+              />
+            );
+          })}
+        </Grid>
       </Box>
-    </div>
+    </>
   );
 };
 export default TestTopicView;

@@ -51,14 +51,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TopicCardView = function ({
+  topic_no,
   testtopicdata,
-  expanded,
+  expandedList,
   handleExpandClick,
 }) {
   const classes = useStyles();
   return (
-    <Grid item xs={12} lg={4}>
-      <Card className={classes.root}>
+    <Grid item xs={12} lg={3}>
+      <Card className={classes.root} elevation={2}>
         <Box p={1}>
           <CardHeader
             avatar={
@@ -152,9 +153,9 @@ const TopicCardView = function ({
               <Grid item xs={4} style={{ textAlign: "right" }}>
                 <IconButton
                   className={clsx(classes.expand, {
-                    [classes.expandOpen]: expanded,
+                    [classes.expandOpen]: expandedList[topic_no],
                   })}
-                  onClick={handleExpandClick}
+                  onClick={() => handleExpandClick(topic_no)}
                 >
                   <ExpandMoreIcon />
                 </IconButton>
@@ -162,7 +163,7 @@ const TopicCardView = function ({
             </Grid>
           </CardActions>
         </Box>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse in={expandedList[topic_no]} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Description:</Typography>
             <Typography paragraph>{testtopicdata.description}</Typography>
