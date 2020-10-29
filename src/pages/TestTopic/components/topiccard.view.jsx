@@ -111,7 +111,8 @@ const TopicCardView = function ({
           </Popover>
           <CardActionArea
             component={Link}
-            to={!testtopicdata.is_test_taken ? "/test" : "#"}
+            // to={!testtopicdata.is_test_taken ? `/test/${testtopicdata._id}` : "#"}
+            to={`/test/${testtopicdata._id}`}
           >
             <Box p={3}>
               <Typography variant="h5" className={classes.fullfontcard}>
