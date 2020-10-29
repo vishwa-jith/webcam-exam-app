@@ -10,29 +10,23 @@ import HelpIcon from "@material-ui/icons/Help";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useRouteMatch } from "react-router-dom";
 const SideBarView = () => {
   const history = useHistory();
   const location = useLocation();
-  console.log(location);
+  const testMatch = useRouteMatch("/test/:testId");
   return (
     <>
       <List>
         <ListItem
           button
           component={Link}
-          to={location.pathname === "/test" ? "/test" : "/testtopics"}
+          to={!testMatch ? "/testtopics" : location.pathname}
         >
           <ListItemIcon>
-            {location.pathname === "/test" ? (
-              <AssessmentIcon />
-            ) : (
-              <AssignmentIcon />
-            )}
+            {!testMatch ? <AssessmentIcon /> : <AssignmentIcon />}
           </ListItemIcon>
-          <ListItemText
-            primary={location.pathname === "/test" ? "Test" : "Topics"}
-          />
+          <ListItemText primary={!testMatch ? "Topic" : "Test"} />
         </ListItem>
         <ListItem button component={Link} to="/settings/home">
           <ListItemIcon>

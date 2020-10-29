@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useRouteMatch } from "react-router-dom";
 import { SIDEBAR_PATH_LIST } from "../constants";
 import NavbarView from "./navbar.view";
 export default function Navbar() {
@@ -8,13 +8,13 @@ export default function Navbar() {
   console.log(location.pathname);
   const handleDrawer = () => {
     setOpen(!open);
-  };
-
+  }; 
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const showSideBar = SIDEBAR_PATH_LIST.includes(location.pathname);
-
+  const testMatch = useRouteMatch("/test/:testId");
+  const showSideBar =
+    SIDEBAR_PATH_LIST.includes(location.pathname) || !!testMatch;
   return (
     <NavbarView
       open={open}
