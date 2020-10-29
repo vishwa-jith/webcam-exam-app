@@ -16,7 +16,7 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import Box from "@material-ui/core/Box";
 import { CardActionArea } from "@material-ui/core";
 import { Link } from "react-router-dom";
-
+import { Popover, List, ListItem, ListItemText } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   assign: {
     color: theme.palette.warning.main,
@@ -51,14 +51,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TopicCardView = function ({
+  topic_no,
   testtopicdata,
-  expanded,
+  expandedList,
   handleExpandClick,
+  anchorE1List,
+  handleAnchorE1Click,
+  handleAnchorE1Close,
 }) {
   const classes = useStyles();
   return (
-    <Grid item xs={12} lg={4}>
-      <Card className={classes.root}>
+    <Grid item xs={12} lg={3}>
+      <Card className={classes.root} elevation={2}>
         <Box p={1}>
           <CardHeader
             avatar={
@@ -74,11 +78,37 @@ const TopicCardView = function ({
             }
             title="TEST - 1"
             action={
-              <IconButton>
+              <IconButton
+                aria-describedby={topic_no}
+                onClick={(event) => {
+                  handleAnchorE1Click(event, topic_no);
+                }}
+              >
                 <MoreVertIcon />
               </IconButton>
             }
           />
+          <Popover
+            id={topic_no}
+            open={Boolean(anchorE1List[topic_no])}
+            anchorEl={anchorE1List[topic_no]}
+            onClose={handleAnchorE1Close}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            elevation={1}
+          >
+            <List dense>
+              <ListItem dense button>
+                <ListItemText>Mark as Complete</ListItemText>
+              </ListItem>
+            </List>
+          </Popover>
           <CardActionArea
             component={Link}
             to={!testtopicdata.is_test_taken ? "/test" : "#"}
@@ -152,9 +182,9 @@ const TopicCardView = function ({
               <Grid item xs={4} style={{ textAlign: "right" }}>
                 <IconButton
                   className={clsx(classes.expand, {
-                    [classes.expandOpen]: expanded,
+                    [classes.expandOpen]: expandedList[topic_no],
                   })}
-                  onClick={handleExpandClick}
+                  onClick={() => handleExpandClick(topic_no)}
                 >
                   <ExpandMoreIcon />
                 </IconButton>
@@ -162,7 +192,7 @@ const TopicCardView = function ({
             </Grid>
           </CardActions>
         </Box>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse in={expandedList[topic_no]} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Description:</Typography>
             <Typography paragraph>{testtopicdata.description}</Typography>
