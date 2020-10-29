@@ -16,7 +16,14 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import Box from "@material-ui/core/Box";
 import { CardActionArea } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Popover, List, ListItem, ListItemText } from "@material-ui/core";
+import {
+  Popover,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+} from "@material-ui/core";
+import MarkunreadIcon from "@material-ui/icons/Markunread";
 const useStyles = makeStyles((theme) => ({
   assign: {
     color: theme.palette.warning.main,
@@ -105,6 +112,9 @@ const TopicCardView = function ({
           >
             <List dense>
               <ListItem dense button>
+                <ListItemIcon>
+                  <MarkunreadIcon />
+                </ListItemIcon>
                 <ListItemText>Mark as Complete</ListItemText>
               </ListItem>
             </List>
