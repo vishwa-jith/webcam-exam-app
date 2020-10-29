@@ -44,3 +44,31 @@ export const getTestTopics = async () => {
   });
   return response.data;
 };
+
+//Test Questions
+export const getTestQuestions = async (testId) => {
+  const token = localStorage.getItem("token");
+  const bearer = "Bearer " + token;
+  var response = await axios.get(baseUrl + `questions/${testId}`, {
+    headers: {
+      Authorization: bearer,
+    },
+  });
+  return response.data;
+};
+
+//Test Questions
+export const sendAnswers = async (testId, answers) => {
+  const token = localStorage.getItem("token");
+  const bearer = "Bearer " + token;
+  var response = await axios.post(
+    baseUrl + `questions/add-mark/${testId}`,
+    answers,
+    {
+      headers: {
+        Authorization: bearer,
+      },
+    }
+  );
+  return response.data;
+};
