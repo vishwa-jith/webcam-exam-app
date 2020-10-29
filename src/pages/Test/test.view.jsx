@@ -141,18 +141,17 @@ const TestView = ({
                             Submit
                           </Button>
                         ) : (
-                          answers.length >= question_no + 1 && (
-                            <Button
-                              onClick={() => {
-                                handleQuestion(1);
-                              }}
-                              color="primary"
-                              size="small"
-                              variant="contained"
-                            >
-                              Next
-                            </Button>
-                          )
+                          <Button
+                            onClick={() => {
+                              handleQuestion(1);
+                            }}
+                            color="primary"
+                            size="small"
+                            variant="contained"
+                            disabled={!answers.length >= question_no + 1}
+                          >
+                            Next
+                          </Button>
                         )}
                       </Grid>
                     </Grid>
