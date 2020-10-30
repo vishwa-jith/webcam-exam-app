@@ -47,7 +47,7 @@ const SideBarView = () => {
           button
           onClick={() => {
             localStorage.removeItem("token");
-            history.push("/");
+            history.push("/login");
           }}
         >
           <ListItemIcon>
