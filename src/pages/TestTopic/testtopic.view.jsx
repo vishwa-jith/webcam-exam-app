@@ -15,16 +15,17 @@ const TestTopicView = ({
   return (
     <>
       <Box p={5}>
-        <Grid container xs={12} justify="flex-end" alignItems="flex-start">
-          <Box px={2}>
-            <Grid item>
+        <Grid container xs={12} justify="flex-end" flexDirection="row">
+          <Grid item>
+            <Box px={2}>
               <Button variant="contained" color="secondary">
                 View TimeTable
               </Button>
-            </Grid>
-          </Box>
-          <Box px={2}>
-            <Grid item>
+            </Box>
+          </Grid>
+
+          <Grid item>
+            <Box px={2}>
               <Button
                 variant="contained"
                 color="primary"
@@ -32,11 +33,11 @@ const TestTopicView = ({
               >
                 Contact Exam Cell
               </Button>
-            </Grid>
-          </Box>
+            </Box>
+          </Grid>
         </Grid>
       </Box>
-      <Box m={5}>
+      <Box mx={5} mb={5}>
         <Grid container spacing={5} alignItems="center">
           {testTopic.length > 0 &&
             testTopic.map((data, index) => {
