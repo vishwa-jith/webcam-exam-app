@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import TestView from "./test.view";
 import CustomContext from "../../components/CustomContext/customcontext.container";
 import { getTestQuestions, sendAnswers } from "../../components/utils/requests";
+import openSocket from "socket.io-client";
 const Test = () => {
   //Const
   const { testId } = useParams();
@@ -15,13 +16,10 @@ const Test = () => {
   const [answers, setAnswers] = useState([]);
   const [question_no, setQuestion_No] = useState(0);
   const [runCamera, setRunCamera] = useState(false);
-  // const questions = [
-  //   { question: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
-  //   { question: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
-  //   { question: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
-  //   { question: "sample question", options: ["opt1", "opt2", "opt3", "opt4"] },
-  // ];
   const [questions, setQuestions] = useState([]);
+  const [socket, setSocket] = useState(null);
+  const [counter, setCounter] = useState(0);
+  const [user_id, setuser_id] = useState(null);
   // const takeScreenShoot = useCallback(() => {
   //   setCaptureTimer(
   //     setInterval(() => {
@@ -35,19 +33,30 @@ const Test = () => {
   //   );
   // }, [webcamRef]);
   useEffect(() => {
+    setSocket(openSocket("http://localhost:8000/"));
+  }, []);
+  useEffect(() => {
+    if (socket && user_id) {
+      socket.on(user_id, (image) => {
+        console.log(image);
+      });
+    }
+  });
+  useEffect(() => {
     const timer = setInterval(() => {
-      const imageSrc = webcamRef.current.getScreenshot();
-      setSrc(imageSrc);
+      if (socket) {
+        const imageSrc = webcamRef.current.getScreenshot();
+        console.log(imageSrc);
+        setSrc(imageSrc);
+        setCounter((prevCounter) => prevCounter + 5);
+        socket.emit("validate-image", { user_id, imageSrc });
+      }
     }, 5000);
     return () => {
       clearInterval(timer);
     };
-  }, [runCamera, captureTimer]);
-  // useEffect(() => {
-  //   return () => {
-  //     clearInterval(captureTimer);
-  //   };
-  // });
+  }, [runCamera, captureTimer, socket]);
+
   const handleCameraVision = (state) => {
     setRunCamera(state);
   };
@@ -89,10 +98,20 @@ const Test = () => {
     document.addEventListener("contextmenu", (event) => event.preventDefault());
     getTestQuestions(testId)
       .then((ques) => {
-        setQuestions(ques);
+        setuser_id(ques.user_id);
+        setQuestions(ques.questions);
       })
       .catch((error) => console.log(error));
   }, [testId]);
+  useEffect(() => {
+    if (counter >= 30 * 60) {
+      handleSubmitAnswers();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [counter]);
+  const skipTimer = () => {
+    setCounter(30 * 60);
+  };
   return (
     <>
       <CustomContext items={menu}></CustomContext>
@@ -106,6 +125,8 @@ const Test = () => {
         handleQuestion={handleQuestion}
         handleSubmitAnswers={handleSubmitAnswers}
         handleCameraVision={handleCameraVision}
+        counter={counter}
+        skipTimer={skipTimer}
       />
     </>
   );
