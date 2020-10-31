@@ -3,21 +3,29 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import TopicCard from "./components";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const TestTopicView = ({
   testTopic,
+  user_id,
+  info,
   handleExpandClick,
   expandedList,
   anchorE1List,
   handleAnchorE1Click,
   handleAnchorE1Close,
+  Transition,
 }) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
     <>
       <Box p={5}>
         <Grid container xs={12} justify="flex-end" flexDirection="row">
           <Grid item>
-            <Box px={2}>
+            <Box p={2}>
               <Button variant="contained" color="secondary">
                 View TimeTable
               </Button>
@@ -25,7 +33,7 @@ const TestTopicView = ({
           </Grid>
 
           <Grid item>
-            <Box px={2}>
+            <Box p={2}>
               <Button
                 variant="contained"
                 color="primary"
@@ -37,19 +45,24 @@ const TestTopicView = ({
           </Grid>
         </Grid>
       </Box>
-      <Box mx={5} mb={5}>
-        <Grid container spacing={5} alignItems="center">
+      <Box mx={matches ? 5 : 0}>
+        <Grid container alignItems="center">
           {testTopic.length > 0 &&
             testTopic.map((data, index) => {
+              const testinfo = info.filter((info_x) => {
+                return info_x.user_id === user_id;
+              })[0];
               return (
                 <TopicCard
                   topic_no={index}
                   testtopicdata={data}
+                  testinfo={testinfo}
                   expandedList={expandedList}
                   handleExpandClick={handleExpandClick}
                   anchorE1List={anchorE1List}
                   handleAnchorE1Click={handleAnchorE1Click}
                   handleAnchorE1Close={handleAnchorE1Close}
+                  Transition={Transition}
                 />
               );
             })}

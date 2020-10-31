@@ -1,8 +1,11 @@
 import React from "react";
+import Box from "@material-ui/core/Box";
 const HelpView = () => {
   return (
     <div>
-      <h1>Helper Component</h1>
+      <Box p={5}>
+        <h1>Helper Component</h1>
+      </Box>
     </div>
   );
 };

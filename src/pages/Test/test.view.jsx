@@ -14,6 +14,11 @@ import {
   Step,
   StepLabel,
 } from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 const videoConstraints = {
   width: 1280,
   height: 720,
@@ -30,6 +35,15 @@ const TestView = ({
   handleSubmitAnswers,
   handleCameraVision,
 }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
       <Grid
@@ -67,7 +81,7 @@ const TestView = ({
                     {questions.map((data, index) => {
                       return (
                         <Step key={index}>
-                          <StepLabel>{data.question}</StepLabel>
+                          <StepLabel></StepLabel>
                         </Step>
                       );
                     })}
@@ -139,7 +153,7 @@ const TestView = ({
                               color="primary"
                               size="small"
                               variant="contained"
-                              onClick={handleSubmitAnswers}
+                              onClick={handleClickOpen}
                             >
                               Submit
                             </Button>
@@ -156,6 +170,33 @@ const TestView = ({
                               Next
                             </Button>
                           )}
+                          <Dialog open={open} onClose={handleClose}>
+                            <DialogTitle>Test Submit</DialogTitle>
+                            <DialogContent>
+                              <DialogContentText>
+                                <Typography>
+                                  Are you sure, Do you want to submit the test?
+                                </Typography>
+                              </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button
+                                autoFocus
+                                onClick={handleSubmitAnswers}
+                                color="primary"
+                                variant="outlined"
+                              >
+                                Yes
+                              </Button>
+                              <Button
+                                onClick={handleClose}
+                                color="primary"
+                                autoFocus
+                              >
+                                No
+                              </Button>
+                            </DialogActions>
+                          </Dialog>
                         </Grid>
                       </Grid>
                     </Grid>

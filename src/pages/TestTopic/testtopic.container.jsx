@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import TestTopicView from "./testtopic.view.jsx";
 import { getTestTopics } from "../../components/utils/requests";
-
+import Slide from "@material-ui/core/Slide";
 const Subjects = () => {
   const [testTopic, setTestTopic] = useState([]);
   const [expandedList, setExpandedList] = useState([]);
   const [anchorE1List, setAnchorE1List] = useState([]);
+  const [user_id, setuser_id] = useState(null);
+  const [info, setinfo] = useState([]);
   const handleExpandClick = (topic_no) => {
     setExpandedList(
       expandedList.map((bool, index) => {
@@ -29,12 +31,18 @@ const Subjects = () => {
   const handleAnchorE1Close = () => {
     setAnchorE1List(anchorE1List.map(() => null));
   };
+  const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+
   useEffect(() => {
     getTestTopics()
       .then((data) => {
-        setTestTopic(data);
-        setExpandedList(data.map(() => false));
-        setAnchorE1List(data.map(() => null));
+        setTestTopic(data.topics);
+        setuser_id(data.user_id);
+        setinfo(data.info);
+        setExpandedList(data.topics.map(() => false));
+        setAnchorE1List(data.topics.map(() => null));
       })
       .catch((err) => {
         console.log(err);
@@ -44,11 +52,14 @@ const Subjects = () => {
     <>
       <TestTopicView
         testTopic={testTopic}
+        user_id={user_id}
+        info={info}
         expandedList={expandedList}
         handleExpandClick={handleExpandClick}
         anchorE1List={anchorE1List}
         handleAnchorE1Click={handleAnchorE1Click}
         handleAnchorE1Close={handleAnchorE1Close}
+        Transition={Transition}
       />
     </>
   );

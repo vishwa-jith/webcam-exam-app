@@ -24,6 +24,19 @@ import {
   ListItemIcon,
 } from "@material-ui/core";
 import MarkunreadIcon from "@material-ui/icons/Markunread";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import CloseIcon from "@material-ui/icons/Close";
+import { useHistory } from "react-router-dom";
+import AssessmentRoundedIcon from "@material-ui/icons/AssessmentRounded";
+import Divider from "@material-ui/core/Divider";
+import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
+import TimerIcon from "@material-ui/icons/Timer";
+import DescriptionIcon from "@material-ui/icons/Description";
+import ErrorIcon from "@material-ui/icons/Error";
+import ReceiptIcon from "@material-ui/icons/Receipt";
 const useStyles = makeStyles((theme) => ({
   assign: {
     color: theme.palette.warning.main,
@@ -55,161 +68,337 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
     color: theme.palette.primary.main,
   },
+  appBar: {
+    position: "relative",
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+  },
 }));
 
 const TopicCardView = function ({
   topic_no,
   testtopicdata,
+  testinfo,
   expandedList,
   handleExpandClick,
   anchorE1List,
   handleAnchorE1Click,
   handleAnchorE1Close,
+  Transition,
 }) {
+  console.log("hello" + JSON.stringify(testinfo));
+  const history = useHistory();
   const classes = useStyles();
-  return (
-    <Grid item xs={12} lg={3}>
-      <Card className={classes.root} elevation={2}>
-        <Box p={1}>
-          <CardHeader
-            avatar={
-              <>
-                {testtopicdata.is_test_taken ? (
-                  <Box mt={1}>
-                    <AssignmentTurnedInIcon className={classes.assdone} />
-                  </Box>
-                ) : (
-                  <AssignmentIcon className={classes.assign} />
-                )}
-              </>
-            }
-            title="TEST - 1"
-            action={
-              <IconButton
-                aria-describedby={topic_no}
-                onClick={(event) => {
-                  handleAnchorE1Click(event, topic_no);
-                }}
-              >
-                <MoreVertIcon />
-              </IconButton>
-            }
-          />
-          <Popover
-            id={topic_no}
-            open={Boolean(anchorE1List[topic_no])}
-            anchorEl={anchorE1List[topic_no]}
-            onClose={handleAnchorE1Close}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            elevation={1}
-          >
-            <List dense>
-              <ListItem dense button>
-                <ListItemIcon>
-                  <MarkunreadIcon />
-                </ListItemIcon>
-                <ListItemText>Mark as Complete</ListItemText>
-              </ListItem>
-            </List>
-          </Popover>
-          <CardActionArea
-            component={Link}
-            // to={!testtopicdata.is_test_taken ? `/test/${testtopicdata._id}` : "#"}
-            to={`/test/${testtopicdata._id}`}
-          >
-            <Box p={3}>
-              <Typography variant="h5" className={classes.fullfontcard}>
-                {testtopicdata.topic}
-              </Typography>
-              {!testtopicdata.is_test_taken ? (
-                <Box>
-                  <Typography
-                    style={{
-                      textAlign: "left",
-                      color: "red",
-                      fontWeight: "bolder",
-                    }}
-                  >
-                    Take Test
-                  </Typography>
-                </Box>
-              ) : (
-                <Box>
-                  <Typography style={{ color: "green", fontWeight: "bolder" }}>
-                    Completed
-                  </Typography>
-                </Box>
-              )}
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-              <Box py={2}>
-                <Typography variant="p" className={classes.commontextcard}>
-                  Total Marks: {testtopicdata.total_marks}
-                </Typography>
-                <br></br>
-                <Typography variant="p" className={classes.commontextcard}>
-                  Pass Mark: {Math.round(0.35 * testtopicdata.total_marks)}
-                </Typography>
-              </Box>
-            </Box>
-          </CardActionArea>
-          <CardActions>
-            <Grid container>
-              <Grid item xs={8}>
-                {testtopicdata.is_test_taken ? (
-                  <CardContent>
-                    <Typography
-                      variant="p"
-                      style={{
-                        fontWeight: "bolder",
-                        fontSize: "1.2em",
-                        color:
-                          testtopicdata.score >=
-                          0.35 * testtopicdata.total_marks
-                            ? "green"
-                            : "red",
-                      }}
-                    >
-                      {testtopicdata.score}/{testtopicdata.total_marks}
-                    </Typography>
-                  </CardContent>
-                ) : (
-                  <CardContent>
-                    <Typography
-                      variant="p"
-                      style={{ fontWeight: "bolder", fontSize: "1.2em" }}
-                    >
-                      Not Completed
-                    </Typography>
-                  </CardContent>
-                )}
-              </Grid>
-              <Grid item xs={4} style={{ textAlign: "right" }}>
+  const handleClose = () => {
+    setOpen(false);
+  };
+  return (
+    <Grid item xs={12} md={3}>
+      <Box py={3}>
+        <Card className={classes.root} elevation={2}>
+          <Box p={1}>
+            <CardHeader
+              avatar={
+                <>
+                  {testinfo ? (
+                    <Box mt={1}>
+                      <AssignmentTurnedInIcon className={classes.assdone} />
+                    </Box>
+                  ) : (
+                    <AssignmentIcon className={classes.assign} />
+                  )}
+                </>
+              }
+              title={testtopicdata.test_name}
+              action={
                 <IconButton
-                  className={clsx(classes.expand, {
-                    [classes.expandOpen]: expandedList[topic_no],
-                  })}
-                  onClick={() => handleExpandClick(topic_no)}
+                  aria-describedby={topic_no}
+                  onClick={(event) => {
+                    handleAnchorE1Click(event, topic_no);
+                  }}
                 >
-                  <ExpandMoreIcon />
+                  <MoreVertIcon />
                 </IconButton>
+              }
+            />
+            <Popover
+              id={topic_no}
+              open={Boolean(anchorE1List[topic_no])}
+              anchorEl={anchorE1List[topic_no]}
+              onClose={handleAnchorE1Close}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              elevation={1}
+            >
+              <List dense>
+                <ListItem dense button>
+                  <ListItemIcon>
+                    <MarkunreadIcon />
+                  </ListItemIcon>
+                  <ListItemText>Mark as Complete</ListItemText>
+                </ListItem>
+              </List>
+            </Popover>
+            <CardActionArea
+              component={Link}
+              // to={!testtopicdata.is_test_taken ? `/test/${testtopicdata._id}` : "#"}
+              onClick={handleClickOpen}
+            >
+              <Box p={3}>
+                <Typography variant="h5" className={classes.fullfontcard}>
+                  {testtopicdata.topic}
+                </Typography>
+                <Box pt={3}>
+                  {!expandedList[topic_no] &&
+                    (!testinfo ? (
+                      <Box>
+                        <Typography
+                          style={{
+                            textAlign: "left",
+                            color: "red",
+                            fontWeight: "bolder",
+                            float: "left",
+                          }}
+                        >
+                          Take Test
+                        </Typography>
+                      </Box>
+                    ) : (
+                      <Box>
+                        <Typography
+                          style={{
+                            color: "green",
+                            fontWeight: "bolder",
+                            float: "left",
+                          }}
+                        >
+                          Completed
+                        </Typography>
+                      </Box>
+                    ))}
+                  {!expandedList[topic_no] && (
+                    <Box>
+                      <Typography
+                        color="secondary"
+                        style={{ fontWeight: "bolder", textAlign: "right" }}
+                      >
+                        {testtopicdata.duration_in_min} min
+                      </Typography>
+                      <Box py={2}>
+                        <Typography
+                          variant="p"
+                          className={classes.commontextcard}
+                        >
+                          Total Marks: {testtopicdata.total_marks}
+                        </Typography>
+                        <br></br>
+                        <Typography
+                          variant="p"
+                          className={classes.commontextcard}
+                        >
+                          Pass Mark:{" "}
+                          {Math.round(0.35 * testtopicdata.total_marks)}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  )}
+                </Box>
+              </Box>
+            </CardActionArea>
+            <CardActions>
+              <Grid container>
+                <Grid item xs={8}>
+                  {testinfo ? (
+                    <CardContent>
+                      <Typography
+                        variant="p"
+                        style={{
+                          fontWeight: "bolder",
+                          fontSize: "1.2em",
+                          color:
+                            testtopicdata.score >=
+                            0.35 * testtopicdata.total_marks
+                              ? "green"
+                              : "red",
+                        }}
+                      >
+                        {testinfo.score}/{testtopicdata.total_marks}
+                      </Typography>
+                    </CardContent>
+                  ) : (
+                    <CardContent>
+                      <Typography
+                        variant="p"
+                        style={{ fontWeight: "bolder", fontSize: "1.2em" }}
+                      >
+                        Not Completed
+                      </Typography>
+                    </CardContent>
+                  )}
+                </Grid>
+                <Grid item xs={4} style={{ textAlign: "right" }}>
+                  <IconButton
+                    className={clsx(classes.expand, {
+                      [classes.expandOpen]: expandedList[topic_no],
+                    })}
+                    onClick={() => handleExpandClick(topic_no)}
+                  >
+                    <ExpandMoreIcon />
+                  </IconButton>
+                </Grid>
               </Grid>
-            </Grid>
-          </CardActions>
-        </Box>
-        <Collapse in={expandedList[topic_no]} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>Description:</Typography>
-            <Typography paragraph>{testtopicdata.description}</Typography>
-          </CardContent>
-        </Collapse>
-      </Card>
+            </CardActions>
+          </Box>
+          <Collapse in={expandedList[topic_no]} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography paragraph>Description:</Typography>
+              <Typography paragraph>{testtopicdata.description}</Typography>
+            </CardContent>
+          </Collapse>
+        </Card>
+        {open && (
+          <Dialog
+            fullScreen
+            open={open}
+            onClose={handleClose}
+            TransitionComponent={Transition}
+          >
+            <AppBar className={classes.appBar}>
+              <Toolbar>
+                <IconButton edge="start" color="inherit" onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+              </Toolbar>
+            </AppBar>
+            <Box m={5}>
+              <Grid container style={{ height: "90vh" }}>
+                <Grid item xs>
+                  <Box my={3}>
+                    <Typography
+                      color="primary"
+                      style={{ fontWeight: "bold", textTransform: "uppercase" }}
+                    >
+                      <Box pr={1} style={{ float: "left" }}>
+                        <AssessmentRoundedIcon />
+                      </Box>
+                      Test Instructions
+                    </Typography>
+                  </Box>
+                  <List component="nav">
+                    <ListItem>
+                      <ListItemIcon>
+                        <AssignmentIcon />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography>
+                          {"Test Name - " + testtopicdata.test_name}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <LibraryBooksIcon />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography>
+                          Exam Name - {testtopicdata.topic}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <TimerIcon />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography>
+                          Duration - {testtopicdata.duration_in_min} min
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <ReceiptIcon />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography>
+                          Total Marks - {testtopicdata.total_marks}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <ErrorIcon />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography>
+                          Pass Mark -{" "}
+                          {Math.round(0.35 * testtopicdata.total_marks)}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <DescriptionIcon />
+                      </ListItemIcon>
+                      <ListItemText>
+                        <Typography>
+                          Description - {testtopicdata.description}
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                  </List>
+                  <Box m={3}>
+                    <Typography style={{ fontWeight: "bolder" }}>
+                      Do you want to start the test?
+                    </Typography>
+                    <Box m={3}>
+                      <Grid container justify="" alignItems="center">
+                        <Grid item xs={6} md={1}>
+                          <Box px={2} py={1}>
+                            <Button
+                              color="primary"
+                              variant="contained"
+                              onClick={() => {
+                                history.push(`/test/${testtopicdata._id}`);
+                              }}
+                            >
+                              YES
+                            </Button>
+                          </Box>
+                        </Grid>
+                        <Grid item xs={6} md={1}>
+                          <Box px={2} py={1}>
+                            <Button
+                              color="primary"
+                              variant="contained"
+                              onClick={handleClose}
+                            >
+                              NO
+                            </Button>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </Box>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          </Dialog>
+        )}
+      </Box>
     </Grid>
   );
 };

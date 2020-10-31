@@ -8,6 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useHistory } from "react-router-dom";
 import { useRouteMatch } from "react-router-dom";
+import HomeIcon from "@material-ui/icons/Home";
+import PersonIcon from "@material-ui/icons/Person";
+import SchoolIcon from "@material-ui/icons/School";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,16 +74,33 @@ const SettingsView = ({ value, handleChange, a11yProps }) => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        {["/settings/home"].includes(match.path) && <h1>Home Settings</h1>}
+        {["/settings/home"].includes(match.path) && (
+          <h1>
+            <Box pt={1} px={2} style={{ float: "left" }}>
+              <HomeIcon fontSize="large" />
+            </Box>
+            Home Settings
+          </h1>
+        )}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {["/settings/personal"].includes(match.path) && (
-          <h1>Personal Settings</h1>
+          <h1>
+            <Box pt={1} px={2} style={{ float: "left" }}>
+              <PersonIcon fontSize="large" />
+            </Box>
+            Personal Settings
+          </h1>
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {["/settings/company"].includes(match.path) && (
-          <h1>Company Settings</h1>
+          <h1>
+            <Box pt={1} px={2} style={{ float: "left" }}>
+              <SchoolIcon fontSize="large" />
+            </Box>
+            Company Settings
+          </h1>
         )}
       </TabPanel>
     </div>
