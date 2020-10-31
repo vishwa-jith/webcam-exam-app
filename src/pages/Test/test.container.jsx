@@ -20,6 +20,8 @@ const Test = () => {
   const [socket, setSocket] = useState(null);
   const [counter, setCounter] = useState(0);
   const [user_id, setuser_id] = useState(null);
+  const [intelligence, setInteligence] = useState(null);
+
   // const takeScreenShoot = useCallback(() => {
   //   setCaptureTimer(
   //     setInterval(() => {
@@ -37,36 +39,34 @@ const Test = () => {
   }, []);
   useEffect(() => {
     if (socket && user_id) {
-      socket.on(user_id, (image) => {
-        console.log(image);
+      socket.on(user_id, (intl) => {
+        setInteligence(intl);
       });
     }
   });
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (socket) {
+    let timer;
+    if (socket && user_id) {
+      timer = setInterval(() => {
         const imageSrc = webcamRef.current.getScreenshot();
-        console.log(imageSrc);
         setSrc(imageSrc);
         setCounter((prevCounter) => prevCounter + 5);
         socket.emit("validate-image", { user_id, imageSrc });
-      }
-    }, 5000);
+      }, 5000);
+    }
     return () => {
       clearInterval(timer);
     };
-  }, [runCamera, captureTimer, socket]);
+  }, [runCamera, captureTimer, socket, user_id]);
 
   const handleCameraVision = (state) => {
     setRunCamera(state);
   };
   const handleAnswers = (event) => {
-    console.log(answers);
     if (answers.length >= question_no + 1) {
       setAnswers(
         answers.map((opt, qno) => {
           if (qno === question_no) {
-            console.log(event.target.id, question_no);
             return parseInt([event.target.id]);
           }
           return opt;
@@ -93,7 +93,6 @@ const Test = () => {
   useEffect(() => {
     document.addEventListener("visibilitychange", function () {
       document.title = document.visibilityState;
-      console.log(document.visibilityState);
     });
     document.addEventListener("contextmenu", (event) => event.preventDefault());
     getTestQuestions(testId)
@@ -127,6 +126,7 @@ const Test = () => {
         handleCameraVision={handleCameraVision}
         counter={counter}
         skipTimer={skipTimer}
+        intelligence={intelligence}
       />
     </>
   );

@@ -7,18 +7,24 @@ import {
   Typography,
   FormControlLabel,
   Checkbox,
-  List,
-  ListItem,
   Button,
   Stepper,
   Step,
   StepLabel,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
 } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import MoodBadIcon from "@material-ui/icons/MoodBad";
+import MoodIcon from "@material-ui/icons/Mood";
+import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
+
 const videoConstraints = {
   width: 1280,
   height: 720,
@@ -34,6 +40,7 @@ const TestView = ({
   handleQuestion,
   handleSubmitAnswers,
   handleCameraVision,
+  intelligence,
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -49,9 +56,43 @@ const TestView = ({
       <Grid
         container
         direction="row"
-        justify="flex-end"
+        justify="space-between"
         alignItems="flex-start"
       >
+        <Box m={2}>
+          <Grid item>
+            <Paper>
+              <Box m={1}>
+                {intelligence && (
+                  <>
+                    <List>
+                      <ListItem>
+                        <ListItemIcon>
+                          {intelligence.confidences ? (
+                            <MoodIcon />
+                          ) : (
+                            <MoodBadIcon />
+                          )}
+                        </ListItemIcon>
+                        <ListItemText>
+                          {intelligence.confidences
+                            ? intelligence.confidences
+                            : "NULL"}
+                        </ListItemText>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemIcon>
+                          <SupervisedUserCircleIcon />
+                        </ListItemIcon>
+                        <ListItemText>{intelligence.no_of_faces}</ListItemText>
+                      </ListItem>
+                    </List>
+                  </>
+                )}
+              </Box>
+            </Paper>
+          </Grid>
+        </Box>
         <Grid item>
           <Paper>
             <Box m={1}>
