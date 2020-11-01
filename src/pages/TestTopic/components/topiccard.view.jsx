@@ -37,6 +37,7 @@ import TimerIcon from "@material-ui/icons/Timer";
 import DescriptionIcon from "@material-ui/icons/Description";
 import ErrorIcon from "@material-ui/icons/Error";
 import ReceiptIcon from "@material-ui/icons/Receipt";
+
 const useStyles = makeStyles((theme) => ({
   assign: {
     color: theme.palette.warning.main,
@@ -64,9 +65,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#555",
   },
   commontextcard: {
-    fontSize: "1.3em",
+    fontSize: "1.2em",
     textAlign: "left",
-    color: theme.palette.primary.main,
+    color: theme.palette.grey[800],
   },
   appBar: {
     position: "relative",
@@ -74,6 +75,13 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginLeft: theme.spacing(2),
     flex: 1,
+  },
+  fortimer: {
+    color: theme.palette.grey[600],
+    fontWeight: "bolder",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
 }));
 
@@ -191,25 +199,23 @@ const TopicCardView = function ({
                     ))}
                   {!expandedList[topic_no] && (
                     <Box>
-                      <Typography
-                        color="secondary"
-                        style={{ fontWeight: "bolder", textAlign: "right" }}
-                      >
-                        {testtopicdata.duration_in_min} min
+                      <Typography className={classes.fortimer}>
+                        <TimerIcon />
+                        <Box pl={1}>{testtopicdata.duration_in_min} min</Box>
                       </Typography>
                       <Box py={2}>
                         <Typography
                           variant="p"
                           className={classes.commontextcard}
                         >
-                          Total Marks: {testtopicdata.total_marks}
+                          Total Marks {testtopicdata.total_marks}
                         </Typography>
                         <br></br>
                         <Typography
                           variant="p"
                           className={classes.commontextcard}
                         >
-                          Pass Mark:{" "}
+                          Pass Mark{" "}
                           {Math.round(0.35 * testtopicdata.total_marks)}
                         </Typography>
                       </Box>
@@ -264,7 +270,7 @@ const TopicCardView = function ({
           </Box>
           <Collapse in={expandedList[topic_no]} timeout="auto" unmountOnExit>
             <CardContent>
-              <Typography paragraph>Description:</Typography>
+              <Typography paragraph>Description</Typography>
               <Typography paragraph>{testtopicdata.description}</Typography>
             </CardContent>
           </Collapse>

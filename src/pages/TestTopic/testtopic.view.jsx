@@ -26,7 +26,7 @@ const TestTopicView = ({
         <Grid container xs={12} justify="flex-end" flexDirection="row">
           <Grid item>
             <Box p={2}>
-              <Button variant="contained" color="secondary">
+              <Button variant="outlined" color="primary">
                 View TimeTable
               </Button>
             </Box>
