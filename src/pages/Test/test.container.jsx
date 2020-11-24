@@ -35,7 +35,7 @@ const Test = () => {
   //   );
   // }, [webcamRef]);
   useEffect(() => {
-    setSocket(openSocket("http://localhost:8000/"));
+    setSocket(openSocket("http://192.168.225.69:8000/"));
   }, []);
   useEffect(() => {
     if (socket && user_id) {
