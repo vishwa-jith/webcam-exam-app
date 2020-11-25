@@ -1,9 +1,9 @@
 import * as actionTypes from "../actionTypes";
 export const addUserDetails = (userDetails) => ({
-  type: actionTypes.LOGIN_SUCESSFULL,
+  type: actionTypes.ADD_USER_DETAILS,
   payload: userDetails,
 });
-export const addLoginErrorMessage = (message) => ({
-  type: actionTypes.LOGIN_FAILED,
-  payload: { message },
+export const addUserToken = (token) => ({
+  type: actionTypes.ADD_USER_TOKEN,
+  payload: token,
 });

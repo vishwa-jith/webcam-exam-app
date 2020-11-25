@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import Login from "./login.view";
 import { loginUser } from "../../../../components/utils/requests";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUserToken } from "../../../../redux/ActionCreators/user.action";
 const LoginView = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [showPass, setShowPass] = useState(false);
   const [loginDetails, setLoginDetails] = useState({
     username: "",
@@ -24,6 +27,7 @@ const LoginView = () => {
     loginUser(loginDetails)
       .then((res) => {
         localStorage.setItem("token", res.token);
+        dispatch(addUserToken(res.token));
         history.push("/testtopics");
       })
       .catch((error) => console.log(error));

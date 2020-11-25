@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useRouteMatch } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { SIDEBAR_PATH_LIST } from "../constants";
 import NavbarView from "./navbar.view";
+import {
+  addUserDetails,
+  addUserToken,
+} from "../../redux/ActionCreators/user.action";
+import { getUserDetails } from "../utils/requests";
 export default function Navbar() {
-  const [open, setOpen] = React.useState(false);
-  let location = useLocation();
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getUserDetails().then((userDetails) => {
+      if (localStorage.getItem("token")) {
+        dispatch(addUserToken(localStorage.getItem("token")));
+      }
+      dispatch(addUserDetails(userDetails));
+    });
+    // eslint-disable-next-line
+  }, []);
   const handleDrawer = () => {
     setOpen(!open);
   };

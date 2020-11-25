@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TestTopicView from "./testtopic.view.jsx";
 import { getTestTopics } from "../../components/utils/requests";
 import Slide from "@material-ui/core/Slide";
+import { useSelector } from "react-redux";
 const Subjects = () => {
   const [testTopic, setTestTopic] = useState([]);
   const [expandedList, setExpandedList] = useState([]);
@@ -48,6 +49,7 @@ const Subjects = () => {
         console.log(err);
       });
   }, []);
+  console.log(useSelector((state) => state));
   return (
     <>
       <TestTopicView

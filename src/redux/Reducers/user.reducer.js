@@ -3,26 +3,24 @@ export const userDetails = (
   state = {
     userDetails: null,
     isLoggedIn: false,
-    message: null,
+    token: null,
   },
   action
 ) => {
   switch (action.type) {
-    case actionTypes.LOGIN_SUCESSFULL:
+    case actionTypes.ADD_USER_DETAILS:
       return {
         ...state,
-        userDetails: action.payload.userDetails,
+        userDetails: action.payload,
         isLoggedIn: true,
-        message: action.payload.message,
       };
-    case actionTypes.LOGIN_FAILED:
+    case actionTypes.ADD_USER_TOKEN:
       return {
         ...state,
-        userDetails: null,
-        isLoggedIn: false,
-        message: action.payload.message,
+        isLoggedIn: true,
+        token: action.payload,
       };
     default:
-      return { ...state, message: null };
+      return state;
   }
 };
