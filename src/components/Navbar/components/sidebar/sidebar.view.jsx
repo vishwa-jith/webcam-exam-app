@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
@@ -11,8 +10,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { Link, useLocation, useRouteMatch } from "react-router-dom";
-const SideBarView = () => {
-  const history = useHistory();
+const SideBarView = ({ handleLogout }) => {
   const location = useLocation();
   const testMatch = useRouteMatch("/test/:testId");
   return (
@@ -43,13 +41,7 @@ const SideBarView = () => {
       </List>
       <Divider />
       <List>
-        <ListItem
-          button
-          onClick={() => {
-            localStorage.removeItem("token");
-            history.push("/login");
-          }}
-        >
+        <ListItem button onClick={handleLogout}>
           <ListItemIcon>
             <ExitToAppIcon />
           </ListItemIcon>

@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import { addUser } from "../../../../components/utils/requests";
 import RegisterView from "./register.view";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {
+  addSuccessAlert,
+  addFailureAlert,
+} from "../../../../redux/ActionCreators/alert.action";
 const Register = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const initialRegistrationDetails = {
     firstname: "",
     lastname: "",
@@ -35,10 +41,14 @@ const Register = () => {
   };
   const handleSignUp = () => {
     addUser(registrationDetails)
-      .then(() => {
+      .then((res) => {
+        console.log(res);
+        dispatch(addSuccessAlert(res.data.message));
         history.push("/login");
       })
-      .catch((error) => console.log(error));
+      .catch((error) =>
+        dispatch(addFailureAlert(error.response.data.message.message))
+      );
   };
   return (
     <>

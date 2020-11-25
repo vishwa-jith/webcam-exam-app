@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useRouteMatch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { SIDEBAR_PATH_LIST } from "../constants";
 import NavbarView from "./navbar.view";
@@ -8,8 +9,13 @@ import {
   addUserDetails,
   addUserToken,
 } from "../../redux/ActionCreators/user.action";
-import { getUserDetails } from "../utils/requests";
+import {
+  addFailureAlert,
+  addSuccessAlert,
+} from "../../redux/ActionCreators/alert.action";
+import { getUserDetails, logoutUser } from "../utils/requests";
 export default function Navbar() {
+  const history = useHistory();
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
@@ -22,6 +28,17 @@ export default function Navbar() {
     });
     // eslint-disable-next-line
   }, []);
+  const handleLogout = () => {
+    // localStorage.removeItem("token");
+    // history.push("/login");
+    logoutUser()
+      .then((res) => {
+        dispatch(addSuccessAlert(res.message));
+        localStorage.removeItem("token");
+        history.push("/login");
+      })
+      .catch((error) => dispatch(addFailureAlert(error.response.data.message)));
+  };
   const handleDrawer = () => {
     setOpen(!open);
   };
@@ -38,6 +55,7 @@ export default function Navbar() {
         handleDrawer={handleDrawer}
         handleDrawerClose={handleDrawerClose}
         showSideBar={showSideBar}
+        handleLogout={handleLogout}
       />
       <Snackbar />
     </>

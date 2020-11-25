@@ -74,7 +74,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavbarView = ({ open, handleDrawer, handleDrawerClose, showSideBar }) => {
+const NavbarView = ({
+  open,
+  handleDrawer,
+  handleDrawerClose,
+  showSideBar,
+  handleLogout,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   return (
@@ -126,7 +132,7 @@ const NavbarView = ({ open, handleDrawer, handleDrawerClose, showSideBar }) => {
             </IconButton>
           </div>
           <Divider />
-          <SideBarView />
+          <SideBarView handleLogout={handleLogout} />
         </Drawer>
       )}
       <main className={classes.content}>
