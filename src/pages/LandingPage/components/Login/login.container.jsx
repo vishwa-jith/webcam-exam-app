@@ -4,6 +4,7 @@ import { loginUser } from "../../../../components/utils/requests";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUserToken } from "../../../../redux/ActionCreators/user.action";
+import { addSuccessAlert } from "../../../../redux/ActionCreators/alert.action";
 const LoginView = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -28,6 +29,8 @@ const LoginView = () => {
       .then((res) => {
         localStorage.setItem("token", res.token);
         dispatch(addUserToken(res.token));
+        dispatch(addSuccessAlert(res.message));
+        console.log(res);
         history.push("/testtopics");
       })
       .catch((error) => console.log(error));

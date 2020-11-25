@@ -1,9 +1,9 @@
 import * as actionTypes from "../actionTypes";
-export const userDetails = (
+export const alertDetails = (
   state = {
     message: null,
     isError: false,
-    isSucessful: null,
+    isSucessful: false,
   },
   action
 ) => {

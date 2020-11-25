@@ -3,6 +3,7 @@ import { useLocation, useRouteMatch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { SIDEBAR_PATH_LIST } from "../constants";
 import NavbarView from "./navbar.view";
+import Snackbar from "../SnackBar";
 import {
   addUserDetails,
   addUserToken,
@@ -31,11 +32,14 @@ export default function Navbar() {
   const showSideBar =
     SIDEBAR_PATH_LIST.includes(location.pathname) || !!testMatch;
   return (
-    <NavbarView
-      open={open}
-      handleDrawer={handleDrawer}
-      handleDrawerClose={handleDrawerClose}
-      showSideBar={showSideBar}
-    />
+    <>
+      <NavbarView
+        open={open}
+        handleDrawer={handleDrawer}
+        handleDrawerClose={handleDrawerClose}
+        showSideBar={showSideBar}
+      />
+      <Snackbar />
+    </>
   );
 }
