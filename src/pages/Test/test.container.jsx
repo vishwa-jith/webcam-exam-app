@@ -96,16 +96,24 @@ const Test = () => {
       .catch((error) => console.log(error));
   };
   useEffect(() => {
-    document.addEventListener("visibilitychange", function () {
+    window.addEventListener("visibilitychange", function () {
       document.title = document.visibilityState;
     });
-    document.addEventListener("contextmenu", (event) => event.preventDefault());
+    window.addEventListener("contextmenu", (event) => event.preventDefault());
     getTestQuestions(testId)
       .then((ques) => {
         setuser_id(ques.user_id);
         setQuestions(ques.questions);
       })
       .catch((error) => console.log(error));
+    return () => {
+      window.removeEventListener("visibilitychange", () => {
+        document.title = "React App";
+      });
+      window.removeEventListener("contextmenu", () => {
+        document.title = "React App";
+      });
+    };
   }, [testId]);
   useEffect(() => {
     if (counter >= 30 * 60) {
