@@ -2,13 +2,12 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import TopicCard from "./components";
+import TopicCard from "./components/TopicCard";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const TestTopicView = ({
   testTopic,
-  user_id,
   info,
   handleExpandClick,
   expandedList,
@@ -16,6 +15,7 @@ const TestTopicView = ({
   handleAnchorE1Click,
   handleAnchorE1Close,
   Transition,
+  userDetails,
 }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
@@ -31,7 +31,6 @@ const TestTopicView = ({
               </Button>
             </Box>
           </Grid>
-
           <Grid item>
             <Box p={2}>
               <Button
@@ -49,9 +48,14 @@ const TestTopicView = ({
         <Grid container alignItems="center">
           {testTopic.length > 0 &&
             testTopic.map((data, index) => {
-              const testinfo = info.filter((info_x) => {
-                return info_x.user_id === user_id;
-              })[0];
+              const testinfo = info
+                .filter((info_x) => {
+                  return (
+                    info_x.user_id === userDetails.userDetails._id &&
+                    data._id === info_x.test_id
+                  );
+                })
+                .reverse()[0];
               return (
                 <TopicCard
                   key={index}

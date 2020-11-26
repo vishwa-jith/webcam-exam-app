@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TopicCardView from "./topiccard.view";
 
 const TopicCard = function ({
@@ -12,6 +12,14 @@ const TopicCard = function ({
   handleAnchorE1Close,
   Transition,
 }) {
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
       <TopicCardView
@@ -24,6 +32,9 @@ const TopicCard = function ({
         handleAnchorE1Click={handleAnchorE1Click}
         handleAnchorE1Close={handleAnchorE1Close}
         Transition={Transition}
+        open={open}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
       />
     </>
   );
