@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Test from "./pages/Test";
 import Settings from "./pages/Settings";
 import Help from "./pages/Help";
@@ -10,8 +11,9 @@ const PrivateRoute = ({ children, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
-        isLoggedIn ? (
+      render={({ location }) => {
+        console.log(location);
+        return isLoggedIn ? (
           <Component />
         ) : (
           <Redirect
@@ -20,8 +22,40 @@ const PrivateRoute = ({ children, component: Component, ...rest }) => {
               state: { from: location },
             }}
           />
-        )
-      }
+        );
+      }}
+    />
+  );
+};
+const ExamRoute = ({ children, component: Component, ...rest }) => {
+  const testDetails = useSelector(({ testDetails }) => testDetails);
+  const isLoggedIn = !!localStorage.getItem("token");
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => {
+        if (testDetails.testDetails) {
+          return isLoggedIn && testDetails.testDetails ? (
+            <Component />
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/testtopics",
+                state: { from: location },
+              }}
+            />
+          );
+        } else {
+          return (
+            <Redirect
+              to={{
+                pathname: "/testtopics",
+                state: { from: location },
+              }}
+            />
+          );
+        }
+      }}
     />
   );
 };
@@ -49,7 +83,7 @@ const NormalRoute = ({ children, component: Component, ...rest }) => {
 const Routes = () => {
   return (
     <Switch>
-      <PrivateRoute component={Test} path="/test/:testId" exact />
+      <ExamRoute component={Test} path="/test/:testId" exact />
       <PrivateRoute component={TestTopic} path="/testtopics" exact />
       <PrivateRoute component={Settings} path="/settings/home" exact />
       <PrivateRoute component={Settings} path="/settings/personal" exact />

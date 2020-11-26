@@ -8,6 +8,9 @@ const Test = () => {
   //Const
   const { testId } = useParams();
   const history = useHistory();
+  const time = new Date(
+    "Thu Nov 26 2020 17:45:00 GMT+0530 (India Standard Time)"
+  );
   //State
   const [src, setSrc] = useState(null);
   // const [captureTimer, setCaptureTimer] = useState(null);

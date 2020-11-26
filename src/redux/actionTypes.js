@@ -4,3 +4,4 @@ export const SUCCESS_ALERT = "SUCCESS_ALERT";
 export const FAILURE_ALERT = "FAILURE_ALERT";
 export const SHOW_BACKDROP = "SHOW_BACKDROP";
 export const HIDE_BACKDROP = "HIDE_BACKDROP";
+export const ADD_TEST_DETAILS = "ADD_TEST_DETAILS";

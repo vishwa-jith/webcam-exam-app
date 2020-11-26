@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TopicCardView from "./topiccard.view";
-
+import { useDispatch } from "react-redux";
+import { addTestDetails } from "../../../../redux/ActionCreators/test.action";
 const TopicCard = function ({
   testtopicdata,
   testinfo,
@@ -13,11 +14,14 @@ const TopicCard = function ({
   Transition,
 }) {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const handleClickOpen = () => {
+    dispatch(addTestDetails(testtopicdata));
     setOpen(true);
   };
 
   const handleClose = () => {
+    dispatch(addTestDetails(null));
     setOpen(false);
   };
   return (
