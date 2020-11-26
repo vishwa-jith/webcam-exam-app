@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import TestView from "./test.view";
 import CustomContext from "../../components/CustomContext/customcontext.container";
@@ -10,7 +10,7 @@ const Test = () => {
   const history = useHistory();
   //State
   const [src, setSrc] = useState(null);
-  const [captureTimer, setCaptureTimer] = useState(null);
+  // const [captureTimer, setCaptureTimer] = useState(null);
   const menu = [{ label: "Previous" }, { label: "Next" }];
   const webcamRef = useRef(null);
   const [answers, setAnswers] = useState([]);
@@ -57,7 +57,7 @@ const Test = () => {
     return () => {
       clearInterval(timer);
     };
-  }, [runCamera, captureTimer, socket, user_id]);
+  }, [runCamera, socket, user_id]);
 
   const handleCameraVision = (state) => {
     setRunCamera(state);

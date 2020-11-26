@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { SIDEBAR_PATH_LIST } from "../constants";
 import NavbarView from "./navbar.view";
 import Snackbar from "../SnackBar";
+import BackDrop from "../BackDrop";
 import {
   addUserDetails,
   addUserToken,
@@ -58,6 +59,7 @@ export default function Navbar() {
         handleLogout={handleLogout}
       />
       <Snackbar />
+      <BackDrop />
     </>
   );
 }
