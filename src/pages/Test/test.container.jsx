@@ -21,7 +21,7 @@ const Test = () => {
   const [counter, setCounter] = useState(0);
   const [user_id, setuser_id] = useState(null);
   const [intelligence, setInteligence] = useState(null);
-
+  const [open, setOpen] = useState(false);
   // const takeScreenShoot = useCallback(() => {
   //   setCaptureTimer(
   //     setInterval(() => {
@@ -58,7 +58,12 @@ const Test = () => {
       clearInterval(timer);
     };
   }, [runCamera, socket, user_id]);
-
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleCameraVision = (state) => {
     setRunCamera(state);
   };
@@ -117,6 +122,7 @@ const Test = () => {
       <TestView
         webcamRef={webcamRef}
         src={src}
+        open={open}
         questions={questions}
         question_no={question_no}
         handleAnswers={handleAnswers}
@@ -127,6 +133,8 @@ const Test = () => {
         counter={counter}
         skipTimer={skipTimer}
         intelligence={intelligence}
+        handleClickOpen={handleClickOpen}
+        handleClose={handleClose}
       />
     </>
   );

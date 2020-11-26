@@ -15,7 +15,7 @@ import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import Box from "@material-ui/core/Box";
 import { CardActionArea } from "@material-ui/core";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import {
   Popover,
   List,
@@ -31,7 +31,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import CloseIcon from "@material-ui/icons/Close";
 import { useHistory } from "react-router-dom";
 import AssessmentRoundedIcon from "@material-ui/icons/AssessmentRounded";
-import Divider from "@material-ui/core/Divider";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import TimerIcon from "@material-ui/icons/Timer";
 import DescriptionIcon from "@material-ui/icons/Description";
@@ -96,7 +95,6 @@ const TopicCardView = function ({
   handleAnchorE1Close,
   Transition,
 }) {
-  console.log("hello" + JSON.stringify(testinfo));
   const history = useHistory();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -161,7 +159,7 @@ const TopicCardView = function ({
               </List>
             </Popover>
             <CardActionArea
-              component={Link}
+              // component={Link}
               // to={!testtopicdata.is_test_taken ? `/test/${testtopicdata._id}` : "#"}
               onClick={handleClickOpen}
             >
@@ -199,20 +197,23 @@ const TopicCardView = function ({
                     ))}
                   {!expandedList[topic_no] && (
                     <Box>
-                      <Typography className={classes.fortimer}>
+                      <Typography
+                        variant="subtitle1"
+                        className={classes.fortimer}
+                      >
                         <TimerIcon />
                         <Box pl={1}>{testtopicdata.duration_in_min} min</Box>
                       </Typography>
                       <Box py={2}>
                         <Typography
-                          variant="p"
+                          variant="subtitle1"
                           className={classes.commontextcard}
                         >
                           Total Marks {testtopicdata.total_marks}
                         </Typography>
                         <br></br>
                         <Typography
-                          variant="p"
+                          variant="subtitle1"
                           className={classes.commontextcard}
                         >
                           Pass Mark{" "}
@@ -230,7 +231,7 @@ const TopicCardView = function ({
                   {testinfo ? (
                     <CardContent>
                       <Typography
-                        variant="p"
+                        variant="subtitle1"
                         style={{
                           fontWeight: "bolder",
                           fontSize: "1.2em",
@@ -247,7 +248,7 @@ const TopicCardView = function ({
                   ) : (
                     <CardContent>
                       <Typography
-                        variant="p"
+                        variant="subtitle1"
                         style={{ fontWeight: "bolder", fontSize: "1.2em" }}
                       >
                         Not Completed
@@ -292,18 +293,15 @@ const TopicCardView = function ({
             <Box m={5}>
               <Grid container style={{ height: "90vh" }}>
                 <Grid item xs>
-                  <Box my={3}>
-                    <Typography
-                      color="primary"
+                  <List component="nav">
+                    <ListItem
                       style={{ fontWeight: "bold", textTransform: "uppercase" }}
                     >
-                      <Box pr={1} style={{ float: "left" }}>
+                      <ListItemIcon>
                         <AssessmentRoundedIcon />
-                      </Box>
-                      Test Instructions
-                    </Typography>
-                  </Box>
-                  <List component="nav">
+                      </ListItemIcon>
+                      <ListItemText>Test Instructions</ListItemText>
+                    </ListItem>
                     <ListItem>
                       <ListItemIcon>
                         <AssignmentIcon />
@@ -371,7 +369,7 @@ const TopicCardView = function ({
                       Do you want to start the test?
                     </Typography>
                     <Box m={3}>
-                      <Grid container justify="" alignItems="center">
+                      <Grid container alignItems="center">
                         <Grid item xs={6} md={1}>
                           <Box px={2} py={1}>
                             <Button

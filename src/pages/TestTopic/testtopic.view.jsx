@@ -23,7 +23,7 @@ const TestTopicView = ({
   return (
     <>
       <Box p={5}>
-        <Grid container xs={12} justify="flex-end" flexDirection="row">
+        <Grid container justify="flex-end" flexdirection="row">
           <Grid item>
             <Box p={2}>
               <Button variant="outlined" color="primary">
@@ -54,6 +54,7 @@ const TestTopicView = ({
               })[0];
               return (
                 <TopicCard
+                  key={index}
                   topic_no={index}
                   testtopicdata={data}
                   testinfo={testinfo}

@@ -113,7 +113,7 @@ const TestView = ({
         <img src={src} alt="sample" width="100px" height="100px" />
       )} */}
       {questions.length > 0 && (
-        <Grid container justify="center" alignItems="center" xs={12}>
+        <Grid container justify="center" alignItems="center">
           <Grid item md={10} xs={12}>
             <Box py={2}>
               <Paper>
@@ -127,7 +127,7 @@ const TestView = ({
                       );
                     })}
                   </Stepper>
-                  <Grid container justify="center" alignItems="center" xs={12}>
+                  <Grid container justify="center" alignItems="center">
                     <Grid item xs={12} md={10}>
                       <Typography variant="h6">
                         {questions[question_no].question}
@@ -139,6 +139,7 @@ const TestView = ({
                               button
                               id={`${index}`}
                               onClick={handleAnswers}
+                              key={index}
                             >
                               <FormControlLabel
                                 control={
@@ -163,7 +164,6 @@ const TestView = ({
                         container
                         justify="space-around"
                         alignItems="center"
-                        xs={12}
                       >
                         <Grid item>
                           {question_no === 0 ? (

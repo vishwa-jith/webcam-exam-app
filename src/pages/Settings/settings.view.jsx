@@ -8,9 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useHistory } from "react-router-dom";
 import { useRouteMatch } from "react-router-dom";
-import HomeIcon from "@material-ui/icons/Home";
-import PersonIcon from "@material-ui/icons/Person";
-import SchoolIcon from "@material-ui/icons/School";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,11 +26,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box p={3}>{children}</Box>}
     </div>
   );
 }
@@ -75,32 +68,17 @@ const SettingsView = ({ value, handleChange, a11yProps }) => {
       </AppBar>
       <TabPanel value={value} index={0}>
         {["/settings/home"].includes(match.path) && (
-          <h1>
-            <Box pt={1} px={2} style={{ float: "left" }}>
-              <HomeIcon fontSize="large" />
-            </Box>
-            Home Settings
-          </h1>
+          <Typography variant="h6">Home Settings</Typography>
         )}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {["/settings/personal"].includes(match.path) && (
-          <h1>
-            <Box pt={1} px={2} style={{ float: "left" }}>
-              <PersonIcon fontSize="large" />
-            </Box>
-            Personal Settings
-          </h1>
+          <Typography variant="h6">Personal Settings</Typography>
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {["/settings/company"].includes(match.path) && (
-          <h1>
-            <Box pt={1} px={2} style={{ float: "left" }}>
-              <SchoolIcon fontSize="large" />
-            </Box>
-            Company Settings
-          </h1>
+          <Typography variant="h6">Company Settings</Typography>
         )}
       </TabPanel>
     </div>

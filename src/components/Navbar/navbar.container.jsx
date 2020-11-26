@@ -21,12 +21,13 @@ export default function Navbar() {
   const location = useLocation();
   const dispatch = useDispatch();
   useEffect(() => {
-    getUserDetails().then((userDetails) => {
-      if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token")) {
+      getUserDetails().then((userDetails) => {
         dispatch(addUserToken(localStorage.getItem("token")));
-      }
-      dispatch(addUserDetails(userDetails));
-    });
+
+        dispatch(addUserDetails(userDetails));
+      });
+    }
     // eslint-disable-next-line
   }, []);
   const handleLogout = () => {

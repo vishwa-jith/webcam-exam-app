@@ -56,6 +56,7 @@ const Subjects = () => {
         dispatch(hideBackDrop());
         console.log(err);
       });
+    // eslint-disable-next-line
   }, []);
   console.log(useSelector((state) => state));
   return (
