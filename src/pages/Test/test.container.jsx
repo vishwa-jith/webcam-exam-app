@@ -1,19 +1,23 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import openSocket from "socket.io-client";
+import { useSelector, shallowEqual } from "react-redux";
+
+import { getTestQuestions, sendAnswers } from "../../components/utils/requests";
+
 import TestView from "./test.view";
 import CustomContext from "../../components/CustomContext/customcontext.container";
-import { getTestQuestions, sendAnswers } from "../../components/utils/requests";
-import openSocket from "socket.io-client";
+
 const Test = () => {
   //Const
   const { testId } = useParams();
   const history = useHistory();
-  const time = new Date(
-    "Thu Nov 26 2020 17:45:00 GMT+0530 (India Standard Time)"
+  const testDetails = useSelector(
+    ({ userDetails }) => userDetails.userDetails,
+    shallowEqual
   );
   //State
   const [src, setSrc] = useState(null);
-  // const [captureTimer, setCaptureTimer] = useState(null);
   const menu = [{ label: "Previous" }, { label: "Next" }];
   const webcamRef = useRef(null);
   const [answers, setAnswers] = useState([]);
@@ -25,21 +29,37 @@ const Test = () => {
   const [user_id, setuser_id] = useState(null);
   const [intelligence, setInteligence] = useState(null);
   const [open, setOpen] = useState(false);
-  // const takeScreenShoot = useCallback(() => {
-  //   setCaptureTimer(
-  //     setInterval(() => {
-  //       if (runCamera) {
-  //         const imageSrc = webcamRef.current.getScreenshot();
-  //         setSrc(imageSrc);
-  //       } else {
-  //         clearInterval(captureTimer);
-  //       }
-  //     }, 5000)
-  //   );
-  // }, [webcamRef]);
+  const [timer, setTimer] = useState(null);
+  const [isTimer, setIsTimer] = useState(false);
+  //useEffect
   useEffect(() => {
     setSocket(openSocket("http://192.168.225.69:8000/"));
+    const start_time = new Date(
+      "Thu Nov 26 2020 19:45:00 GMT+0530 (India Standard Time)"
+    )
+      .toLocaleTimeString()
+      .split(":");
+    const now_time = new Date().toLocaleTimeString().split(":");
+    const now_sec =
+      parseInt(now_time[0]) * 60 * 60 +
+      parseInt(now_time[1]) * 60 +
+      parseInt(now_time[2]);
+    const start_sec =
+      parseInt(start_time[0]) * 60 * 60 +
+      parseInt(start_time[1]) * 60 +
+      parseInt(start_time[2]);
+    const timer_sec = now_sec - start_sec;
+    setTimer(timer_sec);
   }, []);
+  useEffect(() => {
+    let interval;
+    if (timer && !isTimer) {
+      setIsTimer(true);
+      interval = setInterval(() => {
+        setTimer((timer) => timer + 1);
+      }, 1000);
+    }
+  }, [timer]);
   useEffect(() => {
     if (socket && user_id) {
       socket.on(user_id, (intl) => {
@@ -48,9 +68,9 @@ const Test = () => {
     }
   });
   useEffect(() => {
-    let timer;
+    let timer_image;
     if (socket && user_id) {
-      timer = setInterval(() => {
+      timer_image = setInterval(() => {
         const imageSrc = webcamRef.current.getScreenshot();
         setSrc(imageSrc);
         setCounter((prevCounter) => prevCounter + 5);
@@ -58,9 +78,37 @@ const Test = () => {
       }, 5000);
     }
     return () => {
-      clearInterval(timer);
+      clearInterval(timer_image);
     };
   }, [runCamera, socket, user_id]);
+  useEffect(() => {
+    window.addEventListener("visibilitychange", function () {
+      document.title = document.visibilityState;
+    });
+    window.addEventListener("contextmenu", (event) => event.preventDefault());
+    getTestQuestions(testId)
+      .then((ques) => {
+        setuser_id(ques.user_id);
+        setQuestions(ques.questions);
+      })
+      .catch((error) => console.log(error));
+    return () => {
+      window.removeEventListener("visibilitychange", () => {
+        document.title = "React App";
+      });
+      window.removeEventListener("contextmenu", () => {
+        document.title = "React App";
+      });
+    };
+  }, [testId]);
+  useEffect(() => {
+    if (counter >= 30 * 60) {
+      handleSubmitAnswers();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [counter]);
+
+  //Event Handlers
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -98,32 +146,6 @@ const Test = () => {
       })
       .catch((error) => console.log(error));
   };
-  useEffect(() => {
-    window.addEventListener("visibilitychange", function () {
-      document.title = document.visibilityState;
-    });
-    window.addEventListener("contextmenu", (event) => event.preventDefault());
-    getTestQuestions(testId)
-      .then((ques) => {
-        setuser_id(ques.user_id);
-        setQuestions(ques.questions);
-      })
-      .catch((error) => console.log(error));
-    return () => {
-      window.removeEventListener("visibilitychange", () => {
-        document.title = "React App";
-      });
-      window.removeEventListener("contextmenu", () => {
-        document.title = "React App";
-      });
-    };
-  }, [testId]);
-  useEffect(() => {
-    if (counter >= 30 * 60) {
-      handleSubmitAnswers();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [counter]);
   const skipTimer = () => {
     setCounter(30 * 60);
   };
@@ -146,6 +168,7 @@ const Test = () => {
         intelligence={intelligence}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
+        timer={timer}
       />
     </>
   );

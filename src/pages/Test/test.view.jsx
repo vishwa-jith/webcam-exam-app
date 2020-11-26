@@ -25,6 +25,13 @@ import MoodBadIcon from "@material-ui/icons/MoodBad";
 import MoodIcon from "@material-ui/icons/Mood";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 
+import { makeStyles } from "@material-ui/core/styles";
+const useStyles = makeStyles((theme) => ({
+  fortimer: {
+    color: theme.palette.grey[600],
+    fontWeight: "bolder",
+  },
+}));
 const videoConstraints = {
   width: 1280,
   height: 720,
@@ -41,7 +48,9 @@ const TestView = ({
   handleSubmitAnswers,
   handleCameraVision,
   intelligence,
+  timer,
 }) => {
+  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -89,6 +98,20 @@ const TestView = ({
                     </List>
                   </>
                 )}
+              </Box>
+            </Paper>
+          </Grid>
+        </Box>
+        <Box m={2}>
+          <Grid item>
+            <Paper>
+              <Box py={1} px={2}>
+                <Typography
+                  variant="h5"
+                  className={classes.fortimer}
+                >{`Session ends in ${parseInt(parseInt(timer / 60) / 60)} : ${
+                  parseInt(timer / 60) % 60
+                } : ${timer % 60}`}</Typography>
               </Box>
             </Paper>
           </Grid>
