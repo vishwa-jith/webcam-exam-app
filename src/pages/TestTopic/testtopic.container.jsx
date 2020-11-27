@@ -2,17 +2,13 @@ import React, { useEffect, useState } from "react";
 import TestTopicView from "./testtopic.view.jsx";
 import { getTestTopics } from "../../components/utils/requests";
 import Slide from "@material-ui/core/Slide";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import {
-  showBackDrop,
-  hideBackDrop,
-} from "../../redux/ActionCreators/backdrop.action";
+import { useSelector, shallowEqual } from "react-redux";
 const Subjects = () => {
   const [testTopic, setTestTopic] = useState([]);
   const [expandedList, setExpandedList] = useState([]);
   const [anchorE1List, setAnchorE1List] = useState([]);
   const [info, setinfo] = useState([]);
-  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const userDetails = useSelector(
     ({ userDetails }) => userDetails,
     shallowEqual
@@ -45,18 +41,17 @@ const Subjects = () => {
   });
 
   useEffect(() => {
-    dispatch(showBackDrop());
+    setIsLoading(true);
     getTestTopics()
       .then((data) => {
-        console.log(data);
-        dispatch(hideBackDrop());
+        setIsLoading(false);
         setTestTopic(data.topics);
         setinfo(data.info);
         setExpandedList(data.topics.map(() => false));
         setAnchorE1List(data.topics.map(() => null));
       })
       .catch((err) => {
-        dispatch(hideBackDrop());
+        setIsLoading(false);
         console.log(err);
       });
     // eslint-disable-next-line
@@ -74,6 +69,7 @@ const Subjects = () => {
         handleAnchorE1Close={handleAnchorE1Close}
         Transition={Transition}
         userDetails={userDetails}
+        isLoading={isLoading}
       />
     </>
   );

@@ -92,7 +92,7 @@ const TopicCardView = function ({
   const classes = useStyles();
   return (
     <Grid item xs={12} md={3}>
-      <Box py={3}>
+      <Box mx={1}>
         <Card className={classes.root} elevation={2}>
           <CardHeader
             avatar={
@@ -115,6 +115,7 @@ const TopicCardView = function ({
               </>
             }
             title={testtopicdata.test_name}
+            subheader={new Date(testtopicdata.start_time).toDateString()}
             action={
               <IconButton
                 aria-describedby={topic_no}

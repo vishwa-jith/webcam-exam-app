@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import TopicCard from "./components/TopicCard";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import TopicCardSkeleton from "./components/TopicCardSkeleton";
 
 const TestTopicView = ({
   testTopic,
@@ -16,10 +17,10 @@ const TestTopicView = ({
   handleAnchorE1Close,
   Transition,
   userDetails,
+  isLoading,
 }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
-
   return (
     <>
       <Box p={5}>
@@ -45,8 +46,8 @@ const TestTopicView = ({
         </Grid>
       </Box>
       <Box mx={matches ? 5 : 0}>
-        <Grid container alignItems="center">
-          {testTopic.length > 0 &&
+        <Grid container alignItems="space-evenly">
+          {testTopic.length > 0 ? (
             testTopic.map((data, index) => {
               const testinfo = info
                 .filter((info_x) => {
@@ -70,7 +71,15 @@ const TestTopicView = ({
                   Transition={Transition}
                 />
               );
-            })}
+            })
+          ) : (
+            <>
+              <TopicCardSkeleton />
+              <TopicCardSkeleton />
+              <TopicCardSkeleton />
+              <TopicCardSkeleton />
+            </>
+          )}
         </Grid>
       </Box>
     </>
