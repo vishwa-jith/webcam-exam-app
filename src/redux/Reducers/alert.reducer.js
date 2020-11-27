@@ -4,6 +4,8 @@ export const alertDetails = (
     message: null,
     isError: false,
     isSucessful: false,
+    isInfo: false,
+    isWarning: false,
   },
   action
 ) => {
@@ -14,6 +16,8 @@ export const alertDetails = (
         message: action.payload,
         isError: false,
         isSucessful: true,
+        isInfo: false,
+        isWarning: false,
       };
     case actionTypes.FAILURE_ALERT:
       return {
@@ -21,7 +25,28 @@ export const alertDetails = (
         message: action.payload,
         isError: true,
         isSucessful: false,
+        isInfo: false,
+        isWarning: false,
       };
+    case actionTypes.INFO_ALERT:
+      return {
+        ...state,
+        message: action.payload,
+        isError: false,
+        isSucessful: false,
+        isInfo: true,
+        isWarning: false,
+      };
+    case actionTypes.WARNING_ALERT:
+      return {
+        ...state,
+        message: action.payload,
+        isError: false,
+        isSucessful: false,
+        isInfo: false,
+        isWarning: true,
+      };
+
     default:
       return state;
   }

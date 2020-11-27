@@ -109,9 +109,13 @@ const TestView = ({
                 <Typography
                   variant="h5"
                   className={classes.fortimer}
-                >{`Session ends in ${parseInt(parseInt(timer / 60) / 60)} : ${
-                  parseInt(timer / 60) % 60
-                } : ${timer % 60}`}</Typography>
+                >{`Session ends in ${
+                  parseInt(parseInt(timer / 60) / 60) < 10 ? "0" : ""
+                }${parseInt(parseInt(timer / 60) / 60)} : ${
+                  parseInt(timer / 60) % 60 < 10 ? "0" : ""
+                }${parseInt(timer / 60) % 60} : ${timer % 60 < 10 ? "0" : ""}${
+                  timer % 60
+                }`}</Typography>
               </Box>
             </Paper>
           </Grid>

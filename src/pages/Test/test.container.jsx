@@ -4,7 +4,7 @@ import openSocket from "socket.io-client";
 import { useSelector, shallowEqual } from "react-redux";
 
 import { getTestQuestions, sendAnswers } from "../../components/utils/requests";
-
+import { getTimer } from "../../components/utils";
 import TestView from "./test.view";
 import CustomContext from "../../components/CustomContext/customcontext.container";
 
@@ -13,7 +13,7 @@ const Test = () => {
   const { testId } = useParams();
   const history = useHistory();
   const testDetails = useSelector(
-    ({ userDetails }) => userDetails.userDetails,
+    ({ testDetails }) => testDetails.testDetails,
     shallowEqual
   );
   //State
@@ -34,21 +34,12 @@ const Test = () => {
   //useEffect
   useEffect(() => {
     setSocket(openSocket("http://192.168.225.69:8000/"));
-    const start_time = new Date(
-      "Thu Nov 26 2020 19:45:00 GMT+0530 (India Standard Time)"
-    )
-      .toLocaleTimeString()
-      .split(":");
-    const now_time = new Date().toLocaleTimeString().split(":");
-    const now_sec =
-      parseInt(now_time[0]) * 60 * 60 +
-      parseInt(now_time[1]) * 60 +
-      parseInt(now_time[2]);
-    const start_sec =
-      parseInt(start_time[0]) * 60 * 60 +
-      parseInt(start_time[1]) * 60 +
-      parseInt(start_time[2]);
-    const timer_sec = now_sec - start_sec;
+    const start_sec = getTimer(
+      new Date(testDetails.start_time).toLocaleTimeString().split(":")
+    );
+    const now_sec = getTimer(new Date().toLocaleTimeString().split(":"));
+    const end_sec = start_sec + 60 * testDetails.duration_in_min;
+    const timer_sec = end_sec - now_sec;
     setTimer(timer_sec);
   }, []);
   useEffect(() => {
@@ -56,7 +47,7 @@ const Test = () => {
     if (timer && !isTimer) {
       setIsTimer(true);
       interval = setInterval(() => {
-        setTimer((timer) => timer + 1);
+        setTimer((timer) => timer - 1);
       }, 1000);
     }
   }, [timer]);

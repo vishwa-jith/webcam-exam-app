@@ -28,7 +28,15 @@ const SnackbarView = ({ open, handleClose, alertDetails }) => {
         >
           <Alert
             onClose={handleClose}
-            severity={alertDetails.isSucessful ? "success" : "error"}
+            severity={
+              alertDetails.isSucessful
+                ? "success"
+                : alertDetails.isError
+                ? "error"
+                : alertDetails.isInfo
+                ? "info"
+                : "warning"
+            }
           >
             {alertDetails.message}
           </Alert>

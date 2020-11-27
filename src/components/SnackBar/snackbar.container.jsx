@@ -11,7 +11,12 @@ const Snackbar = () => {
     setOpen(false);
   };
   useEffect(() => {
-    if (alertDetails.isError || alertDetails.isSucessful) {
+    if (
+      alertDetails.isError ||
+      alertDetails.isSucessful ||
+      alertDetails.isInfo ||
+      alertDetails.isWarning
+    ) {
       setOpen(true);
     }
   }, [alertDetails]);
