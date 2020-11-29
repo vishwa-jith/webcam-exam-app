@@ -1,16 +1,20 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import openSocket from "socket.io-client";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 
 import { getTestQuestions, sendAnswers } from "../../components/utils/requests";
 import { getTimer } from "../../components/utils";
 import TestView from "./test.view";
 import CustomContext from "../../components/CustomContext/customcontext.container";
-
+import {
+  addInfoAlert,
+  addWarningAlert,
+} from "../../redux/ActionCreators/alert.action";
 const Test = () => {
   //Const
   const { testId } = useParams();
+  const dispatch = useDispatch();
   const history = useHistory();
   const testDetails = useSelector(
     ({ testDetails }) => testDetails.testDetails,
@@ -57,6 +61,14 @@ const Test = () => {
         setInteligence(intl);
       });
     }
+    if (timer === 300) {
+      dispatch(addInfoAlert("Exam ends in 5 minutes..."));
+    } else if (timer === 60) {
+      dispatch(addWarningAlert("Exam ends in few Seconds..."));
+    }
+    if (timer === 2) {
+      handleSubmitAnswers();
+    }
   });
   useEffect(() => {
     let timer_image;
@@ -92,13 +104,6 @@ const Test = () => {
       });
     };
   }, [testId]);
-  useEffect(() => {
-    if (counter >= 30 * 60) {
-      handleSubmitAnswers();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [counter]);
-
   //Event Handlers
   const handleClickOpen = () => {
     setOpen(true);
@@ -137,9 +142,6 @@ const Test = () => {
       })
       .catch((error) => console.log(error));
   };
-  const skipTimer = () => {
-    setCounter(30 * 60);
-  };
   return (
     <>
       <CustomContext items={menu}></CustomContext>
@@ -155,7 +157,6 @@ const Test = () => {
         handleSubmitAnswers={handleSubmitAnswers}
         handleCameraVision={handleCameraVision}
         counter={counter}
-        skipTimer={skipTimer}
         intelligence={intelligence}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}

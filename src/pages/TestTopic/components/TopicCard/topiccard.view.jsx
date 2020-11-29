@@ -274,9 +274,13 @@ const TopicCardView = function ({
                   ) : (
                     <Typography
                       variant="subtitle1"
-                      style={{ fontWeight: "bolder", fontSize: "1.2em" }}
+                      style={{
+                        fontWeight: "bolder",
+                        fontSize: "1.2em",
+                        color: "grey",
+                      }}
                     >
-                      Not Completed
+                      {new Date(testtopicdata.start_time).toLocaleTimeString()}
                     </Typography>
                   )}
                 </CardContent>

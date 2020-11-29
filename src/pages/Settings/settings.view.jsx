@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useHistory } from "react-router-dom";
 import { useRouteMatch } from "react-router-dom";
-
+import HomeSettings from "./components/Home";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -67,9 +67,7 @@ const SettingsView = ({ value, handleChange, a11yProps }) => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        {["/settings/home"].includes(match.path) && (
-          <Typography variant="h6">Home Settings</Typography>
-        )}
+        {["/settings/home"].includes(match.path) && <HomeSettings />}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {["/settings/personal"].includes(match.path) && (

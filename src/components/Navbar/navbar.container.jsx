@@ -20,6 +20,9 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const dispatch = useDispatch();
+  const testMatch = useRouteMatch("/test/:testId");
+  const showSideBar =
+    SIDEBAR_PATH_LIST.includes(location.pathname) || !!testMatch;
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getUserDetails().then((userDetails) => {
@@ -28,8 +31,8 @@ export default function Navbar() {
         dispatch(addUserDetails(userDetails));
       });
     }
-    // eslint-disable-next-line
-  }, []);
+  }, [showSideBar, dispatch]);
+  console.log("sample");
   const handleLogout = () => {
     // localStorage.removeItem("token");
     // history.push("/login");
@@ -47,9 +50,6 @@ export default function Navbar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const testMatch = useRouteMatch("/test/:testId");
-  const showSideBar =
-    SIDEBAR_PATH_LIST.includes(location.pathname) || !!testMatch;
   return (
     <>
       <NavbarView
