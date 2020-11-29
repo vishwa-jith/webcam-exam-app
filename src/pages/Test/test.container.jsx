@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import openSocket from "socket.io-client";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-
 import { getTestQuestions, sendAnswers } from "../../components/utils/requests";
 import { getTimer } from "../../components/utils";
 import TestView from "./test.view";
@@ -35,6 +34,11 @@ const Test = () => {
   const [open, setOpen] = useState(false);
   const [timer, setTimer] = useState(null);
   const [isTimer, setIsTimer] = useState(false);
+  const [value, setValue] = useState(0);
+  const [uiType, setUiType] = useState(true);
+  const [done, setDone] = useState([]);
+  const [warning, setWarning] = useState([]);
+
   //useEffect
   useEffect(() => {
     setSocket(openSocket("http://192.168.225.69:8000/"));
@@ -62,11 +66,11 @@ const Test = () => {
       });
     }
     if (timer === 300) {
-      dispatch(addInfoAlert("Exam ends in 5 minutes..."));
+      dispatch(addInfoAlert("Exam ends in 5 minutes"));
     } else if (timer === 60) {
-      dispatch(addWarningAlert("Exam ends in few Seconds..."));
+      dispatch(addWarningAlert("Exam ends in few Seconds"));
     }
-    if (timer === 2) {
+    if (timer === 10) {
       handleSubmitAnswers();
     }
   });
@@ -93,6 +97,9 @@ const Test = () => {
       .then((ques) => {
         setuser_id(ques.user_id);
         setQuestions(ques.questions);
+        setAnswers(
+          ques.questions.map((data, index) => ({ id: index, answer: null }))
+        );
       })
       .catch((error) => console.log(error));
     return () => {
@@ -105,6 +112,22 @@ const Test = () => {
     };
   }, [testId]);
   //Event Handlers
+  const handleWarning = () => {
+    if (warning.includes(question_no)) {
+      dispatch(addInfoAlert(`Question number ${question_no + 1} mark removed`));
+      setWarning(warning.filter((value) => value !== question_no));
+    } else {
+      dispatch(addInfoAlert(`Question number ${question_no + 1} mark saved`));
+      setWarning([...warning, question_no]);
+    }
+  };
+  const handleUiChange = () => {
+    setUiType(!uiType);
+  };
+  const handleChange = (event, newValue) => {
+    setQuestion_No(newValue);
+    setValue(newValue);
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -115,32 +138,40 @@ const Test = () => {
     setRunCamera(state);
   };
   const handleAnswers = (event) => {
-    if (answers.length >= question_no + 1) {
-      setAnswers(
-        answers.map((opt, qno) => {
-          if (qno === question_no) {
-            return parseInt([event.target.id]);
-          }
-          return opt;
-        })
-      );
-    } else {
-      setAnswers([...answers, parseInt([event.target.id])]);
-    }
+    setAnswers(
+      answers.map((opt, qno) => {
+        if (qno === question_no) {
+          setDone([...done, question_no]);
+          return { id: qno, answer: event.target.id };
+        }
+        return opt;
+      })
+    );
   };
   const handleQuestion = (type) => {
     if (type < 0) {
       setQuestion_No(question_no - 1);
+      setValue(question_no - 1);
     } else {
       setQuestion_No(question_no + 1);
+      setValue(question_no + 1);
     }
   };
   const handleSubmitAnswers = () => {
-    sendAnswers(testId, answers)
-      .then(() => {
-        history.push("/testtopics");
-      })
-      .catch((error) => console.log(error));
+    if (done.length !== questions.length && timer >= 15) {
+      dispatch(
+        addWarningAlert(
+          `${questions.length - done.length} questions not answered`
+        )
+      );
+      handleClose();
+    } else {
+      sendAnswers(testId, answers)
+        .then(() => {
+          history.push("/testtopics");
+        })
+        .catch((error) => console.log(error));
+    }
   };
   return (
     <>
@@ -161,6 +192,13 @@ const Test = () => {
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
         timer={timer}
+        value={value}
+        handleChange={handleChange}
+        uiType={uiType}
+        handleUiChange={handleUiChange}
+        done={done}
+        warning={warning}
+        handleWarning={handleWarning}
       />
     </>
   );

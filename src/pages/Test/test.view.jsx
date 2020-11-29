@@ -5,9 +5,6 @@ import {
   Paper,
   Box,
   Typography,
-  FormControlLabel,
-  Checkbox,
-  Button,
   Stepper,
   Step,
   StepLabel,
@@ -15,20 +12,51 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
+  Tabs,
+  Tab,
+  Avatar,
+  Button,
 } from "@material-ui/core";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import MoodBadIcon from "@material-ui/icons/MoodBad";
 import MoodIcon from "@material-ui/icons/Mood";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
-
+import Question from "./components/Question";
+import { deepOrange, green, deepPurple } from "@material-ui/core/colors";
+import TimerIcon from "@material-ui/icons/Timer";
+import LinkOffIcon from "@material-ui/icons/LinkOff";
+import LinkIcon from "@material-ui/icons/Link";
 import { makeStyles } from "@material-ui/core/styles";
+
 const useStyles = makeStyles((theme) => ({
-  fortimer: {
-    color: theme.palette.grey[600],
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: "flex",
+    height: "60vh",
+  },
+  tabs: {
+    borderRight: `1px solid ${theme.palette.divider}`,
+  },
+  orange: {
+    color: "white",
+    backgroundColor: deepOrange[500],
+    "&:hover": {
+      backgroundColor: theme.palette.error.dark,
+    },
+    "&:disabled": {
+      backgroundColor: theme.palette.error.light,
+    },
+  },
+  green: {
+    color: "white",
+    backgroundColor: green[500],
+  },
+  purple: {
+    color: "white",
+    backgroundColor: deepPurple[500],
+  },
+  timer: {
+    color: theme.palette.primary.main,
     fontWeight: "bolder",
   },
 }));
@@ -37,9 +65,37 @@ const videoConstraints = {
   height: 720,
   facingMode: "user",
 };
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
+  };
+}
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+      style={{ width: "100%", height: "100%" }}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
 const TestView = ({
   webcamRef,
   src,
+  open,
   questions,
   question_no,
   handleAnswers,
@@ -49,17 +105,17 @@ const TestView = ({
   handleCameraVision,
   intelligence,
   timer,
+  value,
+  handleChange,
+  uiType,
+  handleUiChange,
+  done,
+  warning,
+  handleWarning,
+  handleClickOpen,
+  handleClose,
 }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <>
       <Grid
@@ -104,18 +160,24 @@ const TestView = ({
         </Box>
         <Box m={2}>
           <Grid item>
-            <Paper>
-              <Box py={1} px={2}>
-                <Typography
-                  variant="h5"
-                  className={classes.fortimer}
-                >{`Session ends in ${
-                  parseInt(parseInt(timer / 60) / 60) < 10 ? "0" : ""
-                }${parseInt(parseInt(timer / 60) / 60)} : ${
-                  parseInt(timer / 60) % 60 < 10 ? "0" : ""
-                }${parseInt(timer / 60) % 60} : ${timer % 60 < 10 ? "0" : ""}${
-                  timer % 60
-                }`}</Typography>
+            <Paper elevation={3}>
+              <Box>
+                <List>
+                  <ListItem>
+                    <ListItemIcon>
+                      <TimerIcon className={classes.timer} />
+                    </ListItemIcon>
+                    <ListItemText>
+                      <Typography className={classes.timer} variant="h5">{`${
+                        parseInt(parseInt(timer / 60) / 60) < 10 ? "0" : ""
+                      }${parseInt(parseInt(timer / 60) / 60)} : ${
+                        parseInt(timer / 60) % 60 < 10 ? "0" : ""
+                      }${parseInt(timer / 60) % 60} : ${
+                        timer % 60 < 10 ? "0" : ""
+                      }${timer % 60}`}</Typography>
+                    </ListItemText>
+                  </ListItem>
+                </List>
               </Box>
             </Paper>
           </Grid>
@@ -139,141 +201,112 @@ const TestView = ({
       {/* {src !== null && (
         <img src={src} alt="sample" width="100px" height="100px" />
       )} */}
+
       {questions.length > 0 && (
-        <Grid container justify="center" alignItems="center">
-          <Grid item md={10} xs={12}>
-            <Box py={2}>
-              <Paper>
-                <Box py={2} mx={1}>
-                  <Stepper activeStep={question_no} alternativeLabel>
-                    {questions.map((data, index) => {
-                      return (
-                        <Step key={index}>
-                          <StepLabel></StepLabel>
-                        </Step>
-                      );
-                    })}
-                  </Stepper>
-                  <Grid container justify="center" alignItems="center">
-                    <Grid item xs={12} md={10}>
-                      <Typography variant="h6">
-                        {questions[question_no].question}
-                      </Typography>
-                      <List dense>
-                        {questions[question_no].options.map((opt, index) => {
+        <>
+          {uiType ? (
+            <div className={classes.root}>
+              <Tabs
+                orientation="vertical"
+                variant="scrollable"
+                value={value}
+                onChange={handleChange}
+                aria-label="Vertical tabs example"
+                className={classes.tabs}
+              >
+                {questions.map((data, index) => {
+                  return (
+                    <Tab
+                      label={
+                        <Avatar
+                          className={
+                            warning.includes(index)
+                              ? classes.orange
+                              : done.includes(index)
+                              ? classes.green
+                              : classes.purple
+                          }
+                        >{`${index + 1}`}</Avatar>
+                      }
+                      {...a11yProps(index)}
+                    />
+                  );
+                })}
+              </Tabs>
+              {questions.map((data, index) => {
+                return (
+                  <TabPanel value={value} index={index}>
+                    <Grid container justify="flex-end">
+                      <Button
+                        variant="contained"
+                        classes={{ root: classes.orange }}
+                        size="small"
+                        onClick={handleWarning}
+                        endIcon={
+                          warning.includes(question_no) ? (
+                            <LinkOffIcon />
+                          ) : (
+                            <LinkIcon />
+                          )
+                        }
+                      >
+                        {warning.includes(question_no)
+                          ? "Remove Mark"
+                          : "Mark as Later"}
+                      </Button>
+                    </Grid>
+                    <Question
+                      open={open}
+                      questions={questions}
+                      question_no={question_no}
+                      handleAnswers={handleAnswers}
+                      answers={answers}
+                      handleQuestion={handleQuestion}
+                      handleClickOpen={handleClickOpen}
+                      handleSubmitAnswers={handleSubmitAnswers}
+                      handleClose={handleClose}
+                      done={done}
+                      warning={warning}
+                    />
+                  </TabPanel>
+                );
+              })}
+            </div>
+          ) : (
+            <Grid container justify="center" alignItems="center">
+              <Grid item md={10} xs={12}>
+                <Box py={2}>
+                  <Paper>
+                    <Box py={2} mx={1}>
+                      <Stepper activeStep={question_no} alternativeLabel>
+                        {questions.map((data, index) => {
                           return (
-                            <ListItem
-                              button
-                              id={`${index}`}
-                              onClick={handleAnswers}
-                              key={index}
-                            >
-                              <FormControlLabel
-                                control={
-                                  <Checkbox
-                                    checked={
-                                      answers.length !== question_no &&
-                                      answers[question_no] === index
-                                    }
-                                    onChange={handleAnswers}
-                                    name={`${index}`}
-                                    id={`${index}`}
-                                    color="primary"
-                                  />
-                                }
-                                label={opt}
-                              />
-                            </ListItem>
+                            <Step key={index}>
+                              <StepLabel></StepLabel>
+                            </Step>
                           );
                         })}
-                      </List>
-                      <Grid
-                        container
-                        justify="space-around"
-                        alignItems="center"
-                      >
-                        <Grid item>
-                          {question_no === 0 ? (
-                            <Button
-                              disabled={true}
-                              color="primary"
-                              size="small"
-                              variant="outlined"
-                            >
-                              Start
-                            </Button>
-                          ) : (
-                            <Button
-                              onClick={() => {
-                                handleQuestion(-1);
-                              }}
-                              color="primary"
-                              size="small"
-                              variant="outlined"
-                            >
-                              Previous
-                            </Button>
-                          )}
-                        </Grid>
-                        <Grid item>
-                          {question_no === questions.length - 1 ? (
-                            <Button
-                              color="primary"
-                              size="small"
-                              variant="contained"
-                              onClick={handleClickOpen}
-                            >
-                              Submit
-                            </Button>
-                          ) : (
-                            <Button
-                              onClick={() => {
-                                handleQuestion(1);
-                              }}
-                              color="primary"
-                              size="small"
-                              variant="contained"
-                              disabled={!answers.length >= question_no + 1}
-                            >
-                              Next
-                            </Button>
-                          )}
-                          <Dialog open={open} onClose={handleClose}>
-                            <DialogTitle>Test Submit</DialogTitle>
-                            <DialogContent>
-                              <DialogContentText>
-                                <Typography>
-                                  Are you sure, Do you want to submit the test?
-                                </Typography>
-                              </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                              <Button
-                                autoFocus
-                                onClick={handleSubmitAnswers}
-                                color="primary"
-                                variant="outlined"
-                              >
-                                Yes
-                              </Button>
-                              <Button
-                                onClick={handleClose}
-                                color="primary"
-                                autoFocus
-                              >
-                                No
-                              </Button>
-                            </DialogActions>
-                          </Dialog>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
+                      </Stepper>
+                      <Question
+                        open={open}
+                        questions={questions}
+                        question_no={question_no}
+                        handleAnswers={handleAnswers}
+                        answers={answers}
+                        handleQuestion={handleQuestion}
+                        handleClickOpen={handleClickOpen}
+                        handleSubmitAnswers={handleSubmitAnswers}
+                        handleClose={handleClose}
+                        done={done}
+                        warning={warning}
+                      />
+                    </Box>
+                  </Paper>
                 </Box>
-              </Paper>
-            </Box>
-          </Grid>
-        </Grid>
+              </Grid>
+            </Grid>
+          )}
+        </>
       )}
     </>
   );
