@@ -18,7 +18,7 @@ export default function Settings() {
   React.useEffect(() => {
     if (["/settings/company"].includes(match.path)) {
       handleChange(null, 2);
-    } else if (["/settings/personal"].includes(match.path)) {
+    } else if (["/settings/test"].includes(match.path)) {
       handleChange(null, 1);
     } else {
       handleChange(null, 0);

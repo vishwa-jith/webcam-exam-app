@@ -96,7 +96,7 @@ const Routes = () => {
       <ExamRoute component={Test} path="/test/:testId" exact />
       <PrivateRoute component={TestTopic} path="/testtopics" exact />
       <PrivateRoute component={Settings} path="/settings/home" exact />
-      <PrivateRoute component={Settings} path="/settings/personal" exact />
+      <PrivateRoute component={Settings} path="/settings/test" exact />
       <PrivateRoute component={Settings} path="/settings/company" exact />
       <PrivateRoute component={Help} path="/help" exact />
       <NormalRoute component={Home} path="/" exact />

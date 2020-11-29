@@ -43,11 +43,16 @@ const SettingsView = ({ value, handleChange, a11yProps }) => {
   const match = useRouteMatch();
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="default">
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label="simple tabs example"
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+          variant="scrollable"
+          scrollButtons="auto"
+          aria-label="scrollable auto tabs example"
         >
           <Tab
             label="HOME"
@@ -55,9 +60,9 @@ const SettingsView = ({ value, handleChange, a11yProps }) => {
             onClick={() => history.push("/settings/home")}
           />
           <Tab
-            label="PERSONAL DETAILS"
+            label="TEST DETAILS"
             {...a11yProps(1)}
-            onClick={() => history.push("/settings/personal")}
+            onClick={() => history.push("/settings/test")}
           />
           <Tab
             label="COMPANY DETAILS"
@@ -70,8 +75,8 @@ const SettingsView = ({ value, handleChange, a11yProps }) => {
         {["/settings/home"].includes(match.path) && <HomeSettings />}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {["/settings/personal"].includes(match.path) && (
-          <Typography variant="h6">Personal Settings</Typography>
+        {["/settings/test"].includes(match.path) && (
+          <Typography variant="h6">test Settings</Typography>
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>

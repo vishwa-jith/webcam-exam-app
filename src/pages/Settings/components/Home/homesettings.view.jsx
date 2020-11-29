@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
       "calc( 25px + ( 50 - 25 ) * ( ( 100vw - 300px ) / ( 1600 - 300 ) ) )",
   },
   save: {
-    backgroundColor: theme.palette.success.main,
+    background: "#4caf50",
     color: "white",
   },
   edit: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: "#90caf9",
     color: "white",
   },
 }));
@@ -107,7 +107,10 @@ const HomeSettingsView = ({
                     <ListItemSecondaryAction>
                       <IconButton
                         onClick={handleOperation}
-                        className={isEdit ? classes.save : classes.edit}
+                        style={{
+                          backgroundColor: isEdit ? "#4caf50" : "#90caf9",
+                          color: "white",
+                        }}
                       >
                         {isEdit ? <SaveIcon /> : <EditIcon />}
                       </IconButton>

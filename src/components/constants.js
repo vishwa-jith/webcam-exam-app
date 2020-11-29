@@ -1,7 +1,7 @@
 export const SIDEBAR_PATH_LIST = [
   "/test",
   "/settings/home",
-  "/settings/personal",
+  "/settings/test",
   "/settings/company",
   "/help",
   "/logout",
