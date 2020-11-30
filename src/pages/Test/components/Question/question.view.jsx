@@ -18,13 +18,17 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { deepOrange, green } from "@material-ui/core/colors";
+import { deepOrange, green, deepPurple } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   orange: {
     color: "white",
     backgroundColor: deepOrange[500],
+  },
+  purple: {
+    color: "white",
+    backgroundColor: deepPurple[500],
   },
   green: {
     color: "white",
@@ -142,10 +146,18 @@ const QuestionView = ({
                       <ListItem>
                         <ListItemAvatar>
                           <Avatar className={classes.green}>
-                            {done.length}
+                            {`${done.length}`}
                           </Avatar>
                         </ListItemAvatar>
                         <ListItemText>Answered</ListItemText>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar className={classes.purple}>
+                            {`${answers.length - done.length}`}
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText>Un Answered</ListItemText>
                       </ListItem>
                       <ListItem>
                         <ListItemAvatar>

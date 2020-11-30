@@ -80,6 +80,7 @@ const NavbarView = ({
   handleDrawerClose,
   showSideBar,
   handleLogout,
+  testMatch,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -132,7 +133,7 @@ const NavbarView = ({
             </IconButton>
           </div>
           <Divider />
-          <SideBarView handleLogout={handleLogout} />
+          <SideBarView handleLogout={handleLogout} testMatch={testMatch} />
         </Drawer>
       )}
       <main className={classes.content}>

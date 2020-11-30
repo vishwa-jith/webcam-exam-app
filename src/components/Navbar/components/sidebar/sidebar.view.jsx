@@ -9,10 +9,9 @@ import HelpIcon from "@material-ui/icons/Help";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import { Link, useLocation, useRouteMatch } from "react-router-dom";
-const SideBarView = ({ handleLogout }) => {
+import { Link, useLocation } from "react-router-dom";
+const SideBarView = ({ handleLogout, testMatch }) => {
   const location = useLocation();
-  const testMatch = useRouteMatch("/test/:testId");
   return (
     <>
       <List>
@@ -26,18 +25,22 @@ const SideBarView = ({ handleLogout }) => {
           </ListItemIcon>
           <ListItemText primary={!testMatch ? "Topic" : "Test"} />
         </ListItem>
-        <ListItem button component={Link} to="/settings/home">
-          <ListItemIcon>
-            <SettingsIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Setting"} />
-        </ListItem>
-        <ListItem button component={Link} to="/help">
-          <ListItemIcon>
-            <HelpIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Help"} />
-        </ListItem>
+        {!testMatch && (
+          <>
+            <ListItem button component={Link} to="/settings/home">
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Setting"} />
+            </ListItem>
+            <ListItem button component={Link} to="/help">
+              <ListItemIcon>
+                <HelpIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Help"} />
+            </ListItem>
+          </>
+        )}
       </List>
       <Divider />
       <List>

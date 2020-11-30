@@ -50,11 +50,23 @@ const ExamRoute = ({ children, component: Component, ...rest }) => {
           console.log(start_sec, now_sec, end_sec);
           if (start_sec > now_sec) {
             dispatch(
-              addWarningAlert(`Exams starts in ${getTime(start_sec - now_sec)}`)
+              addWarningAlert(
+                `Exams starts in ${
+                  getTime(start_sec - now_sec).split(":")[0]
+                } Hours ${getTime(start_sec - now_sec).split(":")[1]} Minutes ${
+                  getTime(start_sec - now_sec).split(":")[2]
+                } Seconds`
+              )
             );
           } else if (end_sec < now_sec) {
             dispatch(
-              addWarningAlert(`Exam ended before ${getTime(now_sec - end_sec)}`)
+              addWarningAlert(
+                `Exam ended before ${
+                  getTime(now_sec - end_sec).split(":")[0]
+                } Hours ${getTime(now_sec - end_sec).split(":")[1]} Minutes ${
+                  getTime(now_sec - end_sec).split(":")[2]
+                } Seconds`
+              )
             );
           }
           return isLoggedIn &&

@@ -10,6 +10,10 @@ import {
   addInfoAlert,
   addWarningAlert,
 } from "../../redux/ActionCreators/alert.action";
+import {
+  visionLost,
+  visionGained,
+} from "../../redux/ActionCreators/test.action";
 const Test = () => {
   //Const
   const { testId } = useParams();
@@ -38,7 +42,7 @@ const Test = () => {
   const [uiType, setUiType] = useState(true);
   const [done, setDone] = useState([]);
   const [warning, setWarning] = useState([]);
-
+  const [openDialog, setOpenDialog] = useState(false);
   //useEffect
   useEffect(() => {
     setSocket(openSocket("http://192.168.225.69:8000/"));
@@ -89,9 +93,7 @@ const Test = () => {
     };
   }, [runCamera, socket, user_id]);
   useEffect(() => {
-    window.addEventListener("visibilitychange", function () {
-      document.title = document.visibilityState;
-    });
+    window.addEventListener("visibilitychange", visibility);
     window.addEventListener("contextmenu", (event) => event.preventDefault());
     getTestQuestions(testId)
       .then((ques) => {
@@ -103,15 +105,24 @@ const Test = () => {
       })
       .catch((error) => console.log(error));
     return () => {
-      window.removeEventListener("visibilitychange", () => {
-        document.title = "React App";
-      });
-      window.removeEventListener("contextmenu", () => {
-        document.title = "React App";
-      });
+      window.removeEventListener("visibilitychange", visibility);
     };
   }, [testId]);
   //Event Handlers
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    dispatch(visionGained(document.visibilityState));
+    setOpenDialog(false);
+  };
+  const visibility = () => {
+    if (document.visibilityState === "hidden") {
+      setOpenDialog(true);
+      dispatch(visionLost(document.visibilityState));
+    }
+  };
   const handleWarning = () => {
     if (warning.includes(question_no)) {
       dispatch(addInfoAlert(`Question number ${question_no + 1} mark removed`));
@@ -141,7 +152,9 @@ const Test = () => {
     setAnswers(
       answers.map((opt, qno) => {
         if (qno === question_no) {
-          setDone([...done, question_no]);
+          if (!done.includes(question_no)) {
+            setDone([...done, question_no]);
+          }
           return { id: qno, answer: event.target.id };
         }
         return opt;
@@ -168,6 +181,7 @@ const Test = () => {
     } else {
       sendAnswers(testId, answers)
         .then(() => {
+          window.removeEventListener("visibilitychange", visibility);
           history.push("/testtopics");
         })
         .catch((error) => console.log(error));
@@ -199,6 +213,9 @@ const Test = () => {
         done={done}
         warning={warning}
         handleWarning={handleWarning}
+        openDialog={openDialog}
+        handleClickOpenDialog={handleClickOpenDialog}
+        handleCloseDialog={handleCloseDialog}
       />
     </>
   );

@@ -7,3 +7,5 @@ export const WARNING_ALERT = "WARNING_ALERT";
 export const SHOW_BACKDROP = "SHOW_BACKDROP";
 export const HIDE_BACKDROP = "HIDE_BACKDROP";
 export const ADD_TEST_DETAILS = "ADD_TEST_DETAILS";
+export const VISION_LOST = "VISION_LOST";
+export const VISION_GAINED = "VISION_GAINED";

@@ -21,6 +21,7 @@ import MoodBadIcon from "@material-ui/icons/MoodBad";
 import MoodIcon from "@material-ui/icons/Mood";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import Question from "./components/Question";
+import VisionDialog from "./components/VisionDialog";
 import { deepOrange, green, deepPurple } from "@material-ui/core/colors";
 import TimerIcon from "@material-ui/icons/Timer";
 import LinkOffIcon from "@material-ui/icons/LinkOff";
@@ -114,10 +115,18 @@ const TestView = ({
   handleWarning,
   handleClickOpen,
   handleClose,
+  openDialog,
+  handleClickOpenDialog,
+  handleCloseDialog,
 }) => {
   const classes = useStyles();
   return (
     <>
+      <VisionDialog
+        openDialog={openDialog}
+        handleClickOpenDialog={handleClickOpenDialog}
+        handleCloseDialog={handleCloseDialog}
+      />
       <Grid
         container
         direction="row"
