@@ -8,6 +8,7 @@ import Settings from "./pages/Settings";
 import Help from "./pages/Help";
 import Home from "./pages/LandingPage";
 import TestTopic from "./pages/TestTopic";
+import TestReport from "./pages/TestReport";
 const PrivateRoute = ({ children, component: Component, ...rest }) => {
   const isLoggedIn = !!localStorage.getItem("token");
   return (
@@ -98,30 +99,7 @@ const ExamRoute = ({ children, component: Component, ...rest }) => {
     />
   );
 };
-const ExamReportRoute = ({ children, component: Component, ...rest }) => {
-  const isLoggedIn = !localStorage.getItem("token");
-  const testInfo = useSelector(
-    ({ testDetails }) => testDetails.testInfo,
-    shallowEqual
-  );
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        isLoggedIn ? (
-          <Component />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/testtopics",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
-};
+
 const NormalRoute = ({ children, component: Component, ...rest }) => {
   const isLoggedIn = !localStorage.getItem("token");
   return (
@@ -147,6 +125,7 @@ const Routes = () => {
   return (
     <Switch>
       <ExamRoute component={Test} path="/test/:testId" exact />
+      <PrivateRoute component={TestReport} path="/testsolution/:testId" exact />
       <PrivateRoute component={TestTopic} path="/testtopics" exact />
       <PrivateRoute component={Settings} path="/settings/home" exact />
       <PrivateRoute component={Settings} path="/settings/test" exact />

@@ -3,7 +3,6 @@ import {
   Dialog,
   AppBar,
   Toolbar,
-  Box,
   Grid,
   IconButton,
   List,
@@ -138,9 +137,9 @@ const TopicDialogView = ({
                       <Button
                         color="primary"
                         variant="contained"
-                        // onClick={() => {
-                        //   history.push(`/test/${testtopicdata._id}`);
-                        // }}
+                        onClick={() => {
+                          history.push(`/testsolution/${testtopicdata._id}`);
+                        }}
                       >
                         VIEW SOLUTION
                       </Button>

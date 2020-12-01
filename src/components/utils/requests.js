@@ -56,6 +56,30 @@ export const getTestTopics = async () => {
   return response.data;
 };
 
+//Test Info
+export const getTestInfo = async (testId) => {
+  const token = localStorage.getItem("token");
+  const bearer = "Bearer " + token;
+  var response = await axios.get(baseUrl + `test-topic/${testId}`, {
+    headers: {
+      Authorization: bearer,
+    },
+  });
+  return response.data;
+};
+
+//Test Detail
+export const getTestDetail = async (testId) => {
+  const token = localStorage.getItem("token");
+  const bearer = "Bearer " + token;
+  var response = await axios.get(baseUrl + `test-topic/single/${testId}`, {
+    headers: {
+      Authorization: bearer,
+    },
+  });
+  return response.data;
+};
+
 //Test Questions
 export const getTestQuestions = async (testId) => {
   const token = localStorage.getItem("token");

@@ -19,9 +19,8 @@ const TopicCard = function ({
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const handleClickOpen = () => {
-    if (!testinfo) {
-      dispatch(addTestDetails(testtopicdata));
-    } else {
+    dispatch(addTestDetails(testtopicdata));
+    if (testinfo) {
       dispatch(addTestInfo(testinfo));
     }
     setOpen(true);
