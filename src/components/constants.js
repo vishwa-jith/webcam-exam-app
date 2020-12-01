@@ -6,6 +6,7 @@ export const SIDEBAR_PATH_LIST = [
   "/help",
   "/logout",
   "/testtopics",
+  "/testreport",
 ];
 export const drawerWidth = 240;
 export const baseUrl = "http://192.168.225.69:8000/";

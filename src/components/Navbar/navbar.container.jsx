@@ -18,6 +18,7 @@ import { getUserDetails, logoutUser } from "../utils/requests";
 export default function Navbar() {
   const history = useHistory();
   const [open, setOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
   const location = useLocation();
   const dispatch = useDispatch();
   const testMatch = useRouteMatch("/test/:testId");
@@ -25,10 +26,10 @@ export default function Navbar() {
     SIDEBAR_PATH_LIST.includes(location.pathname) || !!testMatch;
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      getUserDetails().then((userDetails) => {
+      getUserDetails().then((userdetails) => {
+        setUserDetails(userdetails);
         dispatch(addUserToken(localStorage.getItem("token")));
-
-        dispatch(addUserDetails(userDetails));
+        dispatch(addUserDetails(userdetails));
       });
     }
   }, [showSideBar, dispatch]);
@@ -59,6 +60,7 @@ export default function Navbar() {
         showSideBar={showSideBar}
         handleLogout={handleLogout}
         testMatch={testMatch}
+        userDetails={userDetails}
       />
       <Snackbar />
       <BackDrop />
