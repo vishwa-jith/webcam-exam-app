@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import TopicCardView from "./topiccard.view";
 import { useDispatch } from "react-redux";
-import { addTestDetails } from "../../../../redux/ActionCreators/test.action";
+import {
+  addTestDetails,
+  addTestInfo,
+} from "../../../../redux/ActionCreators/test.action";
 const TopicCard = function ({
   testtopicdata,
   testinfo,
@@ -16,7 +19,11 @@ const TopicCard = function ({
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const handleClickOpen = () => {
-    dispatch(addTestDetails(testtopicdata));
+    if (!testinfo) {
+      dispatch(addTestDetails(testtopicdata));
+    } else {
+      dispatch(addTestInfo(testinfo));
+    }
     setOpen(true);
   };
 

@@ -2,6 +2,7 @@ import * as actionTypes from "../actionTypes";
 export const testDetails = (
   state = {
     testDetails: null,
+    testInfo: null,
     vision: true,
   },
   action
@@ -11,6 +12,11 @@ export const testDetails = (
       return {
         ...state,
         testDetails: action.payload,
+      };
+    case actionTypes.ADD_TEST_INFO:
+      return {
+        ...state,
+        testInfo: action.payload,
       };
     case actionTypes.VISION_GAINED:
       return {

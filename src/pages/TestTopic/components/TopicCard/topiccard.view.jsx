@@ -310,6 +310,7 @@ const TopicCardView = function ({
             Transition={Transition}
             open={open}
             handleClose={handleClose}
+            testinfo={testinfo}
           />
         )}
       </Box>

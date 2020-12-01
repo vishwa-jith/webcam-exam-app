@@ -12,6 +12,7 @@ import {
   ListItemText,
   Typography,
   Button,
+  Paper,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import AssignmentIcon from "@material-ui/icons/Assignment";
@@ -30,7 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopicDialogView = ({ testtopicdata, Transition, open, handleClose }) => {
+const TopicDialogView = ({
+  testtopicdata,
+  Transition,
+  open,
+  handleClose,
+  testinfo,
+}) => {
   const history = useHistory();
   const classes = useStyles();
   return (
@@ -48,18 +55,25 @@ const TopicDialogView = ({ testtopicdata, Transition, open, handleClose }) => {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Box m={5}>
-          <Grid container style={{ height: "90vh" }}>
-            <Grid item xs>
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          style={{ height: "90vh" }}
+        >
+          <Grid item md={8} sm={10} xs={12}>
+            <Paper elevation={2}>
               <List component="nav">
-                <ListItem
-                  style={{ fontWeight: "bold", textTransform: "uppercase" }}
-                >
-                  <ListItemIcon>
-                    <AssessmentRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText>Test Instructions</ListItemText>
-                </ListItem>
+                {!testinfo && (
+                  <ListItem
+                    style={{ fontWeight: "bold", textTransform: "uppercase" }}
+                  >
+                    <ListItemIcon>
+                      <AssessmentRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText>Test Instructions</ListItemText>
+                  </ListItem>
+                )}
                 <ListItem>
                   <ListItemIcon>
                     <AssignmentIcon />
@@ -118,43 +132,37 @@ const TopicDialogView = ({ testtopicdata, Transition, open, handleClose }) => {
                     </Typography>
                   </ListItemText>
                 </ListItem>
+                <ListItem>
+                  {testinfo ? (
+                    <ListItemText>
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        // onClick={() => {
+                        //   history.push(`/test/${testtopicdata._id}`);
+                        // }}
+                      >
+                        VIEW SOLUTION
+                      </Button>
+                    </ListItemText>
+                  ) : (
+                    <ListItemText>
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={() => {
+                          history.push(`/test/${testtopicdata._id}`);
+                        }}
+                      >
+                        START TEST
+                      </Button>
+                    </ListItemText>
+                  )}
+                </ListItem>
               </List>
-              <Box m={3}>
-                <Typography style={{ fontWeight: "bolder" }}>
-                  Do you want to start the test?
-                </Typography>
-                <Box m={3}>
-                  <Grid container alignItems="center">
-                    <Grid item xs={6} md={1}>
-                      <Box px={2} py={1}>
-                        <Button
-                          color="primary"
-                          variant="contained"
-                          onClick={() => {
-                            history.push(`/test/${testtopicdata._id}`);
-                          }}
-                        >
-                          YES
-                        </Button>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={6} md={1}>
-                      <Box px={2} py={1}>
-                        <Button
-                          color="primary"
-                          variant="contained"
-                          onClick={handleClose}
-                        >
-                          NO
-                        </Button>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </Box>
-              </Box>
-            </Grid>
+            </Paper>
           </Grid>
-        </Box>
+        </Grid>
       </Dialog>
     </>
   );

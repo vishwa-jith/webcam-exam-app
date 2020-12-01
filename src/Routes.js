@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { getTimer, getTime } from "./components/utils";
 import { addWarningAlert } from "./redux/ActionCreators/alert.action";
 import Test from "./pages/Test";
@@ -31,7 +31,10 @@ const PrivateRoute = ({ children, component: Component, ...rest }) => {
 };
 const ExamRoute = ({ children, component: Component, ...rest }) => {
   const dispatch = useDispatch();
-  const testDetails = useSelector(({ testDetails }) => testDetails);
+  const testDetails = useSelector(
+    ({ testDetails }) => testDetails,
+    shallowEqual
+  );
 
   return (
     <Route
@@ -47,7 +50,6 @@ const ExamRoute = ({ children, component: Component, ...rest }) => {
           const end_sec =
             start_sec + 60 * testDetails.testDetails.duration_in_min;
           const isLoggedIn = !!localStorage.getItem("token");
-          console.log(start_sec, now_sec, end_sec);
           if (start_sec > now_sec) {
             dispatch(
               addWarningAlert(
@@ -93,6 +95,30 @@ const ExamRoute = ({ children, component: Component, ...rest }) => {
           );
         }
       }}
+    />
+  );
+};
+const ExamReportRoute = ({ children, component: Component, ...rest }) => {
+  const isLoggedIn = !localStorage.getItem("token");
+  const testInfo = useSelector(
+    ({ testDetails }) => testDetails.testInfo,
+    shallowEqual
+  );
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        isLoggedIn ? (
+          <Component />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/testtopics",
+              state: { from: location },
+            }}
+          />
+        )
+      }
     />
   );
 };
