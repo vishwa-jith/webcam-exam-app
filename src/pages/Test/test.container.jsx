@@ -179,7 +179,13 @@ const Test = () => {
       );
       handleClose();
     } else {
-      sendAnswers(testId, answers)
+      sendAnswers(testId, {
+        answers,
+        end_time: new Date(),
+        answers_attended: done.length,
+        answers_marked: warning.length,
+        unanswered: questions.length - done.length,
+      })
         .then(() => {
           window.removeEventListener("visibilitychange", visibility);
           history.push("/testtopics");

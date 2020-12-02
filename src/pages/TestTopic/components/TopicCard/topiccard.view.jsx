@@ -265,11 +265,13 @@ const TopicCardView = function ({
                         color:
                           testtopicdata.score >=
                           0.35 * testtopicdata.total_marks
-                            ? "green"
-                            : "red",
+                            ? "red"
+                            : "green",
                       }}
                     >
-                      {testinfo.score}/{testtopicdata.total_marks}
+                      {`${testinfo.score.toFixed(2)}/${
+                        testtopicdata.total_marks
+                      }`}
                     </Typography>
                   ) : (
                     <Typography

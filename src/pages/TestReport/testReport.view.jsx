@@ -12,13 +12,15 @@ const TestReportView = ({ questions, answers, testDetails, testInfo }) => {
         <Grid item md={10} xs={12}>
           {questions &&
             answers &&
-            questions.map((question, index) => (
-              <Question
-                questions={questions}
-                question_no={index}
-                answers={answers}
-              />
-            ))}
+            questions.map((question, index) => {
+              return (
+                <Question
+                  questions={questions}
+                  question_no={index}
+                  answers={answers}
+                />
+              );
+            })}
         </Grid>
       </Grid>
     </>

@@ -22,12 +22,6 @@ const TestReport = () => {
     shallowEqual
   );
   useEffect(() => {
-    getTestQuestions(testId).then((question) => {
-      setQuestions(question.questions);
-      setAnswers(
-        question.questions.map((q, index) => (index % 2 === 0 ? 1 : 3))
-      );
-    });
     if (test_details) {
       setTestDetails(test_details);
     } else {
@@ -37,13 +31,19 @@ const TestReport = () => {
     }
     if (test_info) {
       setTestInfo(test_info);
+      getTestQuestions(testId).then((question) => {
+        setQuestions(question.questions);
+      });
     } else {
       getTestInfo(testId).then((testinfo) => {
         setTestInfo(testinfo[0]);
+        getTestQuestions(testId).then((question) => {
+          setQuestions(question.questions);
+        });
+        setAnswers(testinfo[0].answers);
       });
     }
   }, [testId, test_info, test_details]);
-  console.log(testInfo);
   return (
     <>
       <TestReportView
