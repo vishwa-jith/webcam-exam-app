@@ -9,24 +9,30 @@ import {
   Table,
   TableBody,
   Button,
+  Grid,
+  Card,
+  CardHeader,
+  Avatar,
+  CardContent,
+  CardActions,
 } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import { useHistory } from "react-router-dom";
 import TestInfo from "../TestInfo";
 import { makeStyles } from "@material-ui/core/styles";
+import AssessmentIcon from "@material-ui/icons/Assessment";
 const useRowStyles = makeStyles({
   root: {
-    "& > *": {
-      borderBottom: "unset",
-    },
+    // "& > *": {
+    //   borderBottom: "unset",
+    // },
   },
 });
 const TestDetailsView = ({ testDetails, info }) => {
   const classes = useRowStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
-  console.log(testDetails);
   return (
     <>
       <TableRow className={classes.root}>
@@ -52,31 +58,57 @@ const TestDetailsView = ({ testDetails, info }) => {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box m={1}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                component="div"
-                color="textSecondary"
-              >
-                Test Details &amp; History
-              </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableBody>
-                  <TestInfo testDetails={testDetails} testInfo={info} />
-                </TableBody>
-              </Table>
-            </Box>
-            <Box my={2}>
-              <Button
-                size="small"
-                variant="outlined"
-                color="primary"
-                onClick={() => history.push(`/testsolution/${testDetails._id}`)}
-              >
-                Detailed Report
-              </Button>
-            </Box>
+            <Grid container justify="center" alignItems="center">
+              <Grid item md={6} xs={12}>
+                <Box my={2} mx={1}>
+                  <Table size="small" aria-label="purchases">
+                    <TableBody>
+                      <TestInfo testDetails={testDetails} testInfo={info} />
+                    </TableBody>
+                  </Table>
+                </Box>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <Box my={2} mx={1}>
+                  <Card className={classes.root}>
+                    <CardHeader
+                      avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                          {testDetails.topic
+                            .split(" ")
+                            .map((word) => word[0])
+                            .slice(0, 2)}
+                        </Avatar>
+                      }
+                      title={testDetails.topic}
+                      subheader={new Date(info.createdAt).toDateString()}
+                    />
+                    <CardContent>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {testDetails.description}
+                      </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                      <Button
+                        aria-label="Test Report"
+                        startIcon={<AssessmentIcon />}
+                        variant="contained"
+                        color="primary"
+                        onClick={() =>
+                          history.push(`/testsolution/${testDetails._id}`)
+                        }
+                      >
+                        DETAILED REPORT
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Box>
+              </Grid>
+            </Grid>
           </Collapse>
         </TableCell>
       </TableRow>
