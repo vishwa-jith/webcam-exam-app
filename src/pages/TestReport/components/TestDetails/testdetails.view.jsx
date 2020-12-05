@@ -180,7 +180,7 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                   </TableCell>
                   <TableCell align="right">
                     <Typography>
-                      {testInfo.score}/{testDetails.total_marks}
+                      {testInfo.score.toFixed(2)}/{testDetails.total_marks}
                     </Typography>
                   </TableCell>
                 </TableRow>
