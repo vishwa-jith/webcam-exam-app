@@ -15,12 +15,18 @@ import UpdateIcon from "@material-ui/icons/Update";
 import MoodIcon from "@material-ui/icons/Mood";
 import MoodBadIcon from "@material-ui/icons/MoodBad";
 import ScoreIcon from "@material-ui/icons/Score";
-
+import {
+  red,
+  green,
+  indigo,
+  orange,
+  deepOrange,
+} from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   avatar: {
     color: "white",
-    backgroundColor: theme.palette.grey[500],
+    backgroundColor: indigo[500],
   },
   link: {
     display: "flex",
@@ -41,7 +47,14 @@ const TestInfoView = ({ testDetails, testInfo }) => {
           <TableBody>
             <TableRow>
               <TableCell>
-                <Avatar className={classes.avatar}>
+                <Avatar
+                  className={classes.avatar}
+                  style={{
+                    backgroundColor: testInfo.is_fraudulant
+                      ? deepOrange[500]
+                      : green[500],
+                  }}
+                >
                   {testInfo.is_fraudulant ? <MoodBadIcon /> : <MoodIcon />}
                 </Avatar>
               </TableCell>
@@ -56,7 +69,15 @@ const TestInfoView = ({ testDetails, testInfo }) => {
             </TableRow>
             <TableRow>
               <TableCell>
-                <Avatar className={classes.avatar}>
+                <Avatar
+                  className={classes.avatar}
+                  style={{
+                    backgroundColor:
+                      (testInfo.score / testDetails.total_marks) * 100 > 40
+                        ? green[500]
+                        : red[500],
+                  }}
+                >
                   <ScoreIcon />
                 </Avatar>
               </TableCell>
@@ -67,11 +88,14 @@ const TestInfoView = ({ testDetails, testInfo }) => {
                 <Typography>
                   {testInfo.score.toFixed(2)}/{testDetails.total_marks}
                 </Typography>
-              </TableCell> 
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
-                <Avatar className={classes.avatar}>
+                <Avatar
+                  className={classes.avatar}
+                  style={{ backgroundColor: orange[500] }}
+                >
                   <WarningIcon />
                 </Avatar>
               </TableCell>

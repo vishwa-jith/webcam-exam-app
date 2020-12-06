@@ -15,6 +15,10 @@ import {
   Avatar,
   CardContent,
   CardActions,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
 } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
@@ -22,11 +26,25 @@ import { useHistory } from "react-router-dom";
 import TestInfo from "../TestInfo";
 import { makeStyles } from "@material-ui/core/styles";
 import AssessmentIcon from "@material-ui/icons/Assessment";
+import {
+  teal,
+  grey,
+  deepOrange,
+  indigo,
+  green,
+} from "@material-ui/core/colors";
 const useRowStyles = makeStyles({
-  root: {
-    // "& > *": {
-    //   borderBottom: "unset",
-    // },
+  orange: {
+    color: "white",
+    backgroundColor: deepOrange[500],
+  },
+  purple: {
+    color: "white",
+    backgroundColor: indigo[500],
+  },
+  green: {
+    color: "white",
+    backgroundColor: green[500],
   },
 });
 const TestDetailsView = ({ testDetails, info }) => {
@@ -55,12 +73,12 @@ const TestDetailsView = ({ testDetails, info }) => {
           {new Date(info.createdAt).toDateString()}
         </TableCell>
       </TableRow>
-      <TableRow>
+      <TableRow style={{ backgroundColor: grey[50] }}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Grid container justify="center" alignItems="center">
               <Grid item md={6} xs={12}>
-                <Box my={2} mx={1}>
+                <Box my={3} mx={1}>
                   <Table size="small" aria-label="purchases">
                     <TableBody>
                       <TestInfo testDetails={testDetails} testInfo={info} />
@@ -69,11 +87,15 @@ const TestDetailsView = ({ testDetails, info }) => {
                 </Box>
               </Grid>
               <Grid item md={6} xs={12}>
-                <Box my={2} mx={1}>
+                <Box my={3} mx={1}>
                   <Card className={classes.root}>
                     <CardHeader
                       avatar={
-                        <Avatar aria-label="recipe" className={classes.avatar}>
+                        <Avatar
+                          aria-label="recipe"
+                          className={classes.avatar}
+                          style={{ backgroundColor: teal[500] }}
+                        >
                           {testDetails.topic
                             .split(" ")
                             .map((word) => word[0])
@@ -91,12 +113,36 @@ const TestDetailsView = ({ testDetails, info }) => {
                       >
                         {testDetails.description}
                       </Typography>
-                    </CardContent>
-                    <CardActions disableSpacing>
+                      <List>
+                        <ListItem>
+                          <ListItemAvatar>
+                            <Avatar className={classes.green}>
+                              {`${info.answers_attended}`}
+                            </Avatar>
+                          </ListItemAvatar>
+                          <ListItemText>Answered</ListItemText>
+                        </ListItem>
+                        <ListItem>
+                          <ListItemAvatar>
+                            <Avatar className={classes.purple}>
+                              {`${info.unanswered}`}
+                            </Avatar>
+                          </ListItemAvatar>
+                          <ListItemText>Un Answered</ListItemText>
+                        </ListItem>
+                        <ListItem>
+                          <ListItemAvatar>
+                            <Avatar className={classes.orange}>
+                              {info.answers_marked}
+                            </Avatar>
+                          </ListItemAvatar>
+                          <ListItemText>Marked</ListItemText>
+                        </ListItem>
+                      </List>
                       <Button
                         aria-label="Test Report"
                         startIcon={<AssessmentIcon />}
-                        variant="contained"
+                        variant="outlined"
                         color="primary"
                         onClick={() =>
                           history.push(`/testsolution/${testDetails._id}`)
@@ -104,7 +150,7 @@ const TestDetailsView = ({ testDetails, info }) => {
                       >
                         DETAILED REPORT
                       </Button>
-                    </CardActions>
+                    </CardContent>
                   </Card>
                 </Box>
               </Grid>
