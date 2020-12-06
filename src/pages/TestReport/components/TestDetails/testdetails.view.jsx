@@ -26,10 +26,18 @@ import WarningIcon from "@material-ui/icons/Warning";
 import AlarmOnIcon from "@material-ui/icons/AlarmOn";
 import UpdateIcon from "@material-ui/icons/Update";
 import AssessmentIcon from "@material-ui/icons/Assessment";
+import {
+  red,
+  green,
+  blueGrey,
+  orange,
+  deepOrange,
+  teal,
+} from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
   avatar: {
     color: "white",
-    backgroundColor: theme.palette.grey[500],
+    backgroundColor: blueGrey["A700"],
   },
   link: {
     display: "flex",
@@ -79,7 +87,10 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
               <TableBody>
                 <TableRow>
                   <TableCell>
-                    <Avatar className={classes.avatar}>
+                    <Avatar
+                      className={classes.avatar}
+                      style={{ backgroundColor: teal[500] }}
+                    >
                       <AssignmentIcon />
                     </Avatar>
                   </TableCell>
@@ -92,7 +103,10 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <Avatar className={classes.avatar}>
+                    <Avatar
+                      className={classes.avatar}
+                      style={{ backgroundColor: teal[500] }}
+                    >
                       <LibraryBooksIcon />
                     </Avatar>
                   </TableCell>
@@ -118,7 +132,10 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <Avatar className={classes.avatar}>
+                    <Avatar
+                      className={classes.avatar}
+                      style={{ backgroundColor: green[500] }}
+                    >
                       <AssessmentIcon />
                     </Avatar>
                   </TableCell>
@@ -156,7 +173,14 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
               <TableBody>
                 <TableRow>
                   <TableCell>
-                    <Avatar className={classes.avatar}>
+                    <Avatar
+                      className={classes.avatar}
+                      style={{
+                        backgroundColor: testInfo.is_fraudulant
+                          ? deepOrange[500]
+                          : green[500],
+                      }}
+                    >
                       {testInfo.is_fraudulant ? <MoodBadIcon /> : <MoodIcon />}
                     </Avatar>
                   </TableCell>
@@ -171,7 +195,15 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <Avatar className={classes.avatar}>
+                    <Avatar
+                      className={classes.avatar}
+                      style={{
+                        backgroundColor:
+                          (testInfo.score / testDetails.total_marks) * 100 > 40
+                            ? green[500]
+                            : red[500],
+                      }}
+                    >
                       <ScoreIcon />
                     </Avatar>
                   </TableCell>
@@ -186,7 +218,10 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <Avatar className={classes.avatar}>
+                    <Avatar
+                      className={classes.avatar}
+                      style={{ backgroundColor: orange[500] }}
+                    >
                       <WarningIcon />
                     </Avatar>
                   </TableCell>
