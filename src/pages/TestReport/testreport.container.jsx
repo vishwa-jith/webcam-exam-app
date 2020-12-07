@@ -31,7 +31,9 @@ const TestReport = () => {
     }
     if (test_info) {
       setTestInfo(test_info);
+      setAnswers(test_info.answers);
       getTestQuestions(testId).then((question) => {
+        console.log(test_info, question);
         setQuestions(question.questions);
       });
     } else {

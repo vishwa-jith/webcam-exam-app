@@ -22,8 +22,11 @@ export default function Navbar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const testMatch = useRouteMatch("/test/:testId");
+  const testSolutionMatch = useRouteMatch("/testsolution/:testId");
   const showSideBar =
-    SIDEBAR_PATH_LIST.includes(location.pathname) || !!testMatch;
+    SIDEBAR_PATH_LIST.includes(location.pathname) ||
+    !!testMatch ||
+    !!testSolutionMatch;
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getUserDetails().then((userdetails) => {

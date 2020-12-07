@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import {
   Grid,
   Typography,
@@ -10,10 +11,8 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Breadcrumbs,
-  Link,
+  Button,
 } from "@material-ui/core";
-import { Link as RouterLink } from "react-router-dom";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import TimerIcon from "@material-ui/icons/Timer";
@@ -26,6 +25,7 @@ import WarningIcon from "@material-ui/icons/Warning";
 import AlarmOnIcon from "@material-ui/icons/AlarmOn";
 import UpdateIcon from "@material-ui/icons/Update";
 import AssessmentIcon from "@material-ui/icons/Assessment";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import {
   red,
   green,
@@ -51,32 +51,26 @@ const useStyles = makeStyles((theme) => ({
 
 const TestDetailsView = ({ testDetails, testInfo }) => {
   const classes = useStyles();
+  const history = useHistory();
   return (
     <>
       <Grid item xs={12} md={10}>
         <Box m={2}>
           <Paper>
-            <Box p={2}>
-              <Breadcrumbs
-                aria-label="breadcrumb"
-                component={Paper}
-                elevation={0}
+            <Grid container alignItems="center">
+              <Button
+                onClick={() => history.goBack()}
+                size="large"
+                style={{ height: "50px" }}
               >
-                <Link
-                  color="inherit"
-                  component={RouterLink}
-                  to="/"
-                  className={classes.link}
-                >
-                  <AssessmentIcon className={classes.icon} />
-                  Home
-                </Link>
-                <Typography color="textPrimary" className={classes.link}>
-                  <AssignmentIcon className={classes.icon} />
+                <ArrowBackIcon />
+              </Button>
+              <Box px={1}>
+                <Typography variant="h6" style={{ fontWeight: "bold" }}>
                   Test Report
                 </Typography>
-              </Breadcrumbs>
-            </Box>
+              </Box>
+            </Grid>
           </Paper>
         </Box>
       </Grid>
