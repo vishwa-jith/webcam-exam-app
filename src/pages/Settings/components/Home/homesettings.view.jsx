@@ -3,10 +3,6 @@ import {
   TextField,
   Grid,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
   IconButton,
   Box,
   Paper,
@@ -18,6 +14,7 @@ import SaveIcon from "@material-ui/icons/Save";
 import PersonIcon from "@material-ui/icons/Person";
 import { useTheme } from "@material-ui/core/styles";
 import { grey } from "@material-ui/core/colors";
+import { baseUrl } from "../../../../components/constants";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +57,11 @@ const HomeSettingsView = ({
                 item
                 xs={12}
                 justify="center"
-                style={{ height: "200px", backgroundColor: grey[200] }}
+                style={{
+                  height: "200px",
+                  backgroundColor: grey[200],
+                  backgroundImage: `url( ${baseUrl}images/default_cover.jpg )`,
+                }}
               >
                 <Avatar className={classes.badge} style={{ marginTop: "75px" }}>
                   <PersonIcon style={{ fontSize: "200px" }} />

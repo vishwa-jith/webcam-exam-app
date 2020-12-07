@@ -10,3 +10,4 @@ export const ADD_TEST_DETAILS = "ADD_TEST_DETAILS";
 export const ADD_TEST_INFO = "ADD_TEST_INFO";
 export const VISION_LOST = "VISION_LOST";
 export const VISION_GAINED = "VISION_GAINED";
+export const ADD_IMAGE_DIALOG = "ADD_IMAGE_DIALOG";
