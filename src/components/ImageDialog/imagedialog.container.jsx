@@ -9,7 +9,7 @@ function ImageDialog() {
   );
   const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = useState(false);
-  const maxSteps = tutorialSteps.length;
+  const maxSteps = tutorialSteps ? tutorialSteps.length : 0;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -30,16 +30,18 @@ function ImageDialog() {
   }, [tutorialSteps]);
   return (
     <>
-      <ImageDialogView
-        open={open}
-        tutorialSteps={tutorialSteps}
-        activeStep={activeStep}
-        handleStepChange={handleStepChange}
-        maxSteps={maxSteps}
-        handleNext={handleNext}
-        handleBack={handleBack}
-        handleClose={handleClose}
-      />
+      {tutorialSteps && (
+        <ImageDialogView
+          open={open}
+          tutorialSteps={tutorialSteps}
+          activeStep={activeStep}
+          handleStepChange={handleStepChange}
+          maxSteps={maxSteps}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          handleClose={handleClose}
+        />
+      )}
     </>
   );
 }

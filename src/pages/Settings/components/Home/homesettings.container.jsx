@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { addImageDialog } from "../../../../redux/ActionCreators/imagedialog.action";
 import HomeSettingsView from "./homesettings.view";
 const HomeSettings = () => {
+  const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
   const [names, setNames] = useState({
     firstname: "",
@@ -21,6 +23,11 @@ const HomeSettings = () => {
       setIsEdit(true);
     }
   };
+  const handleImageDialog = () => {
+    dispatch(
+      addImageDialog([{ label: "Cover Image", imgPath: "default_cover.jpg" }])
+    );
+  };
   const userDetails = useSelector(
     ({ userDetails }) => userDetails.userDetails,
     shallowEqual
@@ -39,6 +46,7 @@ const HomeSettings = () => {
         handleChange={handleChange}
         handleOperation={handleOperation}
         userDetails={userDetails}
+        handleImageDialog={handleImageDialog}
       />
     </>
   );

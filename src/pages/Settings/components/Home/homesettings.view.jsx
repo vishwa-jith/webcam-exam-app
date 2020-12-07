@@ -41,6 +41,7 @@ const HomeSettingsView = ({
   handleChange,
   handleOperation,
   userDetails,
+  handleImageDialog,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -62,6 +63,7 @@ const HomeSettingsView = ({
                   backgroundColor: grey[200],
                   backgroundImage: `url( ${baseUrl}images/default_cover.jpg )`,
                 }}
+                onClick={handleImageDialog}
               >
                 <Avatar className={classes.badge} style={{ marginTop: "75px" }}>
                   <PersonIcon style={{ fontSize: "200px" }} />
