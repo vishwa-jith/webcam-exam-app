@@ -64,11 +64,13 @@ const HomeSettingsView = ({
                   backgroundImage: `url( ${baseUrl}images/default_cover.jpg )`,
                 }}
                 onClick={handleImageDialog}
+              ></Grid>
+              <Avatar
+                className={classes.badge}
+                style={{ position: "absolute", marginTop: "75px" }}
               >
-                <Avatar className={classes.badge} style={{ marginTop: "75px" }}>
-                  <PersonIcon style={{ fontSize: "200px" }} />
-                </Avatar>
-              </Grid>
+                <PersonIcon style={{ fontSize: "200px" }} />
+              </Avatar>
               <Grid item container xs={12} justify="flex-end">
                 <IconButton
                   onClick={handleOperation}

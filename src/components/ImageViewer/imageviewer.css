@@ -1,0 +1,10 @@
+.react-viewer-mask {
+  z-index: 1300 !important;
+}
+.react-viewer-close.react-viewer-btn {
+  z-index: 1310 !important;
+}
+.react-viewer-canvas,
+.react-viewer-footer {
+  z-index: 1305 !important;
+}

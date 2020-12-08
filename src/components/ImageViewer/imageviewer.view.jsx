@@ -1,13 +1,13 @@
 import React from "react";
 import Viewer from "react-viewer";
 import { baseUrl } from "../constants";
+import "./imageviewer.css";
 const ImageViewerView = ({ visible, images, handleClose }) => {
   return (
     <>
       <Viewer
         visible={visible}
         onClose={handleClose}
-        onMaskClick={handleClose}
         images={images.map(({ alt, src }) => ({
           src: `${baseUrl}images/${src}`,
           alt,
