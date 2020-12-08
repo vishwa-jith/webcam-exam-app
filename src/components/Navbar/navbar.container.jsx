@@ -7,6 +7,7 @@ import NavbarView from "./navbar.view";
 import Snackbar from "../SnackBar";
 import BackDrop from "../BackDrop";
 import ImageDialog from "../ImageDialog";
+import ImageViewer from "../ImageViewer";
 import {
   addUserDetails,
   addUserToken,
@@ -69,6 +70,7 @@ export default function Navbar() {
       <Snackbar />
       <BackDrop />
       <ImageDialog />
+      <ImageViewer />
     </>
   );
 }

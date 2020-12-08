@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { addImageDialog } from "../../../../redux/ActionCreators/imagedialog.action";
+import { addImageViewer } from "../../../../redux/ActionCreators/imagedialog.action";
 import HomeSettingsView from "./homesettings.view";
 const HomeSettings = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const HomeSettings = () => {
   };
   const handleImageDialog = () => {
     dispatch(
-      addImageDialog([{ label: "Cover Image", imgPath: "default_cover.jpg" }])
+      addImageViewer([{ alt: "Cover Image", src: "default_cover.jpg" }])
     );
   };
   const userDetails = useSelector(
