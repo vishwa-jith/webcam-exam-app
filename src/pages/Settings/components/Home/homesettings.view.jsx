@@ -6,7 +6,6 @@ import {
   IconButton,
   Box,
   Paper,
-  useMediaQuery,
   Avatar,
   List,
   ListItem,
@@ -40,25 +39,25 @@ const useStyles = makeStyles((theme) => ({
     width: theme.breakpoints.up("sm") ? "200px" : "100px",
     height: theme.breakpoints.up("sm") ? "200px" : "100px",
   },
-  popover: {
-    // pointerEvents: "none",
-  },
 }));
 const HomeSettingsView = ({
   isEdit,
   names,
   coverAnchorEl,
+  profileAnchorEl,
   handleChange,
   handleOperation,
   userDetails,
   handleImageDialog,
   handleCoverPopoverOpen,
   handleCoverPopoverClose,
+  handleProfilePopoverOpen,
+  handleProfilePopoverClose,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  const open = Boolean(coverAnchorEl);
+  const openCover = Boolean(coverAnchorEl);
+  const openProfile = Boolean(profileAnchorEl);
   return (
     <>
       <form noValidate autoComplete="off">
@@ -75,18 +74,13 @@ const HomeSettingsView = ({
                   backgroundColor: grey[200],
                   backgroundImage: `url( ${baseUrl}images/default_cover.jpg )`,
                 }}
-                aria-owns={open ? "mouse-over-popover" : undefined}
+                aria-owns={openCover ? "mouse-over-cover-popover" : undefined}
                 aria-haspopup="true"
-                onMouseOver={handleCoverPopoverOpen}
+                onClick={handleCoverPopoverOpen}
               ></Grid>
-
               <Popover
-                id="mouse-over-popover"
-                className={classes.popover}
-                classes={{
-                  paper: classes.paper,
-                }}
-                open={open}
+                id="mouse-over-cover-popover"
+                open={openCover}
                 anchorEl={coverAnchorEl}
                 anchorOrigin={{
                   vertical: "top",
@@ -100,13 +94,13 @@ const HomeSettingsView = ({
                 disableRestoreFocus
               >
                 <List>
-                  <ListItem button>
+                  <ListItem button dense>
                     <ListItemIcon>
                       <AddAPhotoIcon />
                     </ListItemIcon>
                     <ListItemText>Upload Image</ListItemText>
                   </ListItem>
-                  <ListItem button onClick={handleImageDialog}>
+                  <ListItem button dense onClick={handleImageDialog}>
                     <ListItemIcon>
                       <ImageIcon />
                     </ListItemIcon>
@@ -117,9 +111,44 @@ const HomeSettingsView = ({
               <Avatar
                 className={classes.badge}
                 style={{ position: "absolute", marginTop: "75px" }}
+                aria-owns={
+                  openProfile ? "mouse-over-profile-popover" : undefined
+                }
+                aria-haspopup="true"
+                onClick={handleProfilePopoverOpen}
               >
                 <PersonIcon style={{ fontSize: "200px" }} />
               </Avatar>
+              <Popover
+                id="mouse-over-profile-popover"
+                open={openProfile}
+                anchorEl={profileAnchorEl}
+                anchorOrigin={{
+                  vertical: "center",
+                  horizontal: "center",
+                }}
+                transformOrigin={{
+                  vertical: "center",
+                  horizontal: "center",
+                }}
+                onClose={handleProfilePopoverClose}
+                disableRestoreFocus
+              >
+                <List>
+                  <ListItem button dense>
+                    <ListItemIcon>
+                      <AddAPhotoIcon />
+                    </ListItemIcon>
+                    <ListItemText>Upload Image</ListItemText>
+                  </ListItem>
+                  <ListItem button dense onClick={handleImageDialog}>
+                    <ListItemIcon>
+                      <ImageIcon />
+                    </ListItemIcon>
+                    <ListItemText>View Image</ListItemText>
+                  </ListItem>
+                </List>
+              </Popover>
               <Grid item container xs={12} justify="flex-end">
                 <IconButton
                   onClick={handleOperation}

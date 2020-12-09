@@ -10,6 +10,13 @@ const HomeSettings = () => {
     lastname: "",
   });
   const [coverAnchorEl, setCoverAnchorEl] = useState(null);
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null);
+  const handleProfilePopoverOpen = (event) => {
+    setProfileAnchorEl(event.currentTarget);
+  };
+  const handleProfilePopoverClose = () => {
+    setProfileAnchorEl(null);
+  };
   const handleCoverPopoverOpen = (event) => {
     setCoverAnchorEl(event.currentTarget);
   };
@@ -51,12 +58,15 @@ const HomeSettings = () => {
         isEdit={isEdit}
         names={names}
         coverAnchorEl={coverAnchorEl}
+        profileAnchorEl={profileAnchorEl}
         handleChange={handleChange}
         handleOperation={handleOperation}
         userDetails={userDetails}
         handleImageDialog={handleImageDialog}
         handleCoverPopoverOpen={handleCoverPopoverOpen}
         handleCoverPopoverClose={handleCoverPopoverClose}
+        handleProfilePopoverOpen={handleProfilePopoverOpen}
+        handleProfilePopoverClose={handleProfilePopoverClose}
       />
     </>
   );
