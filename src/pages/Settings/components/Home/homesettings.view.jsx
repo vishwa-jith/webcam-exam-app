@@ -21,7 +21,7 @@ import { useTheme } from "@material-ui/core/styles";
 import { grey } from "@material-ui/core/colors";
 import { baseUrl } from "../../../../components/constants";
 import { makeStyles } from "@material-ui/core/styles";
-import ImageUpload from "../../../../components/ImageUpload";
+import ImageUpload from "./components/ImageUpload";
 const useStyles = makeStyles((theme) => ({
   username: {
     fontSize:
@@ -45,6 +45,7 @@ const HomeSettingsView = ({
   names,
   coverAnchorEl,
   profileAnchorEl,
+  profileUploadOpen,
   handleChange,
   handleOperation,
   userDetails,
@@ -53,6 +54,8 @@ const HomeSettingsView = ({
   handleCoverPopoverClose,
   handleProfilePopoverOpen,
   handleProfilePopoverClose,
+  handleProfileUploadClickOpen,
+  handleProfileUploadClose,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -202,12 +205,14 @@ const HomeSettingsView = ({
                 </>
               </Grid>
             </Grid>
-            <Grid item container xs={12} justify="center">
-              <ImageUpload />
-            </Grid>
           </Grid>
         </Grid>
       </form>
+      <ImageUpload
+        profileUploadOpen={profileUploadOpen}
+        handleProfileUploadClickOpen={handleProfileUploadClickOpen}
+        handleProfileUploadClose={handleProfileUploadClose}
+      />
     </>
   );
 };

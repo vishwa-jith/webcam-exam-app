@@ -1,6 +1,12 @@
 import React from "react";
 import { Button } from "@material-ui/core";
-const ImageUploadView = ({ image, onChange }) => {
+const ImageUploadView = ({
+  image,
+  onChange,
+  profileUploadOpen,
+  handleProfileUploadClickOpen,
+  handleProfileUploadClose,
+}) => {
   return (
     <>
       {!image ? (

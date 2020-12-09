@@ -11,6 +11,15 @@ const HomeSettings = () => {
   });
   const [coverAnchorEl, setCoverAnchorEl] = useState(null);
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
+  const [profileUploadOpen, setProfileUploadOpen] = useState(false);
+
+  const handleProfileUploadClickOpen = () => {
+    setProfileUploadOpen(true);
+  };
+
+  const handleProfileUploadClose = () => {
+    setProfileUploadOpen(false);
+  };
   const handleProfilePopoverOpen = (event) => {
     setProfileAnchorEl(event.currentTarget);
   };
@@ -59,6 +68,7 @@ const HomeSettings = () => {
         names={names}
         coverAnchorEl={coverAnchorEl}
         profileAnchorEl={profileAnchorEl}
+        profileUploadOpen={profileUploadOpen}
         handleChange={handleChange}
         handleOperation={handleOperation}
         userDetails={userDetails}
@@ -67,6 +77,8 @@ const HomeSettings = () => {
         handleCoverPopoverClose={handleCoverPopoverClose}
         handleProfilePopoverOpen={handleProfilePopoverOpen}
         handleProfilePopoverClose={handleProfilePopoverClose}
+        handleProfileUploadClickOpen={handleProfileUploadClickOpen}
+        handleProfileUploadClose={handleProfileUploadClose}
       />
     </>
   );
