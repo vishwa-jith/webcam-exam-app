@@ -21,7 +21,7 @@ import { useTheme } from "@material-ui/core/styles";
 import { grey } from "@material-ui/core/colors";
 import { baseUrl } from "../../../../components/constants";
 import { makeStyles } from "@material-ui/core/styles";
-
+import ImageUpload from "../../../../components/ImageUpload";
 const useStyles = makeStyles((theme) => ({
   username: {
     fontSize:
@@ -56,6 +56,7 @@ const HomeSettingsView = ({
 }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const matches = theme.breakpoints.up("sm");
   const openCover = Boolean(coverAnchorEl);
   const openProfile = Boolean(profileAnchorEl);
   return (
@@ -73,6 +74,7 @@ const HomeSettingsView = ({
                   height: "200px",
                   backgroundColor: grey[200],
                   backgroundImage: `url( ${baseUrl}images/default_cover.jpg )`,
+                  cursor: "pointer",
                 }}
                 aria-owns={openCover ? "mouse-over-cover-popover" : undefined}
                 aria-haspopup="true"
@@ -110,14 +112,18 @@ const HomeSettingsView = ({
               </Popover>
               <Avatar
                 className={classes.badge}
-                style={{ position: "absolute", marginTop: "75px" }}
+                style={{
+                  position: "absolute",
+                  marginTop: "75px",
+                  cursor: "pointer",
+                }}
                 aria-owns={
                   openProfile ? "mouse-over-profile-popover" : undefined
                 }
                 aria-haspopup="true"
                 onClick={handleProfilePopoverOpen}
               >
-                <PersonIcon style={{ fontSize: "200px" }} />
+                <PersonIcon style={{ fontSize: matches ? "200px" : "100px" }} />
               </Avatar>
               <Popover
                 id="mouse-over-profile-popover"
@@ -195,6 +201,9 @@ const HomeSettingsView = ({
                   </Grid>
                 </>
               </Grid>
+            </Grid>
+            <Grid item container xs={12} justify="center">
+              <ImageUpload />
             </Grid>
           </Grid>
         </Grid>
