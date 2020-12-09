@@ -9,6 +9,13 @@ const HomeSettings = () => {
     firstname: "",
     lastname: "",
   });
+  const [coverAnchorEl, setCoverAnchorEl] = useState(null);
+  const handleCoverPopoverOpen = (event) => {
+    setCoverAnchorEl(event.currentTarget);
+  };
+  const handleCoverPopoverClose = () => {
+    setCoverAnchorEl(null);
+  };
   const handleChange = (event) => {
     const { name, value } = event.target;
     setNames({
@@ -43,10 +50,13 @@ const HomeSettings = () => {
       <HomeSettingsView
         isEdit={isEdit}
         names={names}
+        coverAnchorEl={coverAnchorEl}
         handleChange={handleChange}
         handleOperation={handleOperation}
         userDetails={userDetails}
         handleImageDialog={handleImageDialog}
+        handleCoverPopoverOpen={handleCoverPopoverOpen}
+        handleCoverPopoverClose={handleCoverPopoverClose}
       />
     </>
   );

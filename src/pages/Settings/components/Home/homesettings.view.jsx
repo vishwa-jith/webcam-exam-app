@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  TextField,
+  Popover,
   Grid,
   Typography,
   IconButton,
@@ -8,10 +8,16 @@ import {
   Paper,
   useMediaQuery,
   Avatar,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import SaveIcon from "@material-ui/icons/Save";
 import PersonIcon from "@material-ui/icons/Person";
+import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import ImageIcon from "@material-ui/icons/Image";
 import { useTheme } from "@material-ui/core/styles";
 import { grey } from "@material-ui/core/colors";
 import { baseUrl } from "../../../../components/constants";
@@ -34,19 +40,25 @@ const useStyles = makeStyles((theme) => ({
     width: theme.breakpoints.up("sm") ? "200px" : "100px",
     height: theme.breakpoints.up("sm") ? "200px" : "100px",
   },
+  popover: {
+    // pointerEvents: "none",
+  },
 }));
 const HomeSettingsView = ({
   isEdit,
   names,
+  coverAnchorEl,
   handleChange,
   handleOperation,
   userDetails,
   handleImageDialog,
+  handleCoverPopoverOpen,
+  handleCoverPopoverClose,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
-
+  const open = Boolean(coverAnchorEl);
   return (
     <>
       <form noValidate autoComplete="off">
@@ -63,8 +75,45 @@ const HomeSettingsView = ({
                   backgroundColor: grey[200],
                   backgroundImage: `url( ${baseUrl}images/default_cover.jpg )`,
                 }}
-                onClick={handleImageDialog}
+                aria-owns={open ? "mouse-over-popover" : undefined}
+                aria-haspopup="true"
+                onMouseOver={handleCoverPopoverOpen}
               ></Grid>
+
+              <Popover
+                id="mouse-over-popover"
+                className={classes.popover}
+                classes={{
+                  paper: classes.paper,
+                }}
+                open={open}
+                anchorEl={coverAnchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                onClose={handleCoverPopoverClose}
+                disableRestoreFocus
+              >
+                <List>
+                  <ListItem button>
+                    <ListItemIcon>
+                      <AddAPhotoIcon />
+                    </ListItemIcon>
+                    <ListItemText>Upload Image</ListItemText>
+                  </ListItem>
+                  <ListItem button onClick={handleImageDialog}>
+                    <ListItemIcon>
+                      <ImageIcon />
+                    </ListItemIcon>
+                    <ListItemText>View Image</ListItemText>
+                  </ListItem>
+                </List>
+              </Popover>
               <Avatar
                 className={classes.badge}
                 style={{ position: "absolute", marginTop: "75px" }}
