@@ -12,7 +12,6 @@ const ImageViewerView = ({ visible, images, handleClose }) => {
           src: `${baseUrl}images/${src}`,
           alt,
         }))}
-        downloadable={true}
         changeable={false}
       />
     </>

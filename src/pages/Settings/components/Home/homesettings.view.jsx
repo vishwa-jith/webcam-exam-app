@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import SaveIcon from "@material-ui/icons/Save";
-import PersonIcon from "@material-ui/icons/Person";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import ImageIcon from "@material-ui/icons/Image";
 import { useTheme } from "@material-ui/core/styles";
@@ -38,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
   badge: {
     width: theme.breakpoints.up("sm") ? "200px" : "100px",
     height: theme.breakpoints.up("sm") ? "200px" : "100px",
+    border: "3px solid #999",
   },
 }));
 const HomeSettingsView = ({
@@ -111,7 +111,16 @@ const HomeSettingsView = ({
                     </ListItemIcon>
                     <ListItemText>Upload Image</ListItemText>
                   </ListItem>
-                  <ListItem button dense onClick={handleImageDialog}>
+                  <ListItem
+                    button
+                    dense
+                    onClick={() =>
+                      handleImageDialog({
+                        alt: "Cover Image",
+                        src: "default_cover.jpg",
+                      })
+                    }
+                  >
                     <ListItemIcon>
                       <ImageIcon />
                     </ListItemIcon>
@@ -132,7 +141,11 @@ const HomeSettingsView = ({
                 aria-haspopup="true"
                 onClick={handleProfilePopoverOpen}
               >
-                <PersonIcon style={{ fontSize: matches ? "200px" : "100px" }} />
+                <img
+                  className={classes.badge}
+                  src={`${baseUrl}images/default_avatar.png`}
+                  alt="Default Avatar"
+                />
               </Avatar>
               <Popover
                 id="mouse-over-profile-popover"
@@ -160,7 +173,16 @@ const HomeSettingsView = ({
                     </ListItemIcon>
                     <ListItemText>Upload Image</ListItemText>
                   </ListItem>
-                  <ListItem button dense onClick={handleImageDialog}>
+                  <ListItem
+                    button
+                    dense
+                    onClick={() =>
+                      handleImageDialog({
+                        alt: "Profile Image",
+                        src: "default_avatar.png",
+                      })
+                    }
+                  >
                     <ListItemIcon>
                       <ImageIcon />
                     </ListItemIcon>

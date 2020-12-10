@@ -45,10 +45,7 @@ const ImageUploadView = ({
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle
-          id="alert-dialog-slide-title"
-          style={{ backgroundColor: indigo[50] }}
-        >
+        <DialogTitle id="alert-dialog-slide-title">
           <List>
             <ListItem>
               <ListItemAvatar>
@@ -114,7 +111,7 @@ const ImageUploadView = ({
             </Grid>
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{ backgroundColor: indigo[50] }}>
+        <DialogActions>
           {((profileImage && uploadType === "Profile") ||
             (coverImage && uploadType === "Cover")) && (
             <>

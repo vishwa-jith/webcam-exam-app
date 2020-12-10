@@ -53,10 +53,10 @@ const HomeSettings = () => {
       setIsEdit(true);
     }
   };
-  const handleImageDialog = () => {
-    dispatch(
-      addImageViewer([{ alt: "Cover Image", src: "default_cover.jpg" }])
-    );
+  const handleImageDialog = (imgDetails) => {
+    setCoverAnchorEl(null);
+    setProfileAnchorEl(null);
+    dispatch(addImageViewer([imgDetails]));
   };
   const userDetails = useSelector(
     ({ userDetails }) => userDetails.userDetails,
