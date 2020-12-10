@@ -15,11 +15,11 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
-import { makeStyles } from "@material-ui/core/styles";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
+import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -31,9 +31,6 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "center",
       alignItems: "center",
     },
-  },
-  field: {
-    //margin: theme.spacing(1, 0),
   },
 }));
 const Login = ({
@@ -68,7 +65,6 @@ const Login = ({
           >
             <InputLabel htmlFor="User Name">User Name</InputLabel>
             <OutlinedInput
-              className={classes.field}
               value={loginDetails.username}
               id="username"
               name="username"

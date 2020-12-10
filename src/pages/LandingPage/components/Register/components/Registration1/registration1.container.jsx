@@ -1,4 +1,5 @@
 import React from "react";
+
 import Registration1View from "./registration1.view";
 
 const Registration1 = ({ registrationDetails, handleChange, handleStep }) => {

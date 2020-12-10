@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import Registration2View from "./registration2.view";
 
 const Registration2 = ({
@@ -7,7 +8,9 @@ const Registration2 = ({
   handleStep,
   handleSignUp,
 }) => {
+  //States
   const [showPass, setShowPass] = useState(false);
+  //Event Handlers
   const handleClickShowPassword = () => {
     setShowPass(!showPass);
   };

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Login from "./login.view";
 import { loginUser } from "../../../../components/utils/requests";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -8,7 +7,11 @@ import {
   addSuccessAlert,
   addFailureAlert,
 } from "../../../../redux/ActionCreators/alert.action";
+
+import Login from "./login.view";
+
 const LoginView = () => {
+  //Const
   const history = useHistory();
   const dispatch = useDispatch();
   const [showPass, setShowPass] = useState(false);
@@ -16,7 +19,7 @@ const LoginView = () => {
     username: "",
     password: "",
   });
-
+  //Event Handlers
   const handleChange = (event) => {
     const { name, value } = event.target;
     setLoginDetails({ ...loginDetails, [name]: value });

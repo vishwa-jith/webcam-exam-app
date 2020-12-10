@@ -1,6 +1,8 @@
 import React from "react";
+//Components
 import Registration1 from "./components/Registration1";
 import Registration2 from "./components/Registration2";
+
 const RegisterView = ({
   registrationDetails,
   handleSignUp,

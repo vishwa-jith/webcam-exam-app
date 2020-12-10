@@ -2,16 +2,20 @@ import React from "react";
 import { useRouteMatch } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { Container, Box, Paper } from "@material-ui/core";
+import { baseUrl } from "../../components/constants";
+
+//Components
 import Login from "./components/Login";
 import Register from "./components/Register";
+
 import { makeStyles } from "@material-ui/core/styles";
-import { baseUrl } from "../../components/constants";
 const useStyles = makeStyles((theme) => ({
   paper: {
     minHeight: "300px",
     width: "100%",
   },
 }));
+
 const LandingPageView = () => {
   const classes = useStyles();
   const match = useRouteMatch();

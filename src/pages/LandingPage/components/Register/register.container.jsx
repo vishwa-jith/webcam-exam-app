@@ -8,6 +8,7 @@ import {
   addFailureAlert,
 } from "../../../../redux/ActionCreators/alert.action";
 const Register = () => {
+  //Const
   const history = useHistory();
   const dispatch = useDispatch();
   const initialRegistrationDetails = {
@@ -17,10 +18,12 @@ const Register = () => {
     username: "",
     password: "",
   };
+  //States
   const [step, setStep] = useState(1);
   const [registrationDetails, setRegistrationDetails] = useState(
     initialRegistrationDetails
   );
+  //Event Handlers
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "is_doctor") {
@@ -42,7 +45,6 @@ const Register = () => {
   const handleSignUp = () => {
     addUser(registrationDetails)
       .then((res) => {
-        console.log(res);
         dispatch(addSuccessAlert(res.data.message));
         history.push("/login");
       })
