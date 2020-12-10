@@ -46,6 +46,7 @@ const HomeSettingsView = ({
   coverAnchorEl,
   profileAnchorEl,
   profileUploadOpen,
+  uploadType,
   handleChange,
   handleOperation,
   userDetails,
@@ -56,6 +57,7 @@ const HomeSettingsView = ({
   handleProfilePopoverClose,
   handleProfileUploadClickOpen,
   handleProfileUploadClose,
+  handleSubmitProfileUpload,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -99,7 +101,11 @@ const HomeSettingsView = ({
                 disableRestoreFocus
               >
                 <List>
-                  <ListItem button dense>
+                  <ListItem
+                    button
+                    dense
+                    onClick={() => handleProfileUploadClickOpen(2)}
+                  >
                     <ListItemIcon>
                       <AddAPhotoIcon />
                     </ListItemIcon>
@@ -144,7 +150,11 @@ const HomeSettingsView = ({
                 disableRestoreFocus
               >
                 <List>
-                  <ListItem button dense onClick={handleProfileUploadClickOpen}>
+                  <ListItem
+                    button
+                    dense
+                    onClick={() => handleProfileUploadClickOpen(1)}
+                  >
                     <ListItemIcon>
                       <AddAPhotoIcon />
                     </ListItemIcon>
@@ -210,7 +220,9 @@ const HomeSettingsView = ({
       </form>
       <ImageUpload
         profileUploadOpen={profileUploadOpen}
+        uploadType={uploadType}
         handleProfileUploadClose={handleProfileUploadClose}
+        handleSubmitProfileUpload={handleSubmitProfileUpload}
       />
     </>
   );

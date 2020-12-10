@@ -18,16 +18,21 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import CancelIcon from "@material-ui/icons/Cancel";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import { indigo, grey } from "@material-ui/core/colors";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const ImageUploadView = ({
-  image,
+  profileImage,
+  coverImage,
+  uploadType,
   onChange,
   profileUploadOpen,
   handleProfileUploadClose,
+  removeImage,
+  handleSubmitProfileUpload,
 }) => {
   return (
     <>
@@ -42,19 +47,19 @@ const ImageUploadView = ({
       >
         <DialogTitle
           id="alert-dialog-slide-title"
-          style={{ backgroundColor: indigo[500] }}
+          style={{ backgroundColor: indigo[50] }}
         >
           <List>
             <ListItem>
               <ListItemAvatar>
                 <Avatar
-                  style={{ backgroundColor: "white", color: indigo[500] }}
+                  style={{ backgroundColor: indigo[500], color: indigo[50] }}
                 >
                   <PhotoCameraIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText style={{ color: "white" }}>
-                {"Upload Profile Image"}
+              <ListItemText style={{ color: indigo[500] }}>
+                {`Upload ${uploadType} Image`}
               </ListItemText>
             </ListItem>
           </List>
@@ -67,7 +72,8 @@ const ImageUploadView = ({
               alignItems="center"
               style={{ minHeight: "200px" }}
             >
-              {!image ? (
+              {(!profileImage && uploadType === "Profile") ||
+              (!coverImage && uploadType === "Cover") ? (
                 <>
                   <input
                     accept="image/*"
@@ -91,30 +97,55 @@ const ImageUploadView = ({
                 </>
               ) : (
                 <img
-                  src={image}
+                  src={
+                    profileImage && uploadType === "Profile"
+                      ? profileImage
+                      : coverImage
+                  }
                   alt="profile preview"
-                  width="200px"
-                  height="200px"
+                  width={
+                    profileImage && uploadType === "Profile" ? "200px" : "100%"
+                  }
+                  height={
+                    profileImage && uploadType === "Profile" ? "200px" : "150px"
+                  }
                 />
               )}
             </Grid>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          {image && (
-            <Button
-              style={{ backgroundColor: indigo[500], color: "white" }}
-              color="secondary"
-              variant="contained"
-              endIcon={<CheckCircleIcon />}
-            >
-              Confirm
-            </Button>
+        <DialogActions style={{ backgroundColor: indigo[50] }}>
+          {((profileImage && uploadType === "Profile") ||
+            (coverImage && uploadType === "Cover")) && (
+            <>
+              <Button
+                color="primary"
+                variant="outlined"
+                endIcon={<RemoveCircleIcon />}
+                onClick={removeImage}
+              >
+                Remove Image
+              </Button>
+              <Button
+                style={{ backgroundColor: indigo[500], color: "white" }}
+                color="secondary"
+                variant="contained"
+                endIcon={<CheckCircleIcon />}
+                onClick={handleSubmitProfileUpload}
+              >
+                Confirm
+              </Button>
+            </>
           )}
           <Button
             onClick={handleProfileUploadClose}
             color="secondary"
-            variant={image ? "outlined" : "contained"}
+            variant={
+              (profileImage && uploadType === "Profile") ||
+              (coverImage && uploadType === "Cover")
+                ? "text"
+                : "outlined"
+            }
             endIcon={<CancelIcon />}
           >
             Cancel
