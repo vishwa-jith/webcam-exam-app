@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
+
 import SettingsView from "./settings.view";
 
 function a11yProps(index) {
@@ -10,12 +11,12 @@ function a11yProps(index) {
 }
 
 export default function Settings() {
-  const [value, setValue] = React.useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  //Const
   const match = useRouteMatch();
-  React.useEffect(() => {
+  //States
+  const [value, setValue] = useState(0);
+  //useEffect
+  useEffect(() => {
     if (["/settings/company"].includes(match.path)) {
       handleChange(null, 2);
     } else if (["/settings/test"].includes(match.path)) {
@@ -24,6 +25,11 @@ export default function Settings() {
       handleChange(null, 0);
     }
   }, [match.path]);
+  //Event Handlers
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <>
       <SettingsView

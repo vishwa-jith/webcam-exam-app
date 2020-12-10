@@ -3,17 +3,31 @@ import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { addImageViewer } from "../../../../redux/ActionCreators/imagedialog.action";
 import HomeSettingsView from "./homesettings.view";
 const HomeSettings = () => {
+  //Const
   const dispatch = useDispatch();
-  const [isEdit, setIsEdit] = useState(false);
-  const [names, setNames] = useState({
+  const initialNames = {
     firstname: "",
     lastname: "",
-  });
+  };
+  const userDetails = useSelector(
+    ({ userDetails }) => userDetails.userDetails,
+    shallowEqual
+  );
+  //States
+  const [isEdit, setIsEdit] = useState(false);
+  const [names, setNames] = useState(initialNames);
   const [coverAnchorEl, setCoverAnchorEl] = useState(null);
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const [profileUploadOpen, setProfileUploadOpen] = useState(false);
   const [uploadType, setUploadType] = useState(null);
-
+  //useEffect
+  useEffect(() => {
+    if (userDetails) {
+      const { firstname, lastname } = userDetails;
+      setNames({ firstname, lastname });
+    }
+  }, [userDetails]);
+  //Event Handlers
   const handleProfileUploadClickOpen = (type) => {
     setProfileAnchorEl(null);
     setCoverAnchorEl(null);
@@ -58,16 +72,7 @@ const HomeSettings = () => {
     setProfileAnchorEl(null);
     dispatch(addImageViewer([imgDetails]));
   };
-  const userDetails = useSelector(
-    ({ userDetails }) => userDetails.userDetails,
-    shallowEqual
-  );
-  useEffect(() => {
-    if (userDetails) {
-      const { firstname, lastname } = userDetails;
-      setNames({ firstname, lastname });
-    }
-  }, [userDetails]);
+
   return (
     <>
       <HomeSettingsView

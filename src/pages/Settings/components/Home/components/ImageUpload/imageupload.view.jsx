@@ -20,6 +20,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import { indigo, grey } from "@material-ui/core/colors";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Zoom in={true} ref={ref} {...props} />;
 });
@@ -34,6 +35,7 @@ const ImageUploadView = ({
   removeImage,
   handleSubmitProfileUpload,
 }) => {
+
   return (
     <>
       <Dialog

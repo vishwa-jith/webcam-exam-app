@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+
 import ImageUploadView from "./imageupload.view";
+
 const ImageUpload = ({
   uploadType,
   profileUploadOpen,
   handleProfileUploadClose,
   handleSubmitProfileUpload,
 }) => {
+  //States
   const [profileImage, setProfileImage] = useState(null);
   const [coverImage, setCoverImage] = useState(null);
+  //Event Handlers
   const onChange = (event) => {
     if (uploadType === "Profile") {
       setProfileImage(URL.createObjectURL(event.target.files[0]));
@@ -22,6 +26,7 @@ const ImageUpload = ({
       setCoverImage(null);
     }
   };
+
   return (
     <>
       <ImageUploadView
