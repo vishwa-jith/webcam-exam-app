@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  Slide,
+  Zoom,
   Grid,
   List,
   ListItem,
@@ -21,7 +21,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import { indigo, grey } from "@material-ui/core/colors";
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Zoom in={true} ref={ref} {...props} />;
 });
 
 const ImageUploadView = ({
