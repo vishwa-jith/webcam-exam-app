@@ -144,7 +144,7 @@ const HomeSettingsView = ({
                 disableRestoreFocus
               >
                 <List>
-                  <ListItem button dense>
+                  <ListItem button dense onClick={handleProfileUploadClickOpen}>
                     <ListItemIcon>
                       <AddAPhotoIcon />
                     </ListItemIcon>
@@ -210,7 +210,6 @@ const HomeSettingsView = ({
       </form>
       <ImageUpload
         profileUploadOpen={profileUploadOpen}
-        handleProfileUploadClickOpen={handleProfileUploadClickOpen}
         handleProfileUploadClose={handleProfileUploadClose}
       />
     </>

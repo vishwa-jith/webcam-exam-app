@@ -14,6 +14,7 @@ const HomeSettings = () => {
   const [profileUploadOpen, setProfileUploadOpen] = useState(false);
 
   const handleProfileUploadClickOpen = () => {
+    setProfileAnchorEl(null);
     setProfileUploadOpen(true);
   };
 

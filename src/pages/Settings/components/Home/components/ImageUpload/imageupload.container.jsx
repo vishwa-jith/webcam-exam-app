@@ -1,11 +1,7 @@
 import { Event } from "@material-ui/icons";
 import React, { useState } from "react";
 import ImageUploadView from "./imageupload.view";
-const ImageUpload = ({
-  profileUploadOpen,
-  handleProfileUploadClickOpen,
-  handleProfileUploadClose,
-}) => {
+const ImageUpload = ({ profileUploadOpen, handleProfileUploadClose }) => {
   const [image, setImage] = useState(null);
   const onChange = (event) => {
     console.log(event.target.files[0]);
@@ -17,7 +13,6 @@ const ImageUpload = ({
         image={image}
         onChange={onChange}
         profileUploadOpen={profileUploadOpen}
-        handleProfileUploadClickOpen={handleProfileUploadClickOpen}
         handleProfileUploadClose={handleProfileUploadClose}
       />
     </>
