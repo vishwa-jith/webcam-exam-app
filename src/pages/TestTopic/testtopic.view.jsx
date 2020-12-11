@@ -1,10 +1,9 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import TopicCard from "./components/TopicCard";
+import { Grid, Box, Button, useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+
+//Components
+import TopicCard from "./components/TopicCard";
 import TopicCardSkeleton from "./components/TopicCardSkeleton";
 
 const TestTopicView = ({
@@ -19,8 +18,10 @@ const TestTopicView = ({
   userDetails,
   isLoading,
 }) => {
+  //Const
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
+
   return (
     <>
       <Box p={5}>

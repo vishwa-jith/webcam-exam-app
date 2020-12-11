@@ -1,18 +1,43 @@
 import React, { useEffect, useState } from "react";
-import TestTopicView from "./testtopic.view.jsx";
 import { getTestTopics } from "../../components/utils/requests";
 import Slide from "@material-ui/core/Slide";
 import { useSelector, shallowEqual } from "react-redux";
+
+import TestTopicView from "./testtopic.view";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const Subjects = () => {
+  //Const
+  const userDetails = useSelector(
+    ({ userDetails }) => userDetails,
+    shallowEqual
+  );
+  //States
   const [testTopic, setTestTopic] = useState([]);
   const [expandedList, setExpandedList] = useState([]);
   const [anchorE1List, setAnchorE1List] = useState([]);
   const [info, setinfo] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const userDetails = useSelector(
-    ({ userDetails }) => userDetails,
-    shallowEqual
-  );
+  //useEffect
+  useEffect(() => {
+    setIsLoading(true);
+    getTestTopics()
+      .then((data) => {
+        setIsLoading(false);
+        setTestTopic(data.topics);
+        setinfo(data.info);
+        setExpandedList(data.topics.map(() => false));
+        setAnchorE1List(data.topics.map(() => null));
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
+    // eslint-disable-next-line
+  }, []);
+  //Event Handlers
   const handleExpandClick = (topic_no) => {
     setExpandedList(
       expandedList.map((bool, index) => {
@@ -36,27 +61,7 @@ const Subjects = () => {
   const handleAnchorE1Close = () => {
     setAnchorE1List(anchorE1List.map(() => null));
   };
-  const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
 
-  useEffect(() => {
-    setIsLoading(true);
-    getTestTopics()
-      .then((data) => {
-        setIsLoading(false);
-        setTestTopic(data.topics);
-        setinfo(data.info);
-        setExpandedList(data.topics.map(() => false));
-        setAnchorE1List(data.topics.map(() => null));
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        console.log(err);
-      });
-    // eslint-disable-next-line
-  }, []);
-  console.log(useSelector((state) => state));
   return (
     <>
       <TestTopicView
