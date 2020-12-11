@@ -4,7 +4,6 @@ import openSocket from "socket.io-client";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { getTestQuestions, sendAnswers } from "../../components/utils/requests";
 import { getTimer } from "../../components/utils";
-import TestView from "./test.view";
 import CustomContext from "../../components/CustomContext/customcontext.container";
 import {
   addInfoAlert,
@@ -14,6 +13,9 @@ import {
   visionLost,
   visionGained,
 } from "../../redux/ActionCreators/test.action";
+
+import TestView from "./test.view";
+
 const Test = () => {
   //Const
   const { testId } = useParams();
@@ -39,7 +41,6 @@ const Test = () => {
   const [timer, setTimer] = useState(null);
   const [isTimer, setIsTimer] = useState(false);
   const [value, setValue] = useState(0);
-  const [uiType, setUiType] = useState(true);
   const [done, setDone] = useState([]);
   const [warning, setWarning] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
@@ -53,15 +54,16 @@ const Test = () => {
     const end_sec = start_sec + 60 * testDetails.duration_in_min;
     const timer_sec = end_sec - now_sec;
     setTimer(timer_sec);
+    // eslint-disable-next-line
   }, []);
   useEffect(() => {
-    let interval;
     if (timer && !isTimer) {
       setIsTimer(true);
-      interval = setInterval(() => {
+      setInterval(() => {
         setTimer((timer) => timer - 1);
       }, 1000);
     }
+    // eslint-disable-next-line
   }, [timer]);
   useEffect(() => {
     if (socket && user_id) {
@@ -95,24 +97,22 @@ const Test = () => {
   useEffect(() => {
     window.addEventListener("visibilitychange", visibility);
     window.addEventListener("contextmenu", (event) => event.preventDefault());
-    getTestQuestions(testId)
-      .then((ques) => {
-        setuser_id(ques.user_id);
-        setQuestions(ques.questions);
-        setAnswers(
-          ques.questions.map((data, index) => ({ id: index, answer: null }))
-        );
-      })
-      .catch((error) => console.log(error));
+    getTestQuestions(testId).then((ques) => {
+      setuser_id(ques.user_id);
+      setQuestions(ques.questions);
+      setAnswers(
+        ques.questions.map((data, index) => ({ id: index, answer: null }))
+      );
+    });
     return () => {
       window.removeEventListener("visibilitychange", visibility);
     };
+    // eslint-disable-next-line
   }, [testId]);
   //Event Handlers
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
   };
-
   const handleCloseDialog = () => {
     dispatch(visionGained(document.visibilityState));
     setOpenDialog(false);
@@ -131,9 +131,6 @@ const Test = () => {
       dispatch(addInfoAlert(`Question number ${question_no + 1} mark saved`));
       setWarning([...warning, question_no]);
     }
-  };
-  const handleUiChange = () => {
-    setUiType(!uiType);
   };
   const handleChange = (event, newValue) => {
     setQuestion_No(newValue);
@@ -185,12 +182,10 @@ const Test = () => {
         answers_attended: done.length,
         answers_marked: warning.length,
         unanswered: questions.length - done.length,
-      })
-        .then(() => {
-          window.removeEventListener("visibilitychange", visibility);
-          history.push("/testtopics");
-        })
-        .catch((error) => console.log(error));
+      }).then(() => {
+        window.removeEventListener("visibilitychange", visibility);
+        history.push("/testtopics");
+      });
     }
   };
   return (
@@ -214,8 +209,6 @@ const Test = () => {
         timer={timer}
         value={value}
         handleChange={handleChange}
-        uiType={uiType}
-        handleUiChange={handleUiChange}
         done={done}
         warning={warning}
         handleWarning={handleWarning}

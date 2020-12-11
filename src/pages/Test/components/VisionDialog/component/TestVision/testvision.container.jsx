@@ -1,5 +1,7 @@
 import React from "react";
+
 import TestVisionView from "./testvision.view";
+
 const TestVision = ({
   openDialog,
   handleClickOpenDialog,

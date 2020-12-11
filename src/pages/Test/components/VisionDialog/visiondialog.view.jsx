@@ -1,8 +1,9 @@
 import React from "react";
-import { Button, Dialog, AppBar, Toolbar, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Dialog, AppBar, Toolbar, Typography } from "@material-ui/core";
+
 import TestVision from "./component/TestVision";
 
+import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -12,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
 }));
+
 const VisionDialogView = ({
   openDialog,
   handleClickOpenDialog,

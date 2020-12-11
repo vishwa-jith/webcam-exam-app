@@ -9,6 +9,7 @@ import {
   Link,
 } from "@material-ui/core";
 import { baseUrl } from "../../../../../../components/constants";
+
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
       "calc( 15px + ( 20 - 15 ) * ( ( 100vw - 300px ) / ( 1600 - 300 ) ) )",
   },
 }));
+
 const TestVisionView = ({
   openDialog,
   handleClickOpenDialog,

@@ -1,5 +1,7 @@
 import React from "react";
+
 import VisionDialogView from "./visiondialog.view";
+
 const VisionDialog = ({
   openDialog,
   handleClickOpenDialog,
