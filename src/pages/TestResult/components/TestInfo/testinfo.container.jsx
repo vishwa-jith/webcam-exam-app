@@ -1,5 +1,7 @@
 import React from "react";
+
 import TestInfoView from "./testinfo.view";
+
 const TestInfo = ({ testDetails, testInfo }) => {
   return (
     <>

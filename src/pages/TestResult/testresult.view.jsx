@@ -8,7 +8,9 @@ import {
   Paper,
   TableBody,
 } from "@material-ui/core";
+
 import TestDetails from "./components/TestDetails";
+
 const TestResultView = ({ testTopic, testInfo }) => {
   return (
     <>

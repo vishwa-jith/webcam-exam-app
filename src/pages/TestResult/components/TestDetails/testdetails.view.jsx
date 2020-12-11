@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   TableRow,
   TableCell,
@@ -14,7 +15,6 @@ import {
   CardHeader,
   Avatar,
   CardContent,
-  CardActions,
   List,
   ListItem,
   ListItemAvatar,
@@ -22,9 +22,6 @@ import {
 } from "@material-ui/core";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import { useHistory } from "react-router-dom";
-import TestInfo from "../TestInfo";
-import { makeStyles } from "@material-ui/core/styles";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import {
   teal,
@@ -33,6 +30,10 @@ import {
   indigo,
   green,
 } from "@material-ui/core/colors";
+
+import TestInfo from "../TestInfo";
+
+import { makeStyles } from "@material-ui/core/styles";
 const useRowStyles = makeStyles({
   orange: {
     color: "white",
@@ -47,10 +48,14 @@ const useRowStyles = makeStyles({
     backgroundColor: green[500],
   },
 });
+
 const TestDetailsView = ({ testDetails, info }) => {
+  //Const
   const classes = useRowStyles();
   const history = useHistory();
-  const [open, setOpen] = React.useState(false);
+  //States
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <TableRow className={classes.root}>

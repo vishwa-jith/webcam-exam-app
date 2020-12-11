@@ -9,12 +9,6 @@ import {
   TableRow,
   TableCell,
 } from "@material-ui/core";
-import WarningIcon from "@material-ui/icons/Warning";
-import AlarmOnIcon from "@material-ui/icons/AlarmOn";
-import UpdateIcon from "@material-ui/icons/Update";
-import MoodIcon from "@material-ui/icons/Mood";
-import MoodBadIcon from "@material-ui/icons/MoodBad";
-import ScoreIcon from "@material-ui/icons/Score";
 import {
   red,
   green,
@@ -22,6 +16,13 @@ import {
   orange,
   deepOrange,
 } from "@material-ui/core/colors";
+import WarningIcon from "@material-ui/icons/Warning";
+import AlarmOnIcon from "@material-ui/icons/AlarmOn";
+import UpdateIcon from "@material-ui/icons/Update";
+import MoodIcon from "@material-ui/icons/Mood";
+import MoodBadIcon from "@material-ui/icons/MoodBad";
+import ScoreIcon from "@material-ui/icons/Score";
+
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -39,7 +40,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TestInfoView = ({ testDetails, testInfo }) => {
+  //Const
   const classes = useStyles();
+
   return (
     <>
       <TableContainer component={Paper}>
