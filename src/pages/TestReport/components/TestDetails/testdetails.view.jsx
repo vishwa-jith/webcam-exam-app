@@ -20,7 +20,6 @@ import EventIcon from "@material-ui/icons/Event";
 import MoodIcon from "@material-ui/icons/Mood";
 import MoodBadIcon from "@material-ui/icons/MoodBad";
 import ScoreIcon from "@material-ui/icons/Score";
-import { makeStyles } from "@material-ui/core/styles";
 import WarningIcon from "@material-ui/icons/Warning";
 import AlarmOnIcon from "@material-ui/icons/AlarmOn";
 import UpdateIcon from "@material-ui/icons/Update";
@@ -34,6 +33,8 @@ import {
   deepOrange,
   teal,
 } from "@material-ui/core/colors";
+
+import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   avatar: {
     color: "white",

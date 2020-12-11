@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import TestReportView from "./testReport.view";
 import { useSelector, shallowEqual } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -7,12 +6,12 @@ import {
   getTestInfo,
   getTestQuestions,
 } from "../../components/utils/requests";
+
+import TestReportView from "./testReport.view";
+
 const TestReport = () => {
+  //Const
   const { testId } = useParams();
-  const [testDetails, setTestDetails] = useState(null);
-  const [testInfo, setTestInfo] = useState(null);
-  const [questions, setQuestions] = useState(null);
-  const [answers, setAnswers] = useState(null);
   const test_info = useSelector(
     ({ testDetails }) => testDetails.testInfo,
     shallowEqual
@@ -21,6 +20,12 @@ const TestReport = () => {
     ({ testDetails }) => testDetails.testDetails,
     shallowEqual
   );
+  //States
+  const [testDetails, setTestDetails] = useState(null);
+  const [testInfo, setTestInfo] = useState(null);
+  const [questions, setQuestions] = useState(null);
+  const [answers, setAnswers] = useState(null);
+  //useEffect
   useEffect(() => {
     if (test_details) {
       setTestDetails(test_details);
@@ -46,6 +51,7 @@ const TestReport = () => {
       });
     }
   }, [testId, test_info, test_details]);
+
   return (
     <>
       <TestReportView
