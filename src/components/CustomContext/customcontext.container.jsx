@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+
 import CustomContextView from "./customcontext.view";
+
 const CustomContext = ({ items }) => {
+  //Const
+  const initialCoordinates = { x: 0, y: 0 };
+  //States
   const [visible, setVisible] = useState(false);
-  const [coordinates, setCoordinates] = useState({
-    x: 0,
-    y: 0,
-  });
+  const [coordinates, setCoordinates] = useState(initialCoordinates);
+  //useEffect
   useEffect(() => {
     document.addEventListener("contextmenu", function (event) {
       event.preventDefault();
@@ -20,6 +23,7 @@ const CustomContext = ({ items }) => {
       setCoordinates({ x: 0, y: 0 });
     });
   }, []);
+
   return (
     <>
       {visible && <CustomContextView coordinates={coordinates} items={items} />}

@@ -4,7 +4,6 @@ import openSocket from "socket.io-client";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { getTestQuestions, sendAnswers } from "../../components/utils/requests";
 import { getTimer } from "../../components/utils";
-import CustomContext from "../../components/CustomContext/customcontext.container";
 import {
   addInfoAlert,
   addWarningAlert,
@@ -15,6 +14,7 @@ import {
 } from "../../redux/ActionCreators/test.action";
 
 import TestView from "./test.view";
+import CustomContext from "../../components/CustomContext";
 
 const Test = () => {
   //Const
