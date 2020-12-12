@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
+
 import BackDropView from "./backdrop.view";
+
 const BackDrop = () => {
-  const [open, setOpen] = useState(false);
+  //Const
   const backDropDetails = useSelector(
-    ({ backDropDetails }) => backDropDetails,
+    (state) => state.backDropDetails,
     shallowEqual
   );
+  //States
+  const [open, setOpen] = useState(false);
+  //useEffect
   useEffect(() => {
     if (backDropDetails.showBackdrop) {
       setOpen(true);
@@ -14,6 +19,7 @@ const BackDrop = () => {
       setOpen(false);
     }
   }, [backDropDetails]);
+
   return (
     <>
       <BackDropView open={open} />
