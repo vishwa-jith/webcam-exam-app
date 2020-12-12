@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual } from "react-redux";
+
 import SnackbarView from "./snackbar.view";
+
 const Snackbar = () => {
-  const [open, setOpen] = useState(false);
+  //Const
   const alertDetails = useSelector(
     ({ alertDetails }) => alertDetails,
     shallowEqual
   );
-  const handleClose = (event) => {
-    setOpen(false);
-  };
+  //States
+  const [open, setOpen] = useState(false);
+  //
   useEffect(() => {
     if (
       alertDetails.isError ||
@@ -20,6 +22,10 @@ const Snackbar = () => {
       setOpen(true);
     }
   }, [alertDetails]);
+  //Event Handlers
+  const handleClose = (event) => {
+    setOpen(false);
+  };
   return (
     <>
       <SnackbarView
