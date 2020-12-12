@@ -1,8 +1,8 @@
 import React from "react";
 import Viewer from "react-viewer";
 import { baseUrl } from "../constants";
-import "./imageviewer.css";
 
+import "./imageviewer.css";
 const ImageViewerView = ({ visible, images, handleClose }) => {
   return (
     <>
