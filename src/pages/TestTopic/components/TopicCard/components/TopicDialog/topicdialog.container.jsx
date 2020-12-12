@@ -1,5 +1,7 @@
 import React from "react";
+
 import TopicDialogView from "./topicdialog.view";
+
 const TopicDialog = ({
   testtopicdata,
   Transition,

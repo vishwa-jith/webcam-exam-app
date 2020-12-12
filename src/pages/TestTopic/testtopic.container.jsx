@@ -9,12 +9,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Subjects = () => {
+const TestTopic = () => {
   //Const
-  const userDetails = useSelector(
-    ({ userDetails }) => userDetails,
-    shallowEqual
-  );
+  const userDetails = useSelector((state) => state.userDetails, shallowEqual);
   //States
   const [testTopic, setTestTopic] = useState([]);
   const [expandedList, setExpandedList] = useState([]);
@@ -80,4 +77,4 @@ const Subjects = () => {
   );
 };
 
-export default Subjects;
+export default TestTopic;

@@ -1,7 +1,8 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardHeader, CardContent, Grid, Box } from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
+
+import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   card: {
     width: "100%",
@@ -11,8 +12,11 @@ const useStyles = makeStyles((theme) => ({
     height: 275,
   },
 }));
+
 const TopicCardSkeleton = () => {
+  //Const
   const classes = useStyles();
+
   return (
     <Grid item xs={3}>
       <Box mx={1}>
