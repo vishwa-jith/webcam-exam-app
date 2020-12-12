@@ -1,9 +1,12 @@
 import React from "react";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import { Link, useLocation } from "react-router-dom";
+import {
+  List,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import HelpIcon from "@material-ui/icons/Help";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -11,9 +14,11 @@ import AssessmentIcon from "@material-ui/icons/Assessment";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { Link, useLocation } from "react-router-dom";
+
 const SideBarView = ({ handleLogout, testMatch, userDetails }) => {
+  //Const
   const location = useLocation();
+
   return (
     <>
       <List>

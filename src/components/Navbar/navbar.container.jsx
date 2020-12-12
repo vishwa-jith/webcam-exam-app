@@ -3,11 +3,6 @@ import { useLocation, useRouteMatch } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { SIDEBAR_PATH_LIST } from "../constants";
-import NavbarView from "./navbar.view";
-import Snackbar from "../SnackBar";
-import BackDrop from "../BackDrop";
-import ImageDialog from "../ImageDialog";
-import ImageViewer from "../ImageViewer";
 import {
   addUserDetails,
   addUserToken,
@@ -17,10 +12,17 @@ import {
   addSuccessAlert,
 } from "../../redux/ActionCreators/alert.action";
 import { getUserDetails, logoutUser } from "../utils/requests";
+
+//Components
+import NavbarView from "./navbar.view";
+import Snackbar from "../SnackBar";
+import BackDrop from "../BackDrop";
+import ImageDialog from "../ImageDialog";
+import ImageViewer from "../ImageViewer";
+
 export default function Navbar() {
+  //Const
   const history = useHistory();
-  const [open, setOpen] = useState(false);
-  const [userDetails, setUserDetails] = useState(null);
   const location = useLocation();
   const dispatch = useDispatch();
   const testMatch = useRouteMatch("/test/:testId");
@@ -29,6 +31,10 @@ export default function Navbar() {
     SIDEBAR_PATH_LIST.includes(location.pathname) ||
     !!testMatch ||
     !!testSolutionMatch;
+  //States
+  const [open, setOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
+  //useEffect
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getUserDetails().then((userdetails) => {
@@ -38,10 +44,8 @@ export default function Navbar() {
       });
     }
   }, [showSideBar, dispatch]);
-  console.log("sample");
+  //Event Handlers
   const handleLogout = () => {
-    // localStorage.removeItem("token");
-    // history.push("/login");
     logoutUser()
       .then((res) => {
         dispatch(addSuccessAlert(res.message));
@@ -56,6 +60,7 @@ export default function Navbar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   return (
     <>
       <NavbarView
