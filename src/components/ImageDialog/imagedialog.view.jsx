@@ -1,20 +1,19 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import MobileStepper from "@material-ui/core/MobileStepper";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
-import Dialog from "@material-ui/core/Dialog";
-import Slide from "@material-ui/core/Slide";
 import { baseUrl } from "../constants";
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+import {
+  MobileStepper,
+  Paper,
+  Typography,
+  Button,
+  Dialog,
+  Slide,
+} from "@material-ui/core";
+import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
+import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100%",
@@ -35,7 +34,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+
 const ImageDialogView = ({
   open,
   tutorialSteps,
@@ -46,8 +50,10 @@ const ImageDialogView = ({
   handleBack,
   handleClose,
 }) => {
+  //Const
   const classes = useStyles();
   const theme = useTheme();
+
   return (
     <Dialog
       open={open}
