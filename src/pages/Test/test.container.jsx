@@ -2,7 +2,11 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import openSocket from "socket.io-client";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { getTestQuestions, sendAnswers } from "../../components/utils/requests";
+import {
+  getTestQuestions,
+  sendAnswers,
+  startTest,
+} from "../../components/utils/requests";
 import { getTimer } from "../../components/utils";
 import {
   addInfoAlert,
@@ -46,6 +50,7 @@ const Test = () => {
   const [openDialog, setOpenDialog] = useState(false);
   //useEffect
   useEffect(() => {
+    startTest(testId, new Date());
     setSocket(openSocket("http://192.168.225.69:8000/"));
     const start_sec = getTimer(
       new Date(testDetails.start_time).toLocaleTimeString().split(":")
