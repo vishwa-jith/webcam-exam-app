@@ -18,7 +18,7 @@ const TopicCardSkeleton = () => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={3}>
+    <Grid item xs={12} md={3}>
       <Box mx={1}>
         <Card className={classes.card}>
           <CardHeader

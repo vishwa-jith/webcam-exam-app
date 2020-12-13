@@ -21,7 +21,6 @@ import CardHeaderAction from "./components/CardHeaderAction";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
     textAlign: "left",
     background: theme.palette.background.paper,
   },

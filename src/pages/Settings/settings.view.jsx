@@ -11,7 +11,7 @@ import { useRouteMatch } from "react-router-dom";
 //Components
 import HomeSettings from "./components/Home";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  const theme = useTheme();
   return (
     <div
       role="tabpanel"
@@ -30,7 +30,9 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box p={3}>{children}</Box>}
+      {value === index && (
+        <Box p={theme.breakpoints.up("sm") ? 3 : 0}>{children}</Box>
+      )}
     </div>
   );
 }

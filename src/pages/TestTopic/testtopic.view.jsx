@@ -76,9 +76,13 @@ const TestTopicView = ({
           ) : (
             <>
               <TopicCardSkeleton />
-              <TopicCardSkeleton />
-              <TopicCardSkeleton />
-              <TopicCardSkeleton />
+              {matches && (
+                <>
+                  <TopicCardSkeleton />
+                  <TopicCardSkeleton />
+                  <TopicCardSkeleton />
+                </>
+              )}
             </>
           )}
         </Grid>
