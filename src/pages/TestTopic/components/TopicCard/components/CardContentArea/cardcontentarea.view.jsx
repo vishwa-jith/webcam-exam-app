@@ -13,6 +13,8 @@ import HelpIcon from "@material-ui/icons/Help";
 import DoneIcon from "@material-ui/icons/Done";
 import ErrorIcon from "@material-ui/icons/Error";
 import ReceiptIcon from "@material-ui/icons/Receipt";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
+import { orange, green, teal } from "@material-ui/core/colors";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -53,10 +55,19 @@ const CardContentAreaView = ({
             <ListItem>
               <ListItemIcon>
                 {!testinfo ? (
+                  <MenuBookIcon
+                    style={{
+                      textAlign: "left",
+                      color: teal[500],
+                      fontWeight: "bolder",
+                      float: "left",
+                    }}
+                  />
+                ) : !testinfo.end_time ? (
                   <HelpIcon
                     style={{
                       textAlign: "left",
-                      color: "red",
+                      color: orange[500],
                       fontWeight: "bolder",
                       float: "left",
                     }}
@@ -65,7 +76,7 @@ const CardContentAreaView = ({
                   <DoneIcon
                     style={{
                       textAlign: "left",
-                      color: "green",
+                      color: green[500],
                       fontWeight: "bolder",
                       float: "left",
                     }}
@@ -73,29 +84,24 @@ const CardContentAreaView = ({
                 )}
               </ListItemIcon>
               <ListItemText>
-                {!testinfo ? (
-                  <Typography
-                    style={{
-                      textAlign: "left",
-                      color: "red",
-                      fontWeight: "bolder",
-                      float: "left",
-                    }}
-                  >
-                    Take Test
-                  </Typography>
-                ) : (
-                  <Typography
-                    style={{
-                      textAlign: "left",
-                      color: "green",
-                      fontWeight: "bolder",
-                      float: "left",
-                    }}
-                  >
-                    Completed
-                  </Typography>
-                )}
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    color: testinfo
+                      ? !testinfo.end_time
+                        ? orange[500]
+                        : green[500]
+                      : teal[500],
+                    fontWeight: "bolder",
+                    float: "left",
+                  }}
+                >
+                  {testinfo
+                    ? !testinfo.end_time
+                      ? "Resume Test"
+                      : "Completed"
+                    : "Take Test"}
+                </Typography>
               </ListItemText>
               <ListItemSecondaryAction>
                 <ListItem>

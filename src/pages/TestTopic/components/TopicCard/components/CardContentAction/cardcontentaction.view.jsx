@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { Typography, IconButton, CardContent, Grid } from "@material-ui/core";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { orange, green, teal } from "@material-ui/core/colors";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -34,26 +35,39 @@ const CardContentActionView = ({
         <Grid item xs={8}>
           <CardContent>
             {testinfo ? (
-              <Typography
-                variant="subtitle1"
-                style={{
-                  fontWeight: "bolder",
-                  fontSize: "1.2em",
-                  color:
-                    testtopicdata.score >= 0.35 * testtopicdata.total_marks
-                      ? "red"
-                      : "green",
-                }}
-              >
-                {`${testinfo.score.toFixed(2)}/${testtopicdata.total_marks}`}
-              </Typography>
+              !testinfo.end_time ? (
+                <Typography
+                  variant="subtitle1"
+                  style={{
+                    fontWeight: "bolder",
+                    fontSize: "1.2em",
+                    color: orange[500],
+                  }}
+                >
+                  {new Date(testtopicdata.start_time).toLocaleTimeString()}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="subtitle1"
+                  style={{
+                    fontWeight: "bolder",
+                    fontSize: "1.2em",
+                    color:
+                      testtopicdata.score >= 0.35 * testtopicdata.total_marks
+                        ? orange[500]
+                        : green[500],
+                  }}
+                >
+                  {`${testinfo.score.toFixed(2)}/${testtopicdata.total_marks}`}
+                </Typography>
+              )
             ) : (
               <Typography
                 variant="subtitle1"
                 style={{
                   fontWeight: "bolder",
                   fontSize: "1.2em",
-                  color: "grey",
+                  color: teal[500],
                 }}
               >
                 {new Date(testtopicdata.start_time).toLocaleTimeString()}
