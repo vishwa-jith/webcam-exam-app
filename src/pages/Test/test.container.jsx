@@ -129,12 +129,15 @@ const Test = () => {
       startTest(testId, new Date());
     }
     // eslint-disable-next-line
-  }, [testInfo]);
+  }, [testInfo, isTestInfo]);
   //Event Handlers
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
   };
   const handleCloseDialog = () => {
+    if (testInfo.no_of_warning >= 5) {
+      history.push("/testtopics");
+    }
     dispatch(visionGained(document.visibilityState));
     setOpenDialog(false);
   };
