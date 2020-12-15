@@ -4,6 +4,7 @@ import TestVisionView from "./testvision.view";
 
 const TestVision = ({
   openDialog,
+  testInfo,
   handleClickOpenDialog,
   handleCloseDialog,
 }) => {
@@ -11,6 +12,7 @@ const TestVision = ({
     <>
       <TestVisionView
         openDialog={openDialog}
+        testInfo={testInfo}
         handleClickOpenDialog={handleClickOpenDialog}
         handleCloseDialog={handleCloseDialog}
       />

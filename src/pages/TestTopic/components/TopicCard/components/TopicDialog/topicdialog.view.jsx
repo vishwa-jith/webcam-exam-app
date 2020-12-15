@@ -141,10 +141,14 @@ const TopicDialogView = ({
                         color="primary"
                         variant="contained"
                         onClick={() => {
-                          history.push(`/testsolution/${testtopicdata._id}`);
+                          history.push(
+                            !testinfo.end_time
+                              ? `/test/${testtopicdata._id}`
+                              : `/testsolution/${testtopicdata._id}`
+                          );
                         }}
                       >
-                        VIEW SOLUTION
+                        {!testinfo.end_time ? "RESUME TEST" : "VIEW SOLUTION"}
                       </Button>
                     </ListItemText>
                   ) : (

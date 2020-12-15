@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
 const VisionDialogView = ({
   openDialog,
+  testInfo,
   handleClickOpenDialog,
   handleCloseDialog,
 }) => {
@@ -32,6 +33,7 @@ const VisionDialogView = ({
         </AppBar>
         <TestVision
           openDialog={openDialog}
+          testInfo={testInfo}
           handleClickOpenDialog={handleClickOpenDialog}
           handleCloseDialog={handleCloseDialog}
         />

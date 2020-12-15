@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TestVisionView = ({
   openDialog,
+  testInfo,
   handleClickOpenDialog,
   handleCloseDialog,
 }) => {
@@ -102,7 +103,7 @@ const TestVisionView = ({
                     >
                       {"Click here"}
                     </Link>
-                    {" to continue test."}
+                    {" to continue test." + testInfo.no_of_warning}
                   </Typography>
                 </ListItemText>
               </ListItem>

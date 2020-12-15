@@ -6,6 +6,8 @@ import {
   getTestQuestions,
   sendAnswers,
   startTest,
+  getTestInfo,
+  addWarning,
 } from "../../components/utils/requests";
 import { getTimer } from "../../components/utils";
 import {
@@ -48,9 +50,10 @@ const Test = () => {
   const [done, setDone] = useState([]);
   const [warning, setWarning] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
+  const [testInfo, setTestInfo] = useState(null);
+  const [isTestInfo, setIsTestInfo] = useState(false);
   //useEffect
   useEffect(() => {
-    startTest(testId, new Date());
     setSocket(openSocket("http://192.168.225.69:8000/"));
     const start_sec = getTimer(
       new Date(testDetails.start_time).toLocaleTimeString().split(":")
@@ -114,6 +117,19 @@ const Test = () => {
     };
     // eslint-disable-next-line
   }, [testId]);
+  useEffect(() => {
+    getTestInfo(testId).then((testinfo) => {
+      setTestInfo(testinfo[0]);
+      setIsTestInfo(true);
+    });
+    // eslint-disable-next-line
+  }, [openDialog]);
+  useEffect(() => {
+    if (!testInfo && isTestInfo) {
+      startTest(testId, new Date());
+    }
+    // eslint-disable-next-line
+  }, [testInfo]);
   //Event Handlers
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
@@ -125,6 +141,7 @@ const Test = () => {
   const visibility = () => {
     if (document.visibilityState === "hidden") {
       setOpenDialog(true);
+      addWarning(testId);
       dispatch(visionLost(document.visibilityState));
     }
   };
@@ -198,6 +215,7 @@ const Test = () => {
       <CustomContext items={menu}></CustomContext>
       <TestView
         webcamRef={webcamRef}
+        testInfo={testInfo}
         src={src}
         open={open}
         questions={questions}

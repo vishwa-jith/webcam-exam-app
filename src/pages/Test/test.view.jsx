@@ -16,6 +16,7 @@ const videoConstraints = {
 
 const TestView = ({
   webcamRef,
+  testInfo,
   open,
   questions,
   question_no,
@@ -41,6 +42,7 @@ const TestView = ({
     <>
       <VisionDialog
         openDialog={openDialog}
+        testInfo={testInfo}
         handleClickOpenDialog={handleClickOpenDialog}
         handleCloseDialog={handleCloseDialog}
       />

@@ -66,7 +66,7 @@ export const getTestInfo = async (testId) => {
     },
   });
   return response.data;
-};
+}; 
 
 //Test Detail
 export const getTestDetail = async (testId) => {
@@ -113,6 +113,21 @@ export const startTest = async (testId, start_time) => {
   var response = await axios.post(
     baseUrl + `test-info/start-test/${testId}`,
     { start_time },
+    {
+      headers: {
+        Authorization: bearer,
+      },
+    }
+  );
+  return response.data;
+};
+//Add Warning
+export const addWarning = async (testId) => {
+  const token = localStorage.getItem("token");
+  const bearer = "Bearer " + token;
+  var response = await axios.post(
+    baseUrl + `test-info/add-warning/${testId}`,
+    {},
     {
       headers: {
         Authorization: bearer,
