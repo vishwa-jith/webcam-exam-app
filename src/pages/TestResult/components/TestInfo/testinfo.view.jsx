@@ -22,6 +22,7 @@ import UpdateIcon from "@material-ui/icons/Update";
 import MoodIcon from "@material-ui/icons/Mood";
 import MoodBadIcon from "@material-ui/icons/MoodBad";
 import ScoreIcon from "@material-ui/icons/Score";
+import { getTime, getTimer } from "../../../../components/utils";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +43,10 @@ const useStyles = makeStyles((theme) => ({
 const TestInfoView = ({ testDetails, testInfo }) => {
   //Const
   const classes = useStyles();
-
+  const time = getTime(
+    getTimer(new Date(testInfo.end_time).toTimeString().split(":")) -
+      getTimer(new Date(testInfo.start_time).toTimeString().split(":"))
+  ).split(":");
   return (
     <>
       <TableContainer component={Paper}>
@@ -119,7 +123,9 @@ const TestInfoView = ({ testDetails, testInfo }) => {
                 <Typography>Time Taken</Typography>
               </TableCell>
               <TableCell align="right">
-                <Typography>{testInfo.test_duration} min</Typography>
+                <Typography>
+                  {`${parseInt(time[0]) * 60 + parseInt(time[1])}`} min
+                </Typography>
               </TableCell>
             </TableRow>
             <TableRow>

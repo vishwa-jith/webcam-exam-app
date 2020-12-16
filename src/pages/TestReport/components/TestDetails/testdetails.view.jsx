@@ -33,6 +33,7 @@ import {
   deepOrange,
   teal,
 } from "@material-ui/core/colors";
+import { getTime, getTimer } from "../../../../components/utils";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -53,6 +54,10 @@ const useStyles = makeStyles((theme) => ({
 const TestDetailsView = ({ testDetails, testInfo }) => {
   const classes = useStyles();
   const history = useHistory();
+  const time = getTime(
+    getTimer(new Date(testInfo.end_time).toTimeString().split(":")) -
+      getTimer(new Date(testInfo.start_time).toTimeString().split(":"))
+  ).split(":");
   return (
     <>
       <Grid item xs={12} md={10}>
@@ -237,7 +242,9 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                     <Typography>Time Taken</Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography>{testInfo.test_duration} min</Typography>
+                    <Typography>
+                      {`${parseInt(time[0]) * 60 + parseInt(time[1])}`} min
+                    </Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
