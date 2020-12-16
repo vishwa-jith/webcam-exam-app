@@ -20,9 +20,8 @@ import CardHeaderAction from "./components/CardHeaderAction";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
-  root: {
-    textAlign: "left",
-    background: theme.palette.background.paper,
+  card: {
+    width: "100%",
   },
 }));
 
@@ -46,7 +45,7 @@ const TopicCardView = function ({
   return (
     <Grid item xs={12} md={3}>
       <Box mx={1}>
-        <Card className={classes.root} elevation={2}>
+        <Card className={classes.card} elevation={2}>
           <CardHeader
             avatar={<CardHeaderAvatar testinfo={testinfo} />}
             title={testtopicdata.test_name}
