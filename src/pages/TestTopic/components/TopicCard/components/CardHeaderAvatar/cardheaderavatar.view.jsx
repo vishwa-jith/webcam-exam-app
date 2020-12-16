@@ -4,7 +4,8 @@ import { List, ListItem, ListItemAvatar, Avatar } from "@material-ui/core";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import AssignmentReturnIcon from "@material-ui/icons/AssignmentReturn";
-import { orange, green, teal } from "@material-ui/core/colors";
+import AssignmentLateIcon from "@material-ui/icons/AssignmentLate";
+import { orange, green, teal, deepOrange } from "@material-ui/core/colors";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
   },
   assreturn: {
     backgroundColor: orange[500],
+  },
+  assviolation: {
+    backgroundColor: deepOrange[500],
   },
 }));
 
@@ -30,14 +34,18 @@ const CardHeaderAvatarView = ({ testinfo }) => {
             <Avatar
               className={
                 testinfo
-                  ? !testinfo.end_time
+                  ? testinfo.is_fraudulant
+                    ? classes.assviolation
+                    : !testinfo.end_time
                     ? classes.assreturn
                     : classes.assdone
                   : classes.assign
               }
             >
               {testinfo ? (
-                !testinfo.end_time ? (
+                testinfo.is_fraudulant ? (
+                  <AssignmentLateIcon />
+                ) : !testinfo.end_time ? (
                   <AssignmentReturnIcon />
                 ) : (
                   <AssignmentTurnedInIcon />

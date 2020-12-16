@@ -87,7 +87,7 @@ const Test = () => {
     if (timer === 10) {
       handleSubmitAnswers();
     }
-    if (testInfo && testInfo.no_of_warning === 5) {
+    if (testInfo && testInfo.no_of_warning >= 5) {
       dispatch(
         addWarningAlert("Exam violation determined, Submitting Test...")
       );
@@ -97,6 +97,7 @@ const Test = () => {
         answers_attended: done.length,
         answers_marked: warning.length,
         unanswered: questions.length - done.length,
+        is_fraudulant: true,
       }).then(() => {
         history.push("/testtopics");
       });
@@ -224,6 +225,7 @@ const Test = () => {
         answers_attended: done.length,
         answers_marked: warning.length,
         unanswered: questions.length - done.length,
+        is_fraudulant: false,
       }).then(() => {
         window.removeEventListener("visibilitychange", visibility);
         history.push("/testtopics");

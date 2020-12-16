@@ -14,7 +14,8 @@ import DoneIcon from "@material-ui/icons/Done";
 import ErrorIcon from "@material-ui/icons/Error";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
-import { orange, green, teal } from "@material-ui/core/colors";
+import WarningIcon from "@material-ui/icons/Warning";
+import { orange, green, teal, deepOrange } from "@material-ui/core/colors";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -54,29 +55,40 @@ const CardContentAreaView = ({
           <>
             <ListItem>
               <ListItemIcon>
-                {!testinfo ? (
+                {testinfo ? (
+                  testinfo.is_fraudulant ? (
+                    <WarningIcon
+                      style={{
+                        textAlign: "left",
+                        color: deepOrange[500],
+                        fontWeight: "bolder",
+                        float: "left",
+                      }}
+                    />
+                  ) : !testinfo.end_time ? (
+                    <HelpIcon
+                      style={{
+                        textAlign: "left",
+                        color: orange[500],
+                        fontWeight: "bolder",
+                        float: "left",
+                      }}
+                    />
+                  ) : (
+                    <DoneIcon
+                      style={{
+                        textAlign: "left",
+                        color: green[500],
+                        fontWeight: "bolder",
+                        float: "left",
+                      }}
+                    />
+                  )
+                ) : (
                   <MenuBookIcon
                     style={{
                       textAlign: "left",
                       color: teal[500],
-                      fontWeight: "bolder",
-                      float: "left",
-                    }}
-                  />
-                ) : !testinfo.end_time ? (
-                  <HelpIcon
-                    style={{
-                      textAlign: "left",
-                      color: orange[500],
-                      fontWeight: "bolder",
-                      float: "left",
-                    }}
-                  />
-                ) : (
-                  <DoneIcon
-                    style={{
-                      textAlign: "left",
-                      color: green[500],
                       fontWeight: "bolder",
                       float: "left",
                     }}
@@ -88,7 +100,9 @@ const CardContentAreaView = ({
                   style={{
                     textAlign: "left",
                     color: testinfo
-                      ? !testinfo.end_time
+                      ? testinfo.is_fraudulant
+                        ? deepOrange[500]
+                        : !testinfo.end_time
                         ? orange[500]
                         : green[500]
                       : teal[500],
@@ -97,7 +111,9 @@ const CardContentAreaView = ({
                   }}
                 >
                   {testinfo
-                    ? !testinfo.end_time
+                    ? testinfo.is_fraudulant
+                      ? "Violation"
+                      : !testinfo.end_time
                       ? "Resume Test"
                       : "Completed"
                     : "Take Test"}

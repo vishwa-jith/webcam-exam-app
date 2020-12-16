@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Typography, IconButton, CardContent, Grid } from "@material-ui/core";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { orange, green, teal } from "@material-ui/core/colors";
+import { orange, green, teal, deepOrange } from "@material-ui/core/colors";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +35,18 @@ const CardContentActionView = ({
         <Grid item xs={8}>
           <CardContent>
             {testinfo ? (
-              !testinfo.end_time ? (
+              testinfo.is_fraudulant ? (
+                <Typography
+                  variant="subtitle1"
+                  style={{
+                    fontWeight: "bolder",
+                    fontSize: "1.2em",
+                    color: deepOrange[500],
+                  }}
+                >
+                  {new Date(testtopicdata.start_time).toLocaleTimeString()}
+                </Typography>
+              ) : !testinfo.end_time ? (
                 <Typography
                   variant="subtitle1"
                   style={{
