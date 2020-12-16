@@ -87,6 +87,20 @@ const Test = () => {
     if (timer === 10) {
       handleSubmitAnswers();
     }
+    if (testInfo && testInfo.no_of_warning === 5) {
+      dispatch(
+        addWarningAlert("Exam violation determined, Submitting Test...")
+      );
+      sendAnswers(testId, {
+        answers,
+        end_time: new Date(),
+        answers_attended: done.length,
+        answers_marked: warning.length,
+        unanswered: questions.length - done.length,
+      }).then(() => {
+        history.push("/testtopics");
+      });
+    }
   });
   useEffect(() => {
     let timer_image;
@@ -126,7 +140,9 @@ const Test = () => {
   }, [openDialog]);
   useEffect(() => {
     if (!testInfo && isTestInfo) {
-      startTest(testId, new Date());
+      startTest(testId, new Date()).then((testinfo) => {
+        setTestInfo(testinfo);
+      });
     }
     // eslint-disable-next-line
   }, [testInfo, isTestInfo]);
@@ -135,18 +151,19 @@ const Test = () => {
     setOpenDialog(true);
   };
   const handleCloseDialog = () => {
-    if (testInfo.no_of_warning >= 5) {
-      history.push("/testtopics");
-    }
     dispatch(visionGained(document.visibilityState));
     setOpenDialog(false);
   };
   const visibility = () => {
     if (document.visibilityState === "hidden") {
-      setOpenDialog(true);
+      handleClickOpenDialog();
       addWarning(testId);
       dispatch(visionLost(document.visibilityState));
     }
+    getTestInfo(testId).then((testinfo) => {
+      setTestInfo(testinfo[0]);
+      setIsTestInfo(true);
+    });
   };
   const handleWarning = () => {
     if (warning.includes(question_no)) {
