@@ -58,7 +58,7 @@ const TestDetailsView = ({ testDetails, info }) => {
 
   return (
     <>
-      <TableRow className={classes.root}>
+      <TableRow>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -71,12 +71,10 @@ const TestDetailsView = ({ testDetails, info }) => {
         <TableCell component="th" scope="row">
           {testDetails.test_name}
         </TableCell>
-        <TableCell align="right">{testDetails.topic}</TableCell>
-        <TableCell align="right">{testDetails.duration_in_min} min</TableCell>
-        <TableCell align="right">{testDetails.total_marks}</TableCell>
-        <TableCell align="right">
-          {new Date(info.createdAt).toDateString()}
-        </TableCell>
+        <TableCell>{testDetails.topic}</TableCell>
+        <TableCell>{testDetails.duration_in_min} min</TableCell>
+        <TableCell>{testDetails.total_marks}</TableCell>
+        <TableCell>{new Date(info.createdAt).toDateString()}</TableCell>
       </TableRow>
       <TableRow style={{ backgroundColor: grey[50] }}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -93,7 +91,7 @@ const TestDetailsView = ({ testDetails, info }) => {
               </Grid>
               <Grid item md={6} xs={12}>
                 <Box my={3} mx={1}>
-                  <Card className={classes.root}>
+                  <Card>
                     <CardHeader
                       avatar={
                         <Avatar

@@ -1,6 +1,5 @@
 import React from "react";
-import { Grid, Box, Button, useMediaQuery } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
+import { Grid, Box, Button } from "@material-ui/core";
 
 //Components
 import TopicCard from "./components/TopicCard";
@@ -19,8 +18,6 @@ const TestTopicView = ({
   isLoading,
 }) => {
   //Const
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
     <>
@@ -46,7 +43,7 @@ const TestTopicView = ({
           </Grid>
         </Grid>
       </Box>
-      <Box mx={matches ? 5 : 0}>
+      <Box mx={5}>
         <Grid container alignItems="space-evenly">
           {testTopic.length > 0 ? (
             testTopic.map((data, index) => {
@@ -76,13 +73,9 @@ const TestTopicView = ({
           ) : (
             <>
               <TopicCardSkeleton />
-              {matches && (
-                <>
-                  <TopicCardSkeleton />
-                  <TopicCardSkeleton />
-                  <TopicCardSkeleton />
-                </>
-              )}
+              <TopicCardSkeleton />
+              <TopicCardSkeleton />
+              <TopicCardSkeleton />
             </>
           )}
         </Grid>
