@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProfileBannerView = ({
+  names,
   coverAnchorEl,
   profileAnchorEl,
   handleCoverPopoverOpen,
@@ -56,7 +57,11 @@ const ProfileBannerView = ({
       >
         <img
           className={classes.badge}
-          src={`${baseUrl}images/default_avatar.png`}
+          src={
+            names.default_avatar
+              ? `${baseUrl}images/default_avatar.png`
+              : `${baseUrl}images/upload/${names._id}-profile.jpg`
+          }
           alt="Default Avatar"
         />
       </Avatar>

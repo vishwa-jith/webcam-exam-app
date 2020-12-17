@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { addImageViewer } from "../../../../redux/ActionCreators/imagedialog.action";
+import { addSuccessAlert } from "../../../../redux/ActionCreators/alert.action";
+import { uploadImage } from "../../../../components/utils/requests";
 import HomeSettingsView from "./homesettings.view";
 const HomeSettings = () => {
   //Const
@@ -8,6 +10,8 @@ const HomeSettings = () => {
   const initialNames = {
     firstname: "",
     lastname: "",
+    default_avatar: true,
+    default_cover: true,
   };
   const userDetails = useSelector(
     ({ userDetails }) => userDetails.userDetails,
@@ -23,8 +27,14 @@ const HomeSettings = () => {
   //useEffect
   useEffect(() => {
     if (userDetails) {
-      const { firstname, lastname } = userDetails;
-      setNames({ firstname, lastname });
+      const {
+        _id,
+        firstname,
+        lastname,
+        default_avatar,
+        default_cover,
+      } = userDetails;
+      setNames({ _id, firstname, lastname, default_avatar, default_cover });
     }
   }, [userDetails]);
   //Event Handlers
@@ -34,7 +44,11 @@ const HomeSettings = () => {
     setProfileUploadOpen(true);
     setUploadType(type === 1 ? "Profile" : "Cover");
   };
-  const handleSubmitProfileUpload = () => {
+  const handleSubmitProfileUpload = (image) => {
+    uploadImage(
+      image,
+      uploadType === "Profile" ? "profile" : "cover"
+    ).then((res) => dispatch(addSuccessAlert(res.messsage)));
     setProfileUploadOpen(false);
   };
   const handleProfileUploadClose = () => {

@@ -16,6 +16,7 @@ import {
   Typography,
   Box,
   Button,
+  Fade,
 } from "@material-ui/core";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import PolicyIcon from "@material-ui/icons/Policy";
@@ -36,11 +37,21 @@ const TestResultView = ({ testTopic, testInfo, isLoading }) => {
             <TableHead>
               <TableRow>
                 <TableCell />
-                <TableCell>Test Name</TableCell>
-                <TableCell>Test Topic</TableCell>
-                <TableCell>Test Duration</TableCell>
-                <TableCell>Total Marks</TableCell>
-                <TableCell>Test Date</TableCell>
+                <TableCell>
+                  <Typography color="textSecondary">Test Name</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography color="textSecondary">Test Topic</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography color="textSecondary">Test Duration</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography color="textSecondary">Total Marks</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography color="textSecondary">Test Date</Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -67,65 +78,67 @@ const TestResultView = ({ testTopic, testInfo, isLoading }) => {
             </TableBody>
           </Table>
         ) : (
-          <Grid container justify="center" alignItems="center">
-            <Grid item xs={6}>
-              <img
-                src={`${baseUrl}images/noTestFound.jpg`}
-                style={{ height: "100%", width: "100%" }}
-                alt="No Results"
-              />
+          <Fade in={!isLoading}>
+            <Grid container justify="center" alignItems="center">
+              <Grid item xs={6}>
+                <img
+                  src={`${baseUrl}images/noTestFound.jpg`}
+                  style={{ height: "100%", width: "100%" }}
+                  alt="No Results"
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Box m={3}>
+                  <Paper>
+                    <List>
+                      <ListItem>
+                        <ListItemIcon>
+                          <PolicyIcon
+                            style={{ fontSize: "3rem", color: indigo[500] }}
+                          />
+                        </ListItemIcon>
+                        <ListItemText>
+                          <Typography variant="h6" color="textPrimary">
+                            No Test Results Found
+                          </Typography>
+                        </ListItemText>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemIcon>
+                          <FiberManualRecordIcon />
+                        </ListItemIcon>
+                        <ListItemText>
+                          <Typography variant="h6" color="textSecondary">
+                            Currently the Test Report Dashboard is empty
+                          </Typography>
+                        </ListItemText>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemIcon>
+                          <FiberManualRecordIcon />
+                        </ListItemIcon>
+                        <ListItemText>
+                          <Typography variant="h6" color="textSecondary">
+                            Completed Test Reports can be viewed here.
+                          </Typography>
+                        </ListItemText>
+                      </ListItem>
+                      <ListItem>
+                        <Button
+                          onClick={() => history.push("/testtopics")}
+                          variant="contained"
+                          color="primary"
+                          endIcon={<AssessmentIcon />}
+                        >
+                          Take Test
+                        </Button>
+                      </ListItem>
+                    </List>
+                  </Paper>
+                </Box>
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <Box m={3}>
-                <Paper>
-                  <List>
-                    <ListItem>
-                      <ListItemIcon>
-                        <PolicyIcon
-                          style={{ fontSize: "3rem", color: indigo[500] }}
-                        />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Typography variant="h6" color="textPrimary">
-                          No Test Results Found
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <FiberManualRecordIcon />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Typography variant="h6" color="textSecondary">
-                          Currently the Test Report Dashboard is empty
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <ListItemIcon>
-                        <FiberManualRecordIcon />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <Typography variant="h6" color="textSecondary">
-                          Completed Test Reports can be viewed here.
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-                    <ListItem>
-                      <Button
-                        onClick={() => history.push("/testtopics")}
-                        variant="contained"
-                        color="primary"
-                        endIcon={<AssessmentIcon />}
-                      >
-                        Take Test
-                      </Button>
-                    </ListItem>
-                  </List>
-                </Paper>
-              </Box>
-            </Grid>
-          </Grid>
+          </Fade>
         )}
       </TableContainer>
     </>

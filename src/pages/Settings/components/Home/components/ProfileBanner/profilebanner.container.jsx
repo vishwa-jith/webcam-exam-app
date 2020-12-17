@@ -3,6 +3,7 @@ import React from "react";
 import ProfileBannerView from "./profilebanner.view";
 
 const ProfileBanner = ({
+  names,
   coverAnchorEl,
   profileAnchorEl,
   handleCoverPopoverOpen,
@@ -15,6 +16,7 @@ const ProfileBanner = ({
   return (
     <>
       <ProfileBannerView
+        names={names}
         coverAnchorEl={coverAnchorEl}
         profileAnchorEl={profileAnchorEl}
         handleProfilePopoverOpen={handleProfilePopoverOpen}

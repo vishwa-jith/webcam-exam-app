@@ -66,7 +66,7 @@ export const getTestInfo = async (testId) => {
     },
   });
   return response.data;
-}; 
+};
 
 //Test Detail
 export const getTestDetail = async (testId) => {
@@ -134,5 +134,19 @@ export const addWarning = async (testId) => {
       },
     }
   );
+  return response.data;
+};
+//Uploads
+export const uploadImage = async (file, type) => {
+  const formData = new FormData();
+  formData.append(type, file);
+  const token = localStorage.getItem("token");
+  const bearer = "Bearer " + token;
+  var response = await axios.post(baseUrl + `upload/${type}-image`, formData, {
+    headers: {
+      "content-type": "multipart/form-data",
+      Authorization: bearer,
+    },
+  });
   return response.data;
 };

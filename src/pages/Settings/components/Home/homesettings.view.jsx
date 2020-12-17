@@ -37,6 +37,7 @@ const HomeSettingsView = ({
           alignItems="center"
         >
           <ProfileBanner
+            names={names}
             coverAnchorEl={coverAnchorEl}
             profileAnchorEl={profileAnchorEl}
             handleProfilePopoverOpen={handleProfilePopoverOpen}

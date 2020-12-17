@@ -9,14 +9,20 @@ const ImageUpload = ({
   handleSubmitProfileUpload,
 }) => {
   //States
-  const [profileImage, setProfileImage] = useState(null);
-  const [coverImage, setCoverImage] = useState(null);
+  const [profileImage, setProfileImage] = useState({ url: "", image: null });
+  const [coverImage, setCoverImage] = useState({ url: "", image: null });
   //Event Handlers
   const onChange = (event) => {
     if (uploadType === "Profile") {
-      setProfileImage(URL.createObjectURL(event.target.files[0]));
+      setProfileImage({
+        url: URL.createObjectURL(event.target.files[0]),
+        image: event.target.files[0],
+      });
     } else {
-      setCoverImage(URL.createObjectURL(event.target.files[0]));
+      setCoverImage({
+        url: URL.createObjectURL(event.target.files[0]),
+        image: event.target.files[0],
+      });
     }
   };
   const removeImage = () => {

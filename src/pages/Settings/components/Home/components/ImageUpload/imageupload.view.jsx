@@ -35,7 +35,6 @@ const ImageUploadView = ({
   removeImage,
   handleSubmitProfileUpload,
 }) => {
-
   return (
     <>
       <Dialog
@@ -71,8 +70,8 @@ const ImageUploadView = ({
               alignItems="center"
               style={{ minHeight: "200px" }}
             >
-              {(!profileImage && uploadType === "Profile") ||
-              (!coverImage && uploadType === "Cover") ? (
+              {(!profileImage.image && uploadType === "Profile") ||
+              (!coverImage.image && uploadType === "Cover") ? (
                 <>
                   <input
                     accept="image/*"
@@ -98,8 +97,8 @@ const ImageUploadView = ({
                 <img
                   src={
                     profileImage && uploadType === "Profile"
-                      ? profileImage
-                      : coverImage
+                      ? profileImage.url
+                      : coverImage.url
                   }
                   alt="profile preview"
                   width={
@@ -114,8 +113,8 @@ const ImageUploadView = ({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          {((profileImage && uploadType === "Profile") ||
-            (coverImage && uploadType === "Cover")) && (
+          {((profileImage.image && uploadType === "Profile") ||
+            (coverImage.image && uploadType === "Cover")) && (
             <>
               <Button
                 color="primary"
@@ -130,7 +129,13 @@ const ImageUploadView = ({
                 color="secondary"
                 variant="contained"
                 endIcon={<CheckCircleIcon />}
-                onClick={handleSubmitProfileUpload}
+                onClick={() =>
+                  handleSubmitProfileUpload(
+                    uploadType === "Profile"
+                      ? profileImage.image
+                      : coverImage.image
+                  )
+                }
               >
                 Confirm
               </Button>
@@ -140,8 +145,8 @@ const ImageUploadView = ({
             onClick={handleProfileUploadClose}
             color="secondary"
             variant={
-              (profileImage && uploadType === "Profile") ||
-              (coverImage && uploadType === "Cover")
+              (profileImage.image && uploadType === "Profile") ||
+              (coverImage.image && uploadType === "Cover")
                 ? "text"
                 : "outlined"
             }
