@@ -3,6 +3,7 @@ import React from "react";
 import CoverPopoverView from "./coverpopover.view";
 
 const CoverPopover = ({
+  names,
   openCover,
   coverAnchorEl,
   handleCoverPopoverClose,
@@ -12,6 +13,7 @@ const CoverPopover = ({
   return (
     <>
       <CoverPopoverView
+        names={names}
         openCover={openCover}
         coverAnchorEl={coverAnchorEl}
         handleCoverPopoverClose={handleCoverPopoverClose}

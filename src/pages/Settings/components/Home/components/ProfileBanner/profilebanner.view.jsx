@@ -35,6 +35,7 @@ const ProfileBannerView = ({
   return (
     <>
       <CoverPopover
+        names={names}
         openCover={openCover}
         coverAnchorEl={coverAnchorEl}
         handleCoverPopoverClose={handleCoverPopoverClose}
@@ -42,6 +43,7 @@ const ProfileBannerView = ({
         handleImageDialog={handleImageDialog}
       />
       <CoverMask
+        names={names}
         openCover={openCover}
         handleCoverPopoverOpen={handleCoverPopoverOpen}
       />
@@ -66,6 +68,7 @@ const ProfileBannerView = ({
         />
       </Avatar>
       <ProfilePopover
+        names={names}
         openProfile={openProfile}
         profileAnchorEl={profileAnchorEl}
         handleProfilePopoverClose={handleProfilePopoverClose}

@@ -3,6 +3,7 @@ import React from "react";
 import ProfilePopoverView from "./profilepopover.view";
 
 const ProfilePopover = ({
+  names,
   openProfile,
   profileAnchorEl,
   handleProfilePopoverClose,
@@ -12,6 +13,7 @@ const ProfilePopover = ({
   return (
     <>
       <ProfilePopoverView
+        names={names}
         openProfile={openProfile}
         profileAnchorEl={profileAnchorEl}
         handleProfilePopoverClose={handleProfilePopoverClose}

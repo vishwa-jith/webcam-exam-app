@@ -10,6 +10,7 @@ import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import ImageIcon from "@material-ui/icons/Image";
 
 const CoverPopoverView = ({
+  names,
   openCover,
   coverAnchorEl,
   handleCoverPopoverClose,
@@ -50,7 +51,9 @@ const CoverPopoverView = ({
             onClick={() =>
               handleImageDialog({
                 alt: "Cover Image",
-                src: "default_cover.jpg",
+                src: names.default_cover
+                  ? "default_cover.jpg"
+                  : `upload/${names._id}-cover.jpg`,
               })
             }
           >

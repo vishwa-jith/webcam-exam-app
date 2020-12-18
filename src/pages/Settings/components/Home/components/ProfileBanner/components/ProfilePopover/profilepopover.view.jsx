@@ -10,6 +10,7 @@ import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import ImageIcon from "@material-ui/icons/Image";
 
 const ProfilePopoverView = ({
+  names,
   openProfile,
   profileAnchorEl,
   handleProfilePopoverClose,
@@ -50,7 +51,9 @@ const ProfilePopoverView = ({
             onClick={() =>
               handleImageDialog({
                 alt: "Profile Image",
-                src: "default_avatar.png",
+                src: names.default_avatar
+                  ? "default_avatar.png"
+                  : `upload/${names._id}-profile.jpg`,
               })
             }
           >
