@@ -6,7 +6,9 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   Typography,
+  Avatar,
 } from "@material-ui/core";
+import AvatarGroup from "@material-ui/lab/AvatarGroup";
 
 import TimerIcon from "@material-ui/icons/Timer";
 import HelpIcon from "@material-ui/icons/Help";
@@ -16,6 +18,7 @@ import ReceiptIcon from "@material-ui/icons/Receipt";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import WarningIcon from "@material-ui/icons/Warning";
 import { orange, green, teal, deepOrange } from "@material-ui/core/colors";
+import { baseUrl } from "../../../../../../components/constants";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -50,6 +53,18 @@ const CardContentAreaView = ({
               {testtopicdata.topic}
             </Typography>
           </ListItemText>
+          <ListItemSecondaryAction>
+            <ListItem>
+              <AvatarGroup max={4}>
+                {testtopicdata.test_taken_users.map((id) => (
+                  <Avatar
+                    alt="Profile Photo"
+                    src={`${baseUrl}images/upload/${id}-profile.jpg`}
+                  />
+                ))}
+              </AvatarGroup>
+            </ListItem>
+          </ListItemSecondaryAction>
         </ListItem>
         {!expandedList[topic_no] && (
           <>
