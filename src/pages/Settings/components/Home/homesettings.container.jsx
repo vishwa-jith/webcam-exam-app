@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { addImageViewer } from "../../../../redux/ActionCreators/imagedialog.action";
 import { addSuccessAlert } from "../../../../redux/ActionCreators/alert.action";
-import { uploadImage } from "../../../../components/utils/requests";
+import {
+  uploadImage,
+  updateProfile,
+} from "../../../../components/utils/requests";
 import HomeSettingsView from "./homesettings.view";
 const HomeSettings = () => {
   //Const
@@ -48,7 +51,7 @@ const HomeSettings = () => {
     uploadImage(
       image,
       uploadType === "Profile" ? "profile" : "cover"
-    ).then((res) => dispatch(addSuccessAlert(res.messsage)));
+    ).then((res) => dispatch(addSuccessAlert(res.message)));
     setProfileUploadOpen(false);
   };
   const handleProfileUploadClose = () => {
@@ -75,8 +78,12 @@ const HomeSettings = () => {
     });
   };
   const handleOperation = () => {
+    const { firstname, lastname } = names;
     if (isEdit) {
-      setIsEdit(false);
+      updateProfile(firstname, lastname).then((res) => {
+        dispatch(addSuccessAlert(res.message));
+        setIsEdit(false);
+      });
     } else {
       setIsEdit(true);
     }

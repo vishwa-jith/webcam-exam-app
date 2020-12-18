@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, IconButton } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import SaveIcon from "@material-ui/icons/Save";
+import { indigo, green } from "@material-ui/core/colors";
 
 const ProfileEditorView = ({ isEdit, handleOperation }) => {
   return (
@@ -10,7 +11,8 @@ const ProfileEditorView = ({ isEdit, handleOperation }) => {
         <IconButton
           onClick={handleOperation}
           style={{
-            backgroundColor: isEdit ? "#4caf50" : "#90caf9",
+            backgroundColor: isEdit ? green[500] : indigo[500],
+            margin: "5px",
             color: "white",
           }}
         >

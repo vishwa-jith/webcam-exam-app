@@ -150,3 +150,18 @@ export const uploadImage = async (file, type) => {
   });
   return response.data;
 };
+//Update Profile Details
+export const updateProfile = async (firstname, lastname) => {
+  const token = localStorage.getItem("token");
+  const bearer = "Bearer " + token;
+  var response = await axios.post(
+    baseUrl + `users/update-profile`,
+    { firstname, lastname },
+    {
+      headers: {
+        Authorization: bearer,
+      },
+    }
+  );
+  return response.data;
+};
