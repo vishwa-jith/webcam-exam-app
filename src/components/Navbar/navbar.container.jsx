@@ -27,10 +27,12 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const testMatch = useRouteMatch("/test/:testId");
   const testSolutionMatch = useRouteMatch("/testsolution/:testId");
+  const leaderBoardMatch = useRouteMatch("/leaderboard/:testId");
   const showSideBar =
     SIDEBAR_PATH_LIST.includes(location.pathname) ||
     !!testMatch ||
-    !!testSolutionMatch;
+    !!testSolutionMatch ||
+    !!leaderBoardMatch;
   //States
   const [open, setOpen] = useState(false);
   const [userDetails, setUserDetails] = useState(null);

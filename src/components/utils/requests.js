@@ -165,3 +165,14 @@ export const updateProfile = async (firstname, lastname) => {
   );
   return response.data;
 };
+//Test Detail
+export const getTestLeaderBoard = async (testId) => {
+  const token = localStorage.getItem("token");
+  const bearer = "Bearer " + token;
+  var response = await axios.get(baseUrl + `test-info/leaderboard/${testId}`, {
+    headers: {
+      Authorization: bearer,
+    },
+  });
+  return response.data;
+};

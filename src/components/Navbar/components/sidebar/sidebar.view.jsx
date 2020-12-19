@@ -33,7 +33,6 @@ const SideBarView = ({ handleLogout, testMatch, userDetails }) => {
         <ListItem
           button
           component={Link}
-          selected={location.pathname === "/testtopics"}
           to={!testMatch ? "/testtopics" : location.pathname}
         >
           <ListItemIcon>
@@ -43,34 +42,19 @@ const SideBarView = ({ handleLogout, testMatch, userDetails }) => {
         </ListItem>
         {!testMatch && (
           <>
-            <ListItem
-              button
-              component={Link}
-              to="/testreport"
-              selected={location.pathname === "/testreport"}
-            >
+            <ListItem button component={Link} to="/testreport">
               <ListItemIcon>
                 <AssignmentTurnedInIcon />
               </ListItemIcon>
               <ListItemText primary={"Test Report"} />
             </ListItem>
-            <ListItem
-              button
-              component={Link}
-              to="/settings/home"
-              selected={location.pathname === "/settings/home"}
-            >
+            <ListItem button component={Link} to="/settings/home">
               <ListItemIcon>
                 <SettingsIcon />
               </ListItemIcon>
               <ListItemText primary={"Setting"} />
             </ListItem>
-            <ListItem
-              button
-              component={Link}
-              to="/help"
-              selected={location.pathname === "/help"}
-            >
+            <ListItem button component={Link} to="/help">
               <ListItemIcon>
                 <HelpIcon />
               </ListItemIcon>

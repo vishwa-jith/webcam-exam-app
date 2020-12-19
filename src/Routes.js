@@ -10,6 +10,8 @@ import Home from "./pages/LandingPage";
 import TestTopic from "./pages/TestTopic";
 import TestReport from "./pages/TestReport";
 import TestResult from "./pages/TestResult";
+import LeaderBoard from "./pages/LeaderBoard";
+
 const PrivateRoute = ({ children, component: Component, ...rest }) => {
   const isLoggedIn = !!localStorage.getItem("token");
   return (
@@ -127,6 +129,7 @@ const Routes = () => {
     <Switch>
       <ExamRoute component={Test} path="/test/:testId" exact />
       <PrivateRoute component={TestReport} path="/testsolution/:testId" exact />
+      <PrivateRoute component={LeaderBoard} path="/leaderboard/:testId" exact />
       <PrivateRoute component={TestResult} path="/testreport" />
       <PrivateRoute component={TestTopic} path="/testtopics" exact />
       <PrivateRoute component={Settings} path="/settings/home" exact />
