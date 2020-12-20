@@ -68,13 +68,15 @@ const TestDetailsView = ({ testDetails, info }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell align="right" component="th" scope="row">
           {testDetails.test_name}
         </TableCell>
-        <TableCell>{testDetails.topic}</TableCell>
-        <TableCell>{testDetails.duration_in_min} min</TableCell>
-        <TableCell>{testDetails.total_marks}</TableCell>
-        <TableCell>{new Date(info.createdAt).toDateString()}</TableCell>
+        <TableCell align="right">{testDetails.topic}</TableCell>
+        <TableCell align="right">{testDetails.duration_in_min} min</TableCell>
+        <TableCell align="right">{testDetails.total_marks}</TableCell>
+        <TableCell align="right">
+          {new Date(info.createdAt).toDateString()}
+        </TableCell>
       </TableRow>
       <TableRow style={{ backgroundColor: grey[50] }}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
