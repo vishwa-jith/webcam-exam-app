@@ -1,5 +1,15 @@
 import React from "react";
-import { Grid, Typography, List, Paper, Box } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  List,
+  Paper,
+  Box,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
+} from "@material-ui/core";
 import { deepOrange, green, deepPurple } from "@material-ui/core/colors";
 
 import Solution from "./components/Solution";
@@ -36,16 +46,37 @@ const QuestionView = ({ questions, question_no, answers }) => {
         <Box py={5} px={2}>
           <Grid container justify="center" alignItems="center">
             <Grid item xs={12} md={10}>
-              <Typography
-                variant="h6"
-                className={
-                  questions[question_no].answer_option === answers[question_no]
-                    ? classes.green
-                    : classes.orange
-                }
-              >
-                {questions[question_no].question}
-              </Typography>
+              <List>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar
+                      style={{
+                        backgroundColor: `${
+                          questions[question_no].answer_option ===
+                          answers[question_no]
+                            ? green[500]
+                            : deepOrange[500]
+                        }`,
+                      }}
+                    >
+                      {question_no + 1}
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText>
+                    <Typography
+                      variant="h6"
+                      className={
+                        questions[question_no].answer_option ===
+                        answers[question_no]
+                          ? classes.green
+                          : classes.orange
+                      }
+                    >
+                      {questions[question_no].question}
+                    </Typography>
+                  </ListItemText>
+                </ListItem>
+              </List>
               <List dense>
                 {questions[question_no].options.map((opt, index) => {
                   if (questions[question_no].answer_option === index) {

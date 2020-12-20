@@ -40,7 +40,7 @@ const TestReportView = ({
                 return (
                   <Question
                     questions={questions}
-                    question_no={index}
+                    question_no={index + page * rowsPerPage}
                     answers={answers}
                   />
                 );
