@@ -1,13 +1,16 @@
 import React from "react";
-import { Typography, CardContent } from "@material-ui/core";
+import { Typography, List, ListItem, ListItemText } from "@material-ui/core";
 
 const CardContentCollapseView = ({ testtopicdata }) => {
   return (
     <>
-      <CardContent>
-        <Typography paragraph>Description</Typography>
-        <Typography paragraph>{testtopicdata.description}</Typography>
-      </CardContent>
+      <List>
+        <ListItem>
+          <ListItemText>
+            <Typography paragraph>{testtopicdata.description}</Typography>
+          </ListItemText>
+        </ListItem>
+      </List>
     </>
   );
 };

@@ -43,8 +43,8 @@ const TopicCardView = function ({
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} md={3}>
-      <Box mx={1}>
+    <Grid item xs={12} lg={3} md={4} sm={6}>
+      <Box m={1}>
         <Card className={classes.card} elevation={2}>
           <CardHeader
             avatar={<CardHeaderAvatar testinfo={testinfo} />}
@@ -60,6 +60,7 @@ const TopicCardView = function ({
           <CardPopover
             topic_no={topic_no}
             anchorE1List={anchorE1List}
+            testtopicdata={testtopicdata}
             handleAnchorE1Close={handleAnchorE1Close}
           />
           <CardActionArea onClick={handleClickOpen}>

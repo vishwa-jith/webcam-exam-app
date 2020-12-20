@@ -1,6 +1,19 @@
 import React from "react";
-import { Card, CardHeader, CardContent, Grid, Box } from "@material-ui/core";
+import {
+  Card,
+  CardHeader,
+  List,
+  ListItem,
+  ListItemText,
+  Grid,
+  Box,
+  IconButton,
+  CardActionArea,
+  CardActions,
+} from "@material-ui/core";
 import Skeleton from "@material-ui/lab/Skeleton";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -8,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   media: {
-    height: 275,
+    height: 240,
   },
 }));
 
@@ -17,9 +30,9 @@ const TopicCardSkeleton = () => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} md={3}>
-      <Box mx={1}>
-        <Card className={classes.card}>
+    <Grid item xs={12} lg={3} md={4} sm={6}>
+      <Box m={1}>
+        <Card className={classes.card} elevation={2}>
           <CardHeader
             avatar={
               <Skeleton
@@ -29,15 +42,35 @@ const TopicCardSkeleton = () => {
                 height={40}
               />
             }
-            title={<Skeleton animation="wave" height={20} width={60} />}
+            title={<Skeleton animation="wave" height={15} width={125} />}
             subheader={<Skeleton animation="wave" height={15} width={125} />}
+            action={
+              <IconButton>
+                <MoreVertIcon />
+              </IconButton>
+            }
           />
-          <Skeleton animation="wave" variant="rect" className={classes.media} />
-          <CardContent>
-            <React.Fragment>
-              <Skeleton animation="wave" height={15} width={125} />
-            </React.Fragment>
-          </CardContent>
+          <CardActionArea>
+            <Skeleton
+              animation="wave"
+              variant="rect"
+              className={classes.media}
+            />
+          </CardActionArea>
+          <CardActions>
+            <Grid container justify="space-between" alignItems="center">
+              <List dense>
+                <ListItem dense>
+                  <ListItemText>
+                    <Skeleton animation="wave" height={15} width={125} />
+                  </ListItemText>
+                </ListItem>
+              </List>
+              <IconButton>
+                <ExpandMoreIcon />
+              </IconButton>
+            </Grid>
+          </CardActions>
         </Card>
       </Box>
     </Grid>

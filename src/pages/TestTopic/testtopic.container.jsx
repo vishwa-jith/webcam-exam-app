@@ -18,6 +18,8 @@ const TestTopic = () => {
   const [anchorE1List, setAnchorE1List] = useState([]);
   const [info, setinfo] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   //useEffect
   useEffect(() => {
     setIsLoading(true);
@@ -58,13 +60,22 @@ const TestTopic = () => {
   const handleAnchorE1Close = () => {
     setAnchorE1List(anchorE1List.map(() => null));
   };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   return (
     <>
       <TestTopicView
         testTopic={testTopic}
         info={info}
         expandedList={expandedList}
+        page={page}
+        rowsPerPage={rowsPerPage}
         handleExpandClick={handleExpandClick}
         anchorE1List={anchorE1List}
         handleAnchorE1Click={handleAnchorE1Click}
@@ -72,6 +83,8 @@ const TestTopic = () => {
         Transition={Transition}
         userDetails={userDetails}
         isLoading={isLoading}
+        handleChangePage={handleChangePage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
       />
     </>
   );

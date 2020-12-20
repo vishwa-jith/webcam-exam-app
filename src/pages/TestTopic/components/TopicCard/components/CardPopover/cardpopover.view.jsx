@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import {
   Popover,
   List,
@@ -6,9 +7,15 @@ import {
   ListItemText,
   ListItemIcon,
 } from "@material-ui/core";
-import MarkunreadIcon from "@material-ui/icons/Markunread";
+import TimelineIcon from "@material-ui/icons/Timeline";
+import AssessmentIcon from "@material-ui/icons/Assessment";
 
-const CardPopoverView = ({ topic_no, anchorE1List, handleAnchorE1Close }) => {
+const CardPopoverView = ({
+  topic_no,
+  anchorE1List,
+  testtopicdata,
+  handleAnchorE1Close,
+}) => {
   return (
     <>
       <Popover
@@ -27,11 +34,25 @@ const CardPopoverView = ({ topic_no, anchorE1List, handleAnchorE1Close }) => {
         elevation={1}
       >
         <List dense>
-          <ListItem dense button>
+          <ListItem
+            button
+            component={NavLink}
+            to={`/testsolution/${testtopicdata._id}`}
+          >
             <ListItemIcon>
-              <MarkunreadIcon />
+              <AssessmentIcon />
             </ListItemIcon>
-            <ListItemText>Mark as Complete</ListItemText>
+            <ListItemText>Test Report</ListItemText>
+          </ListItem>
+          <ListItem
+            button
+            component={NavLink}
+            to={`/leaderboard/${testtopicdata._id}`}
+          >
+            <ListItemIcon>
+              <TimelineIcon />
+            </ListItemIcon>
+            <ListItemText>Leader Board</ListItemText>
           </ListItem>
         </List>
       </Popover>

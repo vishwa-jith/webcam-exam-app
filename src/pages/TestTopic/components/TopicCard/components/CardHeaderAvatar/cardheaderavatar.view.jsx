@@ -1,5 +1,5 @@
 import React from "react";
-import { List, ListItem, ListItemAvatar, Avatar } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import AssignmentIcon from "@material-ui/icons/Assignment";
@@ -28,35 +28,29 @@ const CardHeaderAvatarView = ({ testinfo }) => {
   const classes = useStyles();
   return (
     <>
-      <List>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar
-              className={
-                testinfo
-                  ? testinfo.is_fraudulant
-                    ? classes.assviolation
-                    : !testinfo.end_time
-                    ? classes.assreturn
-                    : classes.assdone
-                  : classes.assign
-              }
-            >
-              {testinfo ? (
-                testinfo.is_fraudulant ? (
-                  <AssignmentLateIcon />
-                ) : !testinfo.end_time ? (
-                  <AssignmentReturnIcon />
-                ) : (
-                  <AssignmentTurnedInIcon />
-                )
-              ) : (
-                <AssignmentIcon />
-              )}
-            </Avatar>
-          </ListItemAvatar>
-        </ListItem>
-      </List>
+      <Avatar
+        className={
+          testinfo
+            ? testinfo.is_fraudulant
+              ? classes.assviolation
+              : !testinfo.end_time
+              ? classes.assreturn
+              : classes.assdone
+            : classes.assign
+        }
+      >
+        {testinfo ? (
+          testinfo.is_fraudulant ? (
+            <AssignmentLateIcon />
+          ) : !testinfo.end_time ? (
+            <AssignmentReturnIcon />
+          ) : (
+            <AssignmentTurnedInIcon />
+          )
+        ) : (
+          <AssignmentIcon />
+        )}
+      </Avatar>
     </>
   );
 };
