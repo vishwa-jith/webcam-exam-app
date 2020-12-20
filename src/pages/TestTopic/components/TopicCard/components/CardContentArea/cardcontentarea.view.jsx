@@ -33,12 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CardContentAreaView = ({
-  testtopicdata,
-  expandedList,
-  topic_no,
-  testinfo,
-}) => {
+const CardContentAreaView = ({ testtopicdata, testinfo }) => {
   const classes = useStyles();
   return (
     <>
@@ -50,115 +45,105 @@ const CardContentAreaView = ({
             </Typography>
           </ListItemText>
         </ListItem>
-        {!expandedList[topic_no] && (
-          <>
-            <ListItem>
-              <ListItemIcon>
-                {testinfo ? (
-                  testinfo.is_fraudulant ? (
-                    <WarningIcon
-                      style={{
-                        textAlign: "left",
-                        color: deepOrange[500],
-                        fontWeight: "bolder",
-                        float: "left",
-                      }}
-                    />
-                  ) : !testinfo.end_time ? (
-                    <HelpIcon
-                      style={{
-                        textAlign: "left",
-                        color: orange[500],
-                        fontWeight: "bolder",
-                        float: "left",
-                      }}
-                    />
-                  ) : (
-                    <DoneIcon
-                      style={{
-                        textAlign: "left",
-                        color: green[500],
-                        fontWeight: "bolder",
-                        float: "left",
-                      }}
-                    />
-                  )
-                ) : (
-                  <MenuBookIcon
-                    style={{
-                      textAlign: "left",
-                      color: teal[500],
-                      fontWeight: "bolder",
-                      float: "left",
-                    }}
-                  />
-                )}
-              </ListItemIcon>
-              <ListItemText>
-                <Typography
+        <ListItem>
+          <ListItemIcon>
+            {testinfo ? (
+              testinfo.is_fraudulant ? (
+                <WarningIcon
                   style={{
                     textAlign: "left",
-                    color: testinfo
-                      ? testinfo.is_fraudulant
-                        ? deepOrange[500]
-                        : !testinfo.end_time
-                        ? orange[500]
-                        : green[500]
-                      : teal[500],
+                    color: deepOrange[500],
                     fontWeight: "bolder",
                     float: "left",
                   }}
-                >
-                  {testinfo
-                    ? testinfo.is_fraudulant
-                      ? "Violation"
-                      : !testinfo.end_time
-                      ? "Resume Test"
-                      : "Completed"
-                    : "Take Test"}
-                </Typography>
-              </ListItemText>
-              <ListItemSecondaryAction>
-                <ListItem>
-                  <ListItemIcon>
-                    <TimerIcon />
-                  </ListItemIcon>
-                  <ListItemText>
-                    <Typography className={classes.fortimer}>
-                      {testtopicdata.duration_in_min} min
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
-              </ListItemSecondaryAction>
-            </ListItem>
+                />
+              ) : !testinfo.end_time ? (
+                <HelpIcon
+                  style={{
+                    textAlign: "left",
+                    color: orange[500],
+                    fontWeight: "bolder",
+                    float: "left",
+                  }}
+                />
+              ) : (
+                <DoneIcon
+                  style={{
+                    textAlign: "left",
+                    color: green[500],
+                    fontWeight: "bolder",
+                    float: "left",
+                  }}
+                />
+              )
+            ) : (
+              <MenuBookIcon
+                style={{
+                  textAlign: "left",
+                  color: teal[500],
+                  fontWeight: "bolder",
+                  float: "left",
+                }}
+              />
+            )}
+          </ListItemIcon>
+          <ListItemText>
+            <Typography
+              style={{
+                textAlign: "left",
+                color: testinfo
+                  ? testinfo.is_fraudulant
+                    ? deepOrange[500]
+                    : !testinfo.end_time
+                    ? orange[500]
+                    : green[500]
+                  : teal[500],
+                fontWeight: "bolder",
+                float: "left",
+              }}
+            >
+              {testinfo
+                ? testinfo.is_fraudulant
+                  ? "Violation"
+                  : !testinfo.end_time
+                  ? "Resume Test"
+                  : "Completed"
+                : "Take Test"}
+            </Typography>
+          </ListItemText>
+          <ListItemSecondaryAction>
             <ListItem>
               <ListItemIcon>
-                <ReceiptIcon />
+                <TimerIcon />
               </ListItemIcon>
               <ListItemText>
-                <Typography
-                  variant="subtitle1"
-                  className={classes.commontextcard}
-                >
-                  Total Marks {testtopicdata.total_marks}
+                <Typography className={classes.fortimer}>
+                  {testtopicdata.duration_in_min} min
                 </Typography>
               </ListItemText>
             </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <ErrorIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Typography
-                  variant="subtitle1"
-                  className={classes.commontextcard}
-                >
-                  Pass Mark {Math.round(0.35 * testtopicdata.total_marks)}
-                </Typography>
-              </ListItemText>
-            </ListItem>
-          </>
-        )}
+          </ListItemSecondaryAction>
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <ReceiptIcon />
+          </ListItemIcon>
+          <ListItemText>
+            <Typography variant="subtitle1" className={classes.commontextcard}>
+              Total Marks {testtopicdata.total_marks}
+            </Typography>
+          </ListItemText>
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <ErrorIcon />
+          </ListItemIcon>
+          <ListItemText>
+            <Typography variant="subtitle1" className={classes.commontextcard}>
+              Pass Mark {Math.round(0.35 * testtopicdata.total_marks)}
+            </Typography>
+          </ListItemText>
+        </ListItem>
       </List>
     </>
   );

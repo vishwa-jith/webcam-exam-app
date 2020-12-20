@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
 
 const TopicCardView = function ({
   topic_no,
+  expanded,
   testtopicdata,
   testinfo,
-  expandedList,
   handleExpandClick,
   anchorE1List,
   handleAnchorE1Click,
@@ -46,43 +46,49 @@ const TopicCardView = function ({
     <Grid item xs={12} lg={3} md={4} sm={6}>
       <Box m={1}>
         <Card className={classes.card} elevation={2}>
-          <CardHeader
-            avatar={<CardHeaderAvatar testinfo={testinfo} />}
-            title={testtopicdata.test_name}
-            subheader={new Date(testtopicdata.start_time).toDateString()}
-            action={
-              <CardHeaderAction
-                topic_no={topic_no}
-                handleAnchorE1Click={handleAnchorE1Click}
+          {!expanded && (
+            <>
+              <CardHeader
+                avatar={<CardHeaderAvatar testinfo={testinfo} />}
+                title={testtopicdata.test_name}
+                subheader={new Date(testtopicdata.start_time).toDateString()}
+                action={
+                  <CardHeaderAction
+                    topic_no={topic_no}
+                    handleAnchorE1Click={handleAnchorE1Click}
+                  />
+                }
               />
-            }
-          />
-          <CardPopover
-            topic_no={topic_no}
-            anchorE1List={anchorE1List}
-            testtopicdata={testtopicdata}
-            handleAnchorE1Close={handleAnchorE1Close}
-          />
-          <CardActionArea onClick={handleClickOpen}>
-            <CardContentArea
-              testtopicdata={testtopicdata}
-              expandedList={expandedList}
-              topic_no={topic_no}
-              testinfo={testinfo}
-            />
-          </CardActionArea>
+              <CardPopover
+                topic_no={topic_no}
+                anchorE1List={anchorE1List}
+                testtopicdata={testtopicdata}
+                handleAnchorE1Close={handleAnchorE1Close}
+              />
+              <CardActionArea onClick={handleClickOpen}>
+                <CardContentArea
+                  testtopicdata={testtopicdata}
+                  expanded={expanded}
+                  topic_no={topic_no}
+                  testinfo={testinfo}
+                />
+              </CardActionArea>
+            </>
+          )}
           <CardActions>
             <CardContentAction
               topic_no={topic_no}
               testinfo={testinfo}
-              expandedList={expandedList}
+              expanded={expanded}
               testtopicdata={testtopicdata}
               handleExpandClick={handleExpandClick}
             />
           </CardActions>
-          <Collapse in={expandedList[topic_no]} timeout="auto" unmountOnExit>
-            <CardContentCollapse testtopicdata={testtopicdata} />
-          </Collapse>
+          {expanded && (
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <CardContentCollapse testtopicdata={testtopicdata} />
+            </Collapse>
+          )}
         </Card>
         {open && (
           <TopicDialog

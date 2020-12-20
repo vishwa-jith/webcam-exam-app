@@ -10,8 +10,6 @@ import TopicCardView from "./topiccard.view";
 const TopicCard = function ({
   testtopicdata,
   testinfo,
-  expandedList,
-  handleExpandClick,
   topic_no,
   anchorE1List,
   handleAnchorE1Click,
@@ -22,6 +20,7 @@ const TopicCard = function ({
   const dispatch = useDispatch();
   //States
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   //Event Handlers
   const handleClickOpen = () => {
     dispatch(addTestDetails(testtopicdata));
@@ -34,6 +33,9 @@ const TopicCard = function ({
     dispatch(addTestDetails(null));
     setOpen(false);
   };
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   return (
     <>
@@ -41,7 +43,7 @@ const TopicCard = function ({
         topic_no={topic_no}
         testtopicdata={testtopicdata}
         testinfo={testinfo}
-        expandedList={expandedList}
+        expanded={expanded}
         handleExpandClick={handleExpandClick}
         anchorE1List={anchorE1List}
         handleAnchorE1Click={handleAnchorE1Click}

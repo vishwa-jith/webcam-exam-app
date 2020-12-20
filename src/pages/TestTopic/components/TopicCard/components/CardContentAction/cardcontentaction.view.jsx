@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const CardContentActionView = ({
   topic_no,
   testinfo,
-  expandedList,
+  expanded,
   testtopicdata,
   handleExpandClick,
 }) => {
@@ -99,7 +99,7 @@ const CardContentActionView = ({
         </List>
         <IconButton
           className={clsx(classes.expand, {
-            [classes.expandOpen]: expandedList[topic_no],
+            [classes.expandOpen]: expanded,
           })}
           onClick={() => handleExpandClick(topic_no)}
         >

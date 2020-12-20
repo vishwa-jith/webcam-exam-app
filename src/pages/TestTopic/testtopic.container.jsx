@@ -14,7 +14,6 @@ const TestTopic = () => {
   const userDetails = useSelector((state) => state.userDetails, shallowEqual);
   //States
   const [testTopic, setTestTopic] = useState([]);
-  const [expandedList, setExpandedList] = useState([]);
   const [anchorE1List, setAnchorE1List] = useState([]);
   const [info, setinfo] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +27,6 @@ const TestTopic = () => {
         setIsLoading(false);
         setTestTopic(data.topics);
         setinfo(data.info);
-        setExpandedList(data.topics.map(() => false));
         setAnchorE1List(data.topics.map(() => null));
       })
       .catch((err) => {
@@ -37,16 +35,6 @@ const TestTopic = () => {
     // eslint-disable-next-line
   }, []);
   //Event Handlers
-  const handleExpandClick = (topic_no) => {
-    setExpandedList(
-      expandedList.map((bool, index) => {
-        if (index === topic_no) {
-          return !bool;
-        }
-        return bool;
-      })
-    );
-  };
   const handleAnchorE1Click = (event, topic_no) => {
     setAnchorE1List(
       anchorE1List.map((target, index) => {
@@ -73,10 +61,8 @@ const TestTopic = () => {
       <TestTopicView
         testTopic={testTopic}
         info={info}
-        expandedList={expandedList}
         page={page}
         rowsPerPage={rowsPerPage}
-        handleExpandClick={handleExpandClick}
         anchorE1List={anchorE1List}
         handleAnchorE1Click={handleAnchorE1Click}
         handleAnchorE1Close={handleAnchorE1Close}

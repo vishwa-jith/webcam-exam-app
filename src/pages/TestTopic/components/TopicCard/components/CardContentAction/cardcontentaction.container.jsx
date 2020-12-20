@@ -5,7 +5,7 @@ import CardContentActionView from "./cardcontentaction.view";
 const CardContentAction = ({
   topic_no,
   testinfo,
-  expandedList,
+  expanded,
   testtopicdata,
   handleExpandClick,
 }) => {
@@ -14,7 +14,7 @@ const CardContentAction = ({
       <CardContentActionView
         topic_no={topic_no}
         testinfo={testinfo}
-        expandedList={expandedList}
+        expanded={expanded}
         testtopicdata={testtopicdata}
         handleExpandClick={handleExpandClick}
       />
