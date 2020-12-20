@@ -25,12 +25,13 @@ import AlarmOnIcon from "@material-ui/icons/AlarmOn";
 import UpdateIcon from "@material-ui/icons/Update";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import Skeleton from "@material-ui/lab/Skeleton";
 import {
   red,
   green,
-  blueGrey,
   orange,
   deepOrange,
+  grey,
   teal,
 } from "@material-ui/core/colors";
 import { getTime, getTimer } from "../../../../components/utils";
@@ -38,30 +39,27 @@ import { getTime, getTimer } from "../../../../components/utils";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   avatar: {
-    color: "white",
-    backgroundColor: blueGrey["A700"],
+    color: teal[500],
+    backgroundColor: grey[100],
   },
   link: {
     display: "flex",
-  },
-  icon: {
-    marginRight: theme.spacing(0.5),
-    width: 20,
-    height: 20,
   },
 }));
 
 const TestDetailsView = ({ testDetails, testInfo }) => {
   const classes = useStyles();
   const history = useHistory();
-  const time = getTime(
-    getTimer(new Date(testInfo.end_time).toTimeString().split(":")) -
-      getTimer(new Date(testInfo.start_time).toTimeString().split(":"))
-  ).split(":");
+  var time = testInfo
+    ? getTime(
+        getTimer(new Date(testInfo.end_time).toTimeString().split(":")) -
+          getTimer(new Date(testInfo.start_time).toTimeString().split(":"))
+      ).split(":")
+    : 0;
   return (
     <>
       <Grid item xs={12} md={10}>
-        <Box m={2}>
+        <Box m={1}>
           <Paper>
             <Grid container alignItems="center">
               <Button
@@ -72,7 +70,7 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                 <ArrowBackIcon />
               </Button>
               <Box px={1}>
-                <Typography variant="h6" style={{ fontWeight: "bold" }}>
+                <Typography variant="h6" color="textSecondary">
                   Test Report
                 </Typography>
               </Box>
@@ -81,40 +79,42 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
         </Box>
       </Grid>
       <Grid item xs={12} md={5}>
-        <Box m={2}>
+        <Box mx={1} m={1}>
           <TableContainer component={Paper}>
             <Table>
               <TableBody>
                 <TableRow>
                   <TableCell>
-                    <Avatar
-                      className={classes.avatar}
-                      style={{ backgroundColor: teal[500] }}
-                    >
+                    <Avatar className={classes.avatar}>
                       <AssignmentIcon />
                     </Avatar>
                   </TableCell>
                   <TableCell component="th" scope="row">
                     <Typography>Test Name</Typography>
                   </TableCell>
-                  <TableCell align="right">
-                    <Typography>{testDetails.test_name}</Typography>
+                  <TableCell>
+                    {testDetails ? (
+                      <Typography>{testDetails.test_name}</Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <Avatar
-                      className={classes.avatar}
-                      style={{ backgroundColor: teal[500] }}
-                    >
+                    <Avatar className={classes.avatar}>
                       <LibraryBooksIcon />
                     </Avatar>
                   </TableCell>
                   <TableCell component="th" scope="row">
                     <Typography>Test Topic</Typography>
                   </TableCell>
-                  <TableCell align="right">
-                    <Typography>{testDetails.topic}</Typography>
+                  <TableCell>
+                    {testDetails ? (
+                      <Typography>{testDetails.topic}</Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -126,24 +126,29 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                   <TableCell component="th" scope="row">
                     <Typography>Test Duration</Typography>
                   </TableCell>
-                  <TableCell align="right">
-                    <Typography>{testDetails.duration_in_min} min</Typography>
+                  <TableCell>
+                    {testDetails ? (
+                      <Typography>{testDetails.duration_in_min} min</Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <Avatar
-                      className={classes.avatar}
-                      style={{ backgroundColor: green[500] }}
-                    >
+                    <Avatar className={classes.avatar}>
                       <AssessmentIcon />
                     </Avatar>
                   </TableCell>
                   <TableCell component="th" scope="row">
                     <Typography>Total Marks</Typography>
                   </TableCell>
-                  <TableCell align="right">
-                    <Typography>{testDetails.total_marks}</Typography>
+                  <TableCell>
+                    {testDetails ? (
+                      <Typography>{testDetails.total_marks}</Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -155,10 +160,14 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                   <TableCell component="th" scope="row">
                     <Typography>Test Date</Typography>
                   </TableCell>
-                  <TableCell align="right">
-                    <Typography>
-                      {new Date(testInfo.createdAt).toDateString()}
-                    </Typography>
+                  <TableCell>
+                    {testInfo ? (
+                      <Typography>
+                        {new Date(testInfo.createdAt).toDateString()}
+                      </Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -167,69 +176,83 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
         </Box>
       </Grid>
       <Grid item xs={12} md={5}>
-        <Box m={2}>
+        <Box mx={1} m={1}>
           <TableContainer component={Paper}>
             <Table>
               <TableBody>
                 <TableRow>
                   <TableCell>
-                    <Avatar
-                      className={classes.avatar}
-                      style={{
-                        backgroundColor: testInfo.is_fraudulant
-                          ? deepOrange[500]
-                          : green[500],
-                      }}
-                    >
-                      {testInfo.is_fraudulant ? <MoodBadIcon /> : <MoodIcon />}
+                    <Avatar className={classes.avatar}>
+                      {testInfo && testInfo.is_fraudulant ? (
+                        <MoodBadIcon />
+                      ) : (
+                        <MoodIcon />
+                      )}
                     </Avatar>
                   </TableCell>
                   <TableCell component="th" scope="row">
                     <Typography>Status</Typography>
                   </TableCell>
-                  <TableCell align="right">
-                    <Typography>
-                      {testInfo.is_fraudulant ? "Violation" : "Normal"}
-                    </Typography>
+                  <TableCell>
+                    {testInfo ? (
+                      <Typography
+                        style={{
+                          color: testInfo.is_fraudulant
+                            ? deepOrange[500]
+                            : green[500],
+                        }}
+                      >
+                        {testInfo.is_fraudulant ? "Violation" : "Normal"}
+                      </Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <Avatar
-                      className={classes.avatar}
-                      style={{
-                        backgroundColor:
-                          (testInfo.score / testDetails.total_marks) * 100 > 40
-                            ? green[500]
-                            : red[500],
-                      }}
-                    >
+                    <Avatar className={classes.avatar}>
                       <ScoreIcon />
                     </Avatar>
                   </TableCell>
                   <TableCell component="th" scope="row">
                     <Typography>Marks Scored</Typography>
                   </TableCell>
-                  <TableCell align="right">
-                    <Typography>
-                      {testInfo.score.toFixed(2)}/{testDetails.total_marks}
-                    </Typography>
+                  <TableCell>
+                    {testDetails && testInfo ? (
+                      <Typography
+                        style={{
+                          color:
+                            (testInfo.score / testDetails.total_marks) * 100 >
+                            40
+                              ? green[500]
+                              : red[500],
+                        }}
+                      >
+                        {testInfo.score.toFixed(2)}/{testDetails.total_marks}
+                      </Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <Avatar
-                      className={classes.avatar}
-                      style={{ backgroundColor: orange[500] }}
-                    >
+                    <Avatar className={classes.avatar}>
                       <WarningIcon />
                     </Avatar>
                   </TableCell>
                   <TableCell component="th" scope="row">
                     <Typography>Warnings</Typography>
                   </TableCell>
-                  <TableCell align="right">
-                    <Typography>{testInfo.no_of_warning}</Typography>
+                  <TableCell>
+                    {testInfo ? (
+                      <Typography style={{ color: orange[500] }}>
+                        {testInfo.no_of_warning}
+                      </Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -241,10 +264,14 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                   <TableCell component="th" scope="row">
                     <Typography>Time Taken</Typography>
                   </TableCell>
-                  <TableCell align="right">
-                    <Typography>
-                      {`${parseInt(time[0]) * 60 + parseInt(time[1])}`} min
-                    </Typography>
+                  <TableCell>
+                    {testInfo ? (
+                      <Typography>
+                        {`${parseInt(time[0]) * 60 + parseInt(time[1])}`} min
+                      </Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -256,10 +283,14 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                   <TableCell component="th" scope="row">
                     <Typography>Test Completion Time</Typography>
                   </TableCell>
-                  <TableCell align="right">
-                    <Typography>
-                      {new Date(testInfo.createdAt).toLocaleTimeString()}
-                    </Typography>
+                  <TableCell>
+                    {testInfo ? (
+                      <Typography>
+                        {new Date(testInfo.createdAt).toLocaleTimeString()}
+                      </Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
                   </TableCell>
                 </TableRow>
               </TableBody>

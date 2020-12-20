@@ -33,11 +33,11 @@ const SolutionView = ({ index, questions, answers, question_no, opt }) => {
             answers[question_no] === index ? (
               <GreenCheckbox checked={true} />
             ) : questions[question_no].answer_option === index ? (
-              <GreenCheckbox checked={true} disabled={true} />
+              <GreenCheckbox checked={true} />
             ) : answers[question_no] === index ? (
               <OrangeCheckbox checked={true} />
             ) : (
-              <Checkbox disabled={true} />
+              <Checkbox checked={false} />
             )
           }
           label={opt}

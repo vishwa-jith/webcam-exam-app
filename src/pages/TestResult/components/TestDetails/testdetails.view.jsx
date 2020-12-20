@@ -10,6 +10,7 @@ import {
   Table,
   TableBody,
   Button,
+  ButtonGroup,
   Grid,
   Card,
   CardHeader,
@@ -23,6 +24,7 @@ import {
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import AssessmentIcon from "@material-ui/icons/Assessment";
+import TimelineIcon from "@material-ui/icons/Timeline";
 import {
   teal,
   grey,
@@ -144,17 +146,36 @@ const TestDetailsView = ({ testDetails, info }) => {
                           <ListItemText>Marked</ListItemText>
                         </ListItem>
                       </List>
-                      <Button
-                        aria-label="Test Report"
-                        startIcon={<AssessmentIcon />}
-                        variant="outlined"
-                        color="primary"
-                        onClick={() =>
-                          history.push(`/testsolution/${testDetails._id}`)
-                        }
+                      <ButtonGroup
+                        size="small"
+                        aria-label="small outlined button group"
+                        disableElevation
                       >
-                        DETAILED REPORT
-                      </Button>
+                        <Button
+                          aria-label="Test Report"
+                          margin="normal"
+                          startIcon={<AssessmentIcon />}
+                          variant="outlined"
+                          color="primary"
+                          onClick={() =>
+                            history.push(`/testsolution/${testDetails._id}`)
+                          }
+                        >
+                          DETAILED REPORT
+                        </Button>
+                        <Button
+                          aria-label="Leader Board"
+                          startIcon={<TimelineIcon />}
+                          variant="contained"
+                          margin="normal"
+                          color="primary"
+                          onClick={() =>
+                            history.push(`/leaderboard/${testDetails._id}`)
+                          }
+                        >
+                          LEADERBOARD
+                        </Button>
+                      </ButtonGroup>
                     </CardContent>
                   </Card>
                 </Box>

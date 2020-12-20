@@ -16,26 +16,32 @@ const useStyles = makeStyles((theme) => ({
   green: {
     color: green[500],
   },
-  answer: {
-    fontWeight: "bold",
-    color: "#555",
-  },
 }));
 
 const QuestionView = ({ questions, question_no, answers }) => {
   const classes = useStyles();
   let correct = "";
   return (
-    <Box m={2}>
-      <Paper>
+    <Box m={3}>
+      <Paper
+        variant="outlined"
+        style={{
+          borderColor: `${
+            questions[question_no].answer_option === answers[question_no]
+              ? green[500]
+              : deepOrange[500]
+          }`,
+        }}
+      >
         <Box py={5} px={2}>
           <Grid container justify="center" alignItems="center">
             <Grid item xs={12} md={10}>
               <Typography
                 variant="h6"
                 className={
-                  questions[question_no].answer_option ===
-                    answers[question_no] && classes.answer
+                  questions[question_no].answer_option === answers[question_no]
+                    ? classes.green
+                    : classes.orange
                 }
               >
                 {questions[question_no].question}
@@ -57,7 +63,7 @@ const QuestionView = ({ questions, question_no, answers }) => {
                 })}
               </List>
               <Typography
-                className={classes.answer}
+                className={classes.green}
               >{`Answer - ${correct}`}</Typography>
             </Grid>
           </Grid>

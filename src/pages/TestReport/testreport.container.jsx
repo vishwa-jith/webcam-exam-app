@@ -25,6 +25,8 @@ const TestReport = () => {
   const [testInfo, setTestInfo] = useState(null);
   const [questions, setQuestions] = useState(null);
   const [answers, setAnswers] = useState(null);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   //useEffect
   useEffect(() => {
     if (test_details) {
@@ -51,14 +53,26 @@ const TestReport = () => {
       });
     }
   }, [testId, test_info, test_details]);
+  //Event Handlers
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   return (
     <>
       <TestReportView
+        page={page}
+        rowsPerPage={rowsPerPage}
         questions={questions}
         answers={answers}
         testDetails={testDetails}
         testInfo={testInfo}
+        handleChangePage={handleChangePage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
       />
     </>
   );
