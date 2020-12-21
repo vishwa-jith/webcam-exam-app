@@ -49,7 +49,7 @@ const CardContentActionView = ({
                     color: deepOrange[500],
                   }}
                 >
-                  {new Date(testtopicdata.start_time).toLocaleTimeString()}
+                  {new Date(testtopicdata.test_start_time).toLocaleTimeString()}
                 </Typography>
               ) : !testtopicdata.end_time && testtopicdata.start_time ? (
                 <Typography
@@ -60,7 +60,7 @@ const CardContentActionView = ({
                     color: orange[500],
                   }}
                 >
-                  {new Date(testtopicdata.start_time).toLocaleTimeString()}
+                  {new Date(testtopicdata.test_start_time).toLocaleTimeString()}
                 </Typography>
               ) : testtopicdata.end_time ? (
                 <Typography
@@ -87,7 +87,7 @@ const CardContentActionView = ({
                     color: teal[500],
                   }}
                 >
-                  {new Date(testtopicdata.start_time).toLocaleTimeString()}
+                  {new Date(testtopicdata.test_start_time).toLocaleTimeString()}
                 </Typography>
               )}
             </ListItemText>

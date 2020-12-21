@@ -13,12 +13,15 @@ const TestTopic = () => {
   const [testTopic, setTestTopic] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [filterType, setFilterType] = useState("");
+  const [filterType, setFilterType] = useState("LIVE");
   //useEffect
   useEffect(() => {
     getTestTopics().then((data) => {
       setTestTopic(
-        data.topics.map((topic, index) => ({ ...topic, ...data.info[index] }))
+        data.topics.map((topic, index) => {
+          const t_data = { ...topic, ["test_start_time"]: topic.start_time };
+          return { ...t_data, ...data.info[index] };
+        })
       );
     });
     // eslint-disable-next-line
@@ -32,10 +35,14 @@ const TestTopic = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const handleFilter = (filter) => {
+    setFilterType(filter);
+  };
   return (
     <>
       <TestTopicView
         testTopic={testTopic}
+        filterType={filterType}
         page={page}
         rowsPerPage={rowsPerPage}
         Transition={Transition}

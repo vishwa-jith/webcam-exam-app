@@ -1,31 +1,22 @@
 import * as filterType from "./filterTypes";
+import { getTimer } from "../../../components/utils";
 export const filterAction = (action) => {
-  switch (action.type) {
-    case filterType.NORMAL:
-      return !!action.payload.end_time && action.payload.is_fraudulant;
+  const { type, payload } = action;
+  switch (type) {
     case filterType.FRAUDULANT:
-      return action.payload.is_fraudulant;
+      return payload.is_fraudulant;
     case filterType.COMPLETED:
-      return !!action.payload.end_time;
+      return !!payload.end_time && !payload.is_fraudulant;
     case filterType.RESUME:
-      return !action.payload.end_time && !!action.payload.start_time;
+      return !payload.end_time && !!payload.start_time;
+    case filterType.LIVE:
+      return (
+        getTimer(payload.test_start_time) <=
+          getTimer(new Date().toLocaleTimeString().split(":")) &&
+        getTimer(new Date().toLocaleTimeString().split(":")) <=
+          getTimer(payload.test_start_time) + parseInt(payload.duration_in_min)
+      );
     default:
       return true;
   }
 };
-export const filterNormal = (payload) => ({
-  type: filterType.NORMAL,
-  payload,
-});
-export const filterFraudulant = (payload) => ({
-  type: filterType.FRAUDULANT,
-  payload,
-});
-export const filterCompleted = (payload) => ({
-  type: filterType.COMPLETED,
-  payload,
-});
-export const filterResume = (payload) => ({
-  type: filterType.RESUME,
-  payload,
-});

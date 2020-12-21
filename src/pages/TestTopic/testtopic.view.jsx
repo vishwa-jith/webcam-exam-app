@@ -1,10 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import {
-  filterAction,
-  filterCompleted,
-  filterResume,
-} from "./utils/filterAction";
+import { filterAction } from "./utils/filterAction";
 
 //Components
 import TopicCard from "./components/TopicCard";
@@ -14,6 +10,7 @@ import TopicFilterBar from "./components/TopicFilterBar";
 
 const TestTopicView = ({
   testTopic,
+  filterType,
   page,
   rowsPerPage,
   Transition,
@@ -34,6 +31,7 @@ const TestTopicView = ({
         <Grid container lg={10} xs={12} item alignItems="space-evenly">
           {testTopic.length > 0 ? (
             testTopic
+              .filter((payload) => filterAction({ type: filterType, payload }))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((data, index) => {
                 return (
