@@ -2,17 +2,11 @@ import React from "react";
 
 import CardPopoverView from "./cardpopover.view";
 
-const CardPopover = ({
-  topic_no,
-  anchorE1List,
-  testtopicdata,
-  handleAnchorE1Close,
-}) => {
+const CardPopover = ({ anchorE1, testtopicdata, handleAnchorE1Close }) => {
   return (
     <>
       <CardPopoverView
-        topic_no={topic_no}
-        anchorE1List={anchorE1List}
+        anchorE1={anchorE1}
         testtopicdata={testtopicdata}
         handleAnchorE1Close={handleAnchorE1Close}
       />

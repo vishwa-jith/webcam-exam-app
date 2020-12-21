@@ -2,14 +2,10 @@ import React from "react";
 
 import CardContentAreaView from "./cardcontentarea.view";
 
-const CardContentArea = ({ testtopicdata, topic_no, testinfo }) => {
+const CardContentArea = ({ testtopicdata }) => {
   return (
     <>
-      <CardContentAreaView
-        testtopicdata={testtopicdata}
-        topic_no={topic_no}
-        testinfo={testinfo}
-      />
+      <CardContentAreaView testtopicdata={testtopicdata} />
     </>
   );
 };

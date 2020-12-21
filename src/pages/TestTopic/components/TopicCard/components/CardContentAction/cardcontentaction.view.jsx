@@ -27,8 +27,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CardContentActionView = ({
-  topic_no,
-  testinfo,
   expanded,
   testtopicdata,
   handleExpandClick,
@@ -42,46 +40,44 @@ const CardContentActionView = ({
         <List dense>
           <ListItem dense>
             <ListItemText>
-              {testinfo ? (
-                testinfo.is_fraudulant ? (
-                  <Typography
-                    variant="subtitle1"
-                    style={{
-                      fontWeight: "bolder",
-                      fontSize: "1.2em",
-                      color: deepOrange[500],
-                    }}
-                  >
-                    {new Date(testtopicdata.start_time).toLocaleTimeString()}
-                  </Typography>
-                ) : !testinfo.end_time ? (
-                  <Typography
-                    variant="subtitle1"
-                    style={{
-                      fontWeight: "bolder",
-                      fontSize: "1.2em",
-                      color: orange[500],
-                    }}
-                  >
-                    {new Date(testtopicdata.start_time).toLocaleTimeString()}
-                  </Typography>
-                ) : (
-                  <Typography
-                    variant="subtitle1"
-                    style={{
-                      fontWeight: "bolder",
-                      fontSize: "1.2em",
-                      color:
-                        testtopicdata.score >= 0.35 * testtopicdata.total_marks
-                          ? orange[500]
-                          : green[500],
-                    }}
-                  >
-                    {`${testinfo.score.toFixed(2)}/${
-                      testtopicdata.total_marks
-                    }`}
-                  </Typography>
-                )
+              {testtopicdata.is_fraudulant ? (
+                <Typography
+                  variant="subtitle1"
+                  style={{
+                    fontWeight: "bolder",
+                    fontSize: "1.2em",
+                    color: deepOrange[500],
+                  }}
+                >
+                  {new Date(testtopicdata.start_time).toLocaleTimeString()}
+                </Typography>
+              ) : !testtopicdata.end_time && testtopicdata.start_time ? (
+                <Typography
+                  variant="subtitle1"
+                  style={{
+                    fontWeight: "bolder",
+                    fontSize: "1.2em",
+                    color: orange[500],
+                  }}
+                >
+                  {new Date(testtopicdata.start_time).toLocaleTimeString()}
+                </Typography>
+              ) : testtopicdata.end_time ? (
+                <Typography
+                  variant="subtitle1"
+                  style={{
+                    fontWeight: "bolder",
+                    fontSize: "1.2em",
+                    color:
+                      testtopicdata.score >= 0.35 * testtopicdata.total_marks
+                        ? orange[500]
+                        : green[500],
+                  }}
+                >
+                  {`${testtopicdata.score.toFixed(2)}/${
+                    testtopicdata.total_marks
+                  }`}
+                </Typography>
               ) : (
                 <Typography
                   variant="subtitle1"
@@ -101,7 +97,7 @@ const CardContentActionView = ({
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
-          onClick={() => handleExpandClick(topic_no)}
+          onClick={() => handleExpandClick()}
         >
           <ExpandMoreIcon />
         </IconButton>

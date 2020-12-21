@@ -7,25 +7,18 @@ import {
 
 import TopicCardView from "./topiccard.view";
 
-const TopicCard = function ({
-  testtopicdata,
-  testinfo,
-  topic_no,
-  anchorE1List,
-  handleAnchorE1Click,
-  handleAnchorE1Close,
-  Transition,
-}) {
+const TopicCard = function ({ testtopicdata, Transition }) {
   //Const
   const dispatch = useDispatch();
   //States
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [anchorE1, setAnchorE1] = useState();
   //Event Handlers
   const handleClickOpen = () => {
     dispatch(addTestDetails(testtopicdata));
-    if (testinfo) {
-      dispatch(addTestInfo(testinfo));
+    if (testtopicdata) {
+      dispatch(addTestInfo(testtopicdata));
     }
     setOpen(true);
   };
@@ -36,16 +29,19 @@ const TopicCard = function ({
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  const handleAnchorE1Click = (event) => {
+    setAnchorE1(event.currentTarget);
+  };
+  const handleAnchorE1Close = () => {
+    setAnchorE1(null);
+  };
   return (
     <>
       <TopicCardView
-        topic_no={topic_no}
         testtopicdata={testtopicdata}
-        testinfo={testinfo}
         expanded={expanded}
         handleExpandClick={handleExpandClick}
-        anchorE1List={anchorE1List}
+        anchorE1={anchorE1}
         handleAnchorE1Click={handleAnchorE1Click}
         handleAnchorE1Close={handleAnchorE1Close}
         Transition={Transition}

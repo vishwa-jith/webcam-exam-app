@@ -84,12 +84,6 @@ const TopicFilterBarView = () => {
               </Button>
             </Box>
           </Grid>
-          <Grid
-            container
-            alignItems="center"
-            justify="space-between"
-            style={{ height: "45px" }}
-          ></Grid>
         </Paper>
       </Box>
     </Grid>

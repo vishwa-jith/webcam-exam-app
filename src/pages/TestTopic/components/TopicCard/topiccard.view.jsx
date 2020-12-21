@@ -26,12 +26,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TopicCardView = function ({
-  topic_no,
   expanded,
   testtopicdata,
-  testinfo,
   handleExpandClick,
-  anchorE1List,
+  anchorE1,
   handleAnchorE1Click,
   handleAnchorE1Close,
   Transition,
@@ -49,36 +47,25 @@ const TopicCardView = function ({
           {!expanded && (
             <>
               <CardHeader
-                avatar={<CardHeaderAvatar testinfo={testinfo} />}
+                avatar={<CardHeaderAvatar testtopicdata={testtopicdata} />}
                 title={testtopicdata.test_name}
                 subheader={new Date(testtopicdata.start_time).toDateString()}
                 action={
-                  <CardHeaderAction
-                    topic_no={topic_no}
-                    handleAnchorE1Click={handleAnchorE1Click}
-                  />
+                  <CardHeaderAction handleAnchorE1Click={handleAnchorE1Click} />
                 }
               />
               <CardPopover
-                topic_no={topic_no}
-                anchorE1List={anchorE1List}
+                anchorE1={anchorE1}
                 testtopicdata={testtopicdata}
                 handleAnchorE1Close={handleAnchorE1Close}
               />
               <CardActionArea onClick={handleClickOpen}>
-                <CardContentArea
-                  testtopicdata={testtopicdata}
-                  expanded={expanded}
-                  topic_no={topic_no}
-                  testinfo={testinfo}
-                />
+                <CardContentArea testtopicdata={testtopicdata} />
               </CardActionArea>
             </>
           )}
           <CardActions>
             <CardContentAction
-              topic_no={topic_no}
-              testinfo={testinfo}
               expanded={expanded}
               testtopicdata={testtopicdata}
               handleExpandClick={handleExpandClick}
@@ -96,7 +83,6 @@ const TopicCardView = function ({
             Transition={Transition}
             open={open}
             handleClose={handleClose}
-            testinfo={testinfo}
           />
         )}
       </Box>

@@ -1,5 +1,10 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
+import {
+  filterAction,
+  filterCompleted,
+  filterResume,
+} from "./utils/filterAction";
 
 //Components
 import TopicCard from "./components/TopicCard";
@@ -9,15 +14,9 @@ import TopicFilterBar from "./components/TopicFilterBar";
 
 const TestTopicView = ({
   testTopic,
-  info,
   page,
   rowsPerPage,
-  anchorE1List,
-  handleAnchorE1Click,
-  handleAnchorE1Close,
   Transition,
-  userDetails,
-  isLoading,
   handleChangePage,
   handleChangeRowsPerPage,
 }) => {
@@ -37,23 +36,10 @@ const TestTopicView = ({
             testTopic
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((data, index) => {
-                const testinfo = info
-                  .filter((info_x) => {
-                    return (
-                      info_x.user_id === userDetails.userDetails._id &&
-                      data._id === info_x.test_id
-                    );
-                  })
-                  .reverse()[0];
                 return (
                   <TopicCard
                     key={index}
-                    topic_no={index}
                     testtopicdata={data}
-                    testinfo={testinfo}
-                    anchorE1List={anchorE1List}
-                    handleAnchorE1Click={handleAnchorE1Click}
-                    handleAnchorE1Close={handleAnchorE1Close}
                     Transition={Transition}
                   />
                 );

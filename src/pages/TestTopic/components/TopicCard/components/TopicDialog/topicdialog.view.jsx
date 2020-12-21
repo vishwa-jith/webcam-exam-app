@@ -31,13 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopicDialogView = ({
-  testtopicdata,
-  Transition,
-  open,
-  handleClose,
-  testinfo,
-}) => {
+const TopicDialogView = ({ testtopicdata, Transition, open, handleClose }) => {
   //Const
   const history = useHistory();
   const classes = useStyles();
@@ -66,7 +60,7 @@ const TopicDialogView = ({
           <Grid item md={8} sm={10} xs={12}>
             <Paper elevation={2}>
               <List component="nav">
-                {!testinfo && (
+                {!testtopicdata.end_time && (
                   <ListItem
                     style={{ fontWeight: "bold", textTransform: "uppercase" }}
                   >
@@ -135,20 +129,22 @@ const TopicDialogView = ({
                   </ListItemText>
                 </ListItem>
                 <ListItem>
-                  {testinfo ? (
+                  {testtopicdata.start_time ? (
                     <ListItemText>
                       <Button
                         color="primary"
                         variant="contained"
                         onClick={() => {
                           history.push(
-                            !testinfo.end_time
+                            !testtopicdata.end_time
                               ? `/test/${testtopicdata._id}`
                               : `/testsolution/${testtopicdata._id}`
                           );
                         }}
                       >
-                        {!testinfo.end_time ? "RESUME TEST" : "VIEW SOLUTION"}
+                        {!testtopicdata.end_time
+                          ? "RESUME TEST"
+                          : "VIEW SOLUTION"}
                       </Button>
                     </ListItemText>
                   ) : (

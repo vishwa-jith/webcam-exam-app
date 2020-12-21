@@ -23,30 +23,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CardHeaderAvatarView = ({ testinfo }) => {
+const CardHeaderAvatarView = ({ testtopicdata }) => {
   //Const
   const classes = useStyles();
   return (
     <>
       <Avatar
         className={
-          testinfo
-            ? testinfo.is_fraudulant
-              ? classes.assviolation
-              : !testinfo.end_time
-              ? classes.assreturn
-              : classes.assdone
+          testtopicdata.is_fraudulant
+            ? classes.assviolation
+            : !testtopicdata.end_time && testtopicdata.start_time
+            ? classes.assreturn
+            : testtopicdata.end_time
+            ? classes.assdone
             : classes.assign
         }
       >
-        {testinfo ? (
-          testinfo.is_fraudulant ? (
-            <AssignmentLateIcon />
-          ) : !testinfo.end_time ? (
-            <AssignmentReturnIcon />
-          ) : (
-            <AssignmentTurnedInIcon />
-          )
+        {testtopicdata.is_fraudulant ? (
+          <AssignmentLateIcon />
+        ) : !testtopicdata.end_time && testtopicdata.start_time ? (
+          <AssignmentReturnIcon />
+        ) : testtopicdata.end_time ? (
+          <AssignmentTurnedInIcon />
         ) : (
           <AssignmentIcon />
         )}

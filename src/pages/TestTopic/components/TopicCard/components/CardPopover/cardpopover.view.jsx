@@ -10,18 +10,12 @@ import {
 import TimelineIcon from "@material-ui/icons/Timeline";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 
-const CardPopoverView = ({
-  topic_no,
-  anchorE1List,
-  testtopicdata,
-  handleAnchorE1Close,
-}) => {
+const CardPopoverView = ({ anchorE1, testtopicdata, handleAnchorE1Close }) => {
   return (
     <>
       <Popover
-        id={topic_no}
-        open={Boolean(anchorE1List[topic_no])}
-        anchorEl={anchorE1List[topic_no]}
+        open={Boolean(anchorE1)}
+        anchorEl={anchorE1}
         onClose={handleAnchorE1Close}
         anchorOrigin={{
           vertical: "top",

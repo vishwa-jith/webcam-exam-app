@@ -2,10 +2,10 @@ import React from "react";
 
 import CardHeaderAvatarView from "./cardheaderavatar.view";
 
-const CardHeaderAvatar = ({ testinfo }) => {
+const CardHeaderAvatar = ({ testtopicdata }) => {
   return (
     <>
-      <CardHeaderAvatarView testinfo={testinfo} />
+      <CardHeaderAvatarView testtopicdata={testtopicdata} />
     </>
   );
 };

@@ -2,13 +2,7 @@ import React from "react";
 
 import TopicDialogView from "./topicdialog.view";
 
-const TopicDialog = ({
-  testtopicdata,
-  Transition,
-  open,
-  handleClose,
-  testinfo,
-}) => {
+const TopicDialog = ({ testtopicdata, Transition, open, handleClose }) => {
   return (
     <>
       <TopicDialogView
@@ -16,7 +10,6 @@ const TopicDialog = ({
         Transition={Transition}
         open={open}
         handleClose={handleClose}
-        testinfo={testinfo}
       />
     </>
   );

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CardContentAreaView = ({ testtopicdata, testinfo }) => {
+const CardContentAreaView = ({ testtopicdata }) => {
   const classes = useStyles();
   return (
     <>
@@ -47,35 +47,33 @@ const CardContentAreaView = ({ testtopicdata, testinfo }) => {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            {testinfo ? (
-              testinfo.is_fraudulant ? (
-                <WarningIcon
-                  style={{
-                    textAlign: "left",
-                    color: deepOrange[500],
-                    fontWeight: "bolder",
-                    float: "left",
-                  }}
-                />
-              ) : !testinfo.end_time ? (
-                <HelpIcon
-                  style={{
-                    textAlign: "left",
-                    color: orange[500],
-                    fontWeight: "bolder",
-                    float: "left",
-                  }}
-                />
-              ) : (
-                <DoneIcon
-                  style={{
-                    textAlign: "left",
-                    color: green[500],
-                    fontWeight: "bolder",
-                    float: "left",
-                  }}
-                />
-              )
+            {testtopicdata.is_fraudulant ? (
+              <WarningIcon
+                style={{
+                  textAlign: "left",
+                  color: deepOrange[500],
+                  fontWeight: "bolder",
+                  float: "left",
+                }}
+              />
+            ) : !testtopicdata.end_time && testtopicdata.start_time ? (
+              <HelpIcon
+                style={{
+                  textAlign: "left",
+                  color: orange[500],
+                  fontWeight: "bolder",
+                  float: "left",
+                }}
+              />
+            ) : testtopicdata.end_time ? (
+              <DoneIcon
+                style={{
+                  textAlign: "left",
+                  color: green[500],
+                  fontWeight: "bolder",
+                  float: "left",
+                }}
+              />
             ) : (
               <MenuBookIcon
                 style={{
@@ -91,23 +89,23 @@ const CardContentAreaView = ({ testtopicdata, testinfo }) => {
             <Typography
               style={{
                 textAlign: "left",
-                color: testinfo
-                  ? testinfo.is_fraudulant
-                    ? deepOrange[500]
-                    : !testinfo.end_time
-                    ? orange[500]
-                    : green[500]
+                color: testtopicdata.is_fraudulant
+                  ? deepOrange[500]
+                  : !testtopicdata.end_time && testtopicdata.start_time
+                  ? orange[500]
+                  : testtopicdata.end_time
+                  ? green[500]
                   : teal[500],
                 fontWeight: "bolder",
                 float: "left",
               }}
             >
-              {testinfo
-                ? testinfo.is_fraudulant
-                  ? "Violation"
-                  : !testinfo.end_time
-                  ? "Resume Test"
-                  : "Completed"
+              {testtopicdata.is_fraudulant
+                ? "Violation"
+                : !testtopicdata.end_time && testtopicdata.start_time
+                ? "Resume Test"
+                : testtopicdata.end_time
+                ? "Completed"
                 : "Take Test"}
             </Typography>
           </ListItemText>
