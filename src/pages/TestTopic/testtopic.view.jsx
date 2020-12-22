@@ -16,6 +16,7 @@ const TestTopicView = ({
   Transition,
   handleChangePage,
   handleChangeRowsPerPage,
+  handleFilter,
 }) => {
   return (
     <>
@@ -27,7 +28,7 @@ const TestTopicView = ({
           handleChangePage={handleChangePage}
           handleChangeRowsPerPage={handleChangeRowsPerPage}
         />
-        <TopicFilterBar />
+        <TopicFilterBar filterType={filterType} handleFilter={handleFilter} />
         <Grid container lg={10} xs={12} item alignItems="space-evenly">
           {testTopic.length > 0 ? (
             testTopic

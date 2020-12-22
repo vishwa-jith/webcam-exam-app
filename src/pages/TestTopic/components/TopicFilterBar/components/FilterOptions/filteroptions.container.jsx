@@ -2,10 +2,15 @@ import React from "react";
 
 import FilterOptionsView from "./filteroptions.view";
 
-const FilterOptions = () => {
+const FilterOptions = ({ filterType, handleFilter, filterOpen, anchorRef }) => {
   return (
     <>
-      <FilterOptionsView />
+      <FilterOptionsView
+        filterType={filterType}
+        handleFilter={handleFilter}
+        filterOpen={filterOpen}
+        anchorRef={anchorRef}
+      />
     </>
   );
 };

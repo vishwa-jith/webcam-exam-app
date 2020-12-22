@@ -70,8 +70,8 @@ const CardContentActionView = ({
                     fontSize: "1.2em",
                     color:
                       testtopicdata.score >= 0.35 * testtopicdata.total_marks
-                        ? orange[500]
-                        : green[500],
+                        ? green[500]
+                        : orange[500],
                   }}
                 >
                   {`${testtopicdata.score.toFixed(2)}/${
