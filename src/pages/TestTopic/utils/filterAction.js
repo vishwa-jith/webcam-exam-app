@@ -11,10 +11,14 @@ export const filterAction = (action) => {
       return !payload.end_time && !!payload.start_time;
     case filterType.LIVE:
       return (
-        getTimer(payload.test_start_time) <=
-          getTimer(new Date().toLocaleTimeString().split(":")) &&
+        getTimer(
+          new Date(payload.test_start_time).toLocaleTimeString().split(":")
+        ) <= getTimer(new Date().toLocaleTimeString().split(":")) &&
         getTimer(new Date().toLocaleTimeString().split(":")) <=
-          getTimer(payload.test_start_time) + parseInt(payload.duration_in_min)
+          getTimer(
+            new Date(payload.test_start_time).toLocaleTimeString().split(":")
+          ) +
+            parseInt(payload.duration_in_min) * 60
       );
     default:
       return true;

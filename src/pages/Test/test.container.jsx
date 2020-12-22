@@ -56,7 +56,7 @@ const Test = () => {
   useEffect(() => {
     setSocket(openSocket("http://192.168.225.69:8000/"));
     const start_sec = getTimer(
-      new Date(testDetails.start_time).toLocaleTimeString().split(":")
+      new Date(testDetails.test_start_time).toLocaleTimeString().split(":")
     );
     const now_sec = getTimer(new Date().toLocaleTimeString().split(":"));
     const end_sec = start_sec + 60 * testDetails.duration_in_min;
@@ -124,7 +124,12 @@ const Test = () => {
       setuser_id(ques.user_id);
       setQuestions(ques.questions);
       setAnswers(
-        ques.questions.map((data, index) => ({ id: index, answer: null }))
+        ques.questions.map((data, index) => ({
+          id: index,
+          answer: null,
+          is_answered: false,
+          is_marked: false,
+        }))
       );
     });
     return () => {
@@ -167,12 +172,35 @@ const Test = () => {
     });
   };
   const handleWarning = () => {
-    if (warning.includes(question_no)) {
+    console.log(answers);
+    if (answers[question_no].is_marked) {
       dispatch(addInfoAlert(`Question number ${question_no + 1} mark removed`));
       setWarning(warning.filter((value) => value !== question_no));
+      setAnswers(
+        answers.map((ans, qno) => {
+          if (qno === question_no) {
+            return {
+              ...ans,
+              is_marked: false,
+            };
+          }
+          return ans;
+        })
+      );
     } else {
       dispatch(addInfoAlert(`Question number ${question_no + 1} mark saved`));
       setWarning([...warning, question_no]);
+      setAnswers(
+        answers.map((ans, qno) => {
+          if (qno === question_no) {
+            return {
+              ...ans,
+              is_marked: true,
+            };
+          }
+          return ans;
+        })
+      );
     }
   };
   const handleChange = (event, newValue) => {
@@ -189,13 +217,19 @@ const Test = () => {
     setRunCamera(state);
   };
   const handleAnswers = (event) => {
+    console.log(answers);
     setAnswers(
       answers.map((opt, qno) => {
         if (qno === question_no) {
           if (!done.includes(question_no)) {
             setDone([...done, question_no]);
           }
-          return { id: qno, answer: event.target.id };
+          return {
+            id: qno,
+            answer: event.target.id,
+            is_answered: true,
+            is_marked: answers[qno].is_marked,
+          };
         }
         return opt;
       })

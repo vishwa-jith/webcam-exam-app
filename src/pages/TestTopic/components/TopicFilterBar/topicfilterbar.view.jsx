@@ -76,6 +76,7 @@ const TopicFilterBarView = ({
                   <SearchIcon />
                 </div>
                 <InputBase
+                  autoFocus={true}
                   placeholder="Search…"
                   classes={{
                     root: classes.inputRoot,

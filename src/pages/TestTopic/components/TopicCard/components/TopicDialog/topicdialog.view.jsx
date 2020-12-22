@@ -137,8 +137,8 @@ const TopicDialogView = ({ testtopicdata, Transition, open, handleClose }) => {
                         onClick={() => {
                           history.push(
                             !testtopicdata.end_time
-                              ? `/test/${testtopicdata._id}`
-                              : `/testsolution/${testtopicdata._id}`
+                              ? `/test/${testtopicdata.test_id}`
+                              : `/testsolution/${testtopicdata.test_id}`
                           );
                         }}
                       >
@@ -153,7 +153,7 @@ const TopicDialogView = ({ testtopicdata, Transition, open, handleClose }) => {
                         color="primary"
                         variant="contained"
                         onClick={() => {
-                          history.push(`/test/${testtopicdata._id}`);
+                          history.push(`/test/${testtopicdata.test_id}`);
                         }}
                       >
                         START TEST

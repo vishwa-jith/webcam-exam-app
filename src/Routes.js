@@ -46,7 +46,7 @@ const ExamRoute = ({ children, component: Component, ...rest }) => {
       render={({ location }) => {
         if (testDetails.testDetails) {
           const start_sec = getTimer(
-            new Date(testDetails.testDetails.start_time)
+            new Date(testDetails.testDetails.test_start_time)
               .toTimeString()
               .split(":")
           );

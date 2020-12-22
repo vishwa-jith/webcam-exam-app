@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Popper,
   Paper,
@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
 
 const FilterOptions = ({ filterOpen, handleFilter, filterType, anchorRef }) => {
   const classes = useStyles();
-  const [arrowRef, setArrowRef] = React.useState(null);
+  const [arrowRef, setArrowRef] = useState(null);
   return (
     <>
       <Popper
@@ -187,7 +187,7 @@ const FilterOptions = ({ filterOpen, handleFilter, filterType, anchorRef }) => {
                   <FiberManualRecordIcon />
                 )}
               </ListItemIcon>
-              <ListItemText>FRAUDULANT</ListItemText>
+              <ListItemText>VIOLATION</ListItemText>
             </ListItem>
           </List>
         </Paper>

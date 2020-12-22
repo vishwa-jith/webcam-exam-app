@@ -19,9 +19,16 @@ const TestTopic = () => {
     getTestTopics().then((data) => {
       setTestTopic(
         data.topics.map((topic, index) => {
+          const t_info = data.info.filter(
+            (test_info) => test_info.test_id === topic._id
+          )[0];
           // eslint-disable-next-line
-          const t_data = { ...topic, ["test_start_time"]: topic.start_time };
-          return { ...t_data, ...data.info[index] };
+          const t_data = {
+            ...topic,
+            test_start_time: topic.start_time,
+            start_time: null,
+          };
+          return { ...t_data, ...t_info };
         })
       );
     });
