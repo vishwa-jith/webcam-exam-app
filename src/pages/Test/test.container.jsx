@@ -54,7 +54,7 @@ const Test = () => {
   const [isTestInfo, setIsTestInfo] = useState(false);
   //useEffect
   useEffect(() => {
-    setSocket(openSocket("http://192.168.225.69:8000/"));
+    setSocket(openSocket("http://localhost:8000/"));
     const start_sec = getTimer(
       new Date(testDetails.test_start_time).toLocaleTimeString().split(":")
     );
@@ -145,13 +145,16 @@ const Test = () => {
     // eslint-disable-next-line
   }, [openDialog]);
   useEffect(() => {
-    if (!testInfo && isTestInfo) {
-      startTest(testId, new Date()).then((testinfo) => {
+    if (!testInfo && isTestInfo && questions) {
+      startTest(testId, {
+        start_time: new Date(),
+        q_len: questions.length,
+      }).then((testinfo) => {
         setTestInfo(testinfo);
       });
     }
     // eslint-disable-next-line
-  }, [testInfo, isTestInfo]);
+  }, [testInfo, isTestInfo, questions]);
   //Event Handlers
   const handleClickOpenDialog = () => {
     setOpenDialog(true);

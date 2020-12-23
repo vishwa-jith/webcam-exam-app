@@ -9,4 +9,4 @@ export const SIDEBAR_PATH_LIST = [
   "/testreport",
 ];
 export const drawerWidth = 240;
-export const baseUrl = "http://192.168.225.69:8000/";
+export const baseUrl = "http://localhost:8000/";

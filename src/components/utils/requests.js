@@ -107,12 +107,12 @@ export const sendAnswers = async (testId, answers) => {
   return response.data;
 };
 //Start Test
-export const startTest = async (testId, start_time) => {
+export const startTest = async (testId, data) => {
   const token = localStorage.getItem("token");
   const bearer = "Bearer " + token;
   var response = await axios.post(
     baseUrl + `test-info/start-test/${testId}`,
-    { start_time },
+    data,
     {
       headers: {
         Authorization: bearer,
