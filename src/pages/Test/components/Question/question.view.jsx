@@ -48,7 +48,11 @@ const QuestionView = ({
                       <Checkbox
                         checked={
                           answers.length !== question_no &&
-                          parseInt(answers[question_no].answer) === index
+                          parseInt(
+                            answers.filter(
+                              ({ q_no }) => parseInt(q_no) === question_no
+                            )[0].answer
+                          ) === index
                         }
                         onChange={handleAnswers}
                         onClick={handleAnswers}

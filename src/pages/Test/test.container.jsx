@@ -8,6 +8,7 @@ import {
   startTest,
   getTestInfo,
   addWarning,
+  getTestAnswers,
 } from "../../components/utils/requests";
 import { getTimer } from "../../components/utils";
 import {
@@ -51,7 +52,6 @@ const Test = () => {
   const [warning, setWarning] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [testInfo, setTestInfo] = useState(null);
-  const [isTestInfo, setIsTestInfo] = useState(false);
   //useEffect
   useEffect(() => {
     setSocket(openSocket("http://localhost:8000/"));
@@ -62,8 +62,29 @@ const Test = () => {
     const end_sec = start_sec + 60 * testDetails.duration_in_min;
     const timer_sec = end_sec - now_sec;
     setTimer(timer_sec);
+    getTestAnswers(testId).then((ans) => setAnswers(ans));
+    window.addEventListener("visibilitychange", visibility);
+    window.addEventListener("contextmenu", (event) => event.preventDefault());
+    getTestQuestions(testId).then((ques) => {
+      setuser_id(ques.user_id);
+      setQuestions(ques.questions);
+      getTestInfo(testId).then((testinfo) => {
+        setTestInfo(testinfo[0]);
+        if (!testinfo[0]) {
+          startTest(testId, {
+            start_time: new Date(),
+            q_len: ques.questions.length,
+          }).then((ans) => {
+            setAnswers(ans);
+          });
+        }
+      });
+    });
+    return () => {
+      window.removeEventListener("visibilitychange", visibility);
+    };
     // eslint-disable-next-line
-  }, []);
+  }, [testId]);
   useEffect(() => {
     if (timer && !isTimer) {
       setIsTimer(true);
@@ -117,44 +138,6 @@ const Test = () => {
       clearInterval(timer_image);
     };
   }, [runCamera, socket, user_id]);
-  useEffect(() => {
-    window.addEventListener("visibilitychange", visibility);
-    window.addEventListener("contextmenu", (event) => event.preventDefault());
-    getTestQuestions(testId).then((ques) => {
-      setuser_id(ques.user_id);
-      setQuestions(ques.questions);
-      setAnswers(
-        ques.questions.map((data, index) => ({
-          id: index,
-          answer: null,
-          is_answered: false,
-          is_marked: false,
-        }))
-      );
-    });
-    return () => {
-      window.removeEventListener("visibilitychange", visibility);
-    };
-    // eslint-disable-next-line
-  }, [testId]);
-  useEffect(() => {
-    getTestInfo(testId).then((testinfo) => {
-      setTestInfo(testinfo[0]);
-      setIsTestInfo(true);
-    });
-    // eslint-disable-next-line
-  }, [openDialog]);
-  useEffect(() => {
-    if (!testInfo && isTestInfo && questions) {
-      startTest(testId, {
-        start_time: new Date(),
-        q_len: questions.length,
-      }).then((testinfo) => {
-        setTestInfo(testinfo);
-      });
-    }
-    // eslint-disable-next-line
-  }, [testInfo, isTestInfo, questions]);
   //Event Handlers
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
@@ -171,11 +154,26 @@ const Test = () => {
     }
     getTestInfo(testId).then((testinfo) => {
       setTestInfo(testinfo[0]);
-      setIsTestInfo(true);
     });
   };
   const handleWarning = () => {
     console.log(answers);
+    answers.map((ans, qno) => {
+      if (ans.q_no === question_no) {
+        dispatch(
+          addInfoAlert(
+            `Question number ${question_no + 1} mark ${
+              ans.is_marked ? "removed" : "saved"
+            }`
+          )
+        );
+        return {
+          ...ans,
+          is_marked: !ans.is_marked,
+        };
+      }
+      return ans;
+    });
     if (answers[question_no].is_marked) {
       dispatch(addInfoAlert(`Question number ${question_no + 1} mark removed`));
       setWarning(warning.filter((value) => value !== question_no));
@@ -221,20 +219,19 @@ const Test = () => {
   };
   const handleAnswers = (event) => {
     console.log(answers);
+    if (!done.includes(question_no)) {
+      setDone([...done, question_no]);
+    }
     setAnswers(
-      answers.map((opt, qno) => {
-        if (qno === question_no) {
-          if (!done.includes(question_no)) {
-            setDone([...done, question_no]);
-          }
+      answers.map((ans, qno) => {
+        if (ans.q_no === question_no) {
           return {
-            id: qno,
+            ...ans,
             answer: event.target.id,
             is_answered: true,
-            is_marked: answers[qno].is_marked,
           };
         }
-        return opt;
+        return ans;
       })
     );
   };

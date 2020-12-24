@@ -176,3 +176,25 @@ export const getTestLeaderBoard = async (testId) => {
   });
   return response.data;
 };
+//Test Answers
+export const getTestAnswers = async (testId) => {
+  const token = localStorage.getItem("token");
+  const bearer = "Bearer " + token;
+  var response = await axios.get(baseUrl + `answer/${testId}`, {
+    headers: {
+      Authorization: bearer,
+    },
+  });
+  return response.data;
+};
+//Update Test Answers
+export const updateTestAnswer = async (testId, answer) => {
+  const token = localStorage.getItem("token");
+  const bearer = "Bearer " + token;
+  var response = await axios.post(baseUrl + `answer/update/${testId}`, answer, {
+    headers: {
+      Authorization: bearer,
+    },
+  });
+  return response.data;
+};
