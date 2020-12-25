@@ -9,6 +9,7 @@ import {
   getTestInfo,
   addWarning,
   getTestAnswers,
+  updateTestAnswer,
 } from "../../components/utils/requests";
 import { getTimer } from "../../components/utils";
 import {
@@ -62,7 +63,11 @@ const Test = () => {
     const end_sec = start_sec + 60 * testDetails.duration_in_min;
     const timer_sec = end_sec - now_sec;
     setTimer(timer_sec);
-    getTestAnswers(testId).then((ans) => setAnswers(ans));
+    getTestAnswers(testId).then((ans) => {
+      setAnswers(ans);
+      setDone(ans.filter((ansr) => ansr.is_answered).map(({ q_no }) => q_no));
+      setWarning(ans.filter((ansr) => ansr.is_marked).map(({ q_no }) => q_no));
+    });
     window.addEventListener("visibilitychange", visibility);
     window.addEventListener("contextmenu", (event) => event.preventDefault());
     getTestQuestions(testId).then((ques) => {
@@ -158,51 +163,33 @@ const Test = () => {
   };
   const handleWarning = () => {
     console.log(answers);
-    answers.map((ans, qno) => {
-      if (ans.q_no === question_no) {
-        dispatch(
-          addInfoAlert(
-            `Question number ${question_no + 1} mark ${
-              ans.is_marked ? "removed" : "saved"
-            }`
-          )
-        );
-        return {
-          ...ans,
-          is_marked: !ans.is_marked,
-        };
-      }
-      return ans;
-    });
-    if (answers[question_no].is_marked) {
-      dispatch(addInfoAlert(`Question number ${question_no + 1} mark removed`));
-      setWarning(warning.filter((value) => value !== question_no));
-      setAnswers(
-        answers.map((ans, qno) => {
-          if (qno === question_no) {
-            return {
-              ...ans,
-              is_marked: false,
-            };
-          }
-          return ans;
-        })
-      );
-    } else {
-      dispatch(addInfoAlert(`Question number ${question_no + 1} mark saved`));
-      setWarning([...warning, question_no]);
-      setAnswers(
-        answers.map((ans, qno) => {
-          if (qno === question_no) {
-            return {
-              ...ans,
-              is_marked: true,
-            };
-          }
-          return ans;
-        })
-      );
-    }
+    setAnswers(
+      answers.map((ans, qno) => {
+        if (ans.q_no === question_no) {
+          dispatch(
+            addInfoAlert(
+              `Question number ${question_no + 1} mark ${
+                ans.is_marked ? "removed" : "saved"
+              }`
+            )
+          );
+          setWarning(
+            ans.is_marked
+              ? warning.filter((value) => value !== question_no)
+              : [...warning, question_no]
+          );
+          updateTestAnswer(testId, {
+            ...ans,
+            is_marked: ans.is_marked ? false : true,
+          });
+          return {
+            ...ans,
+            is_marked: ans.is_marked ? false : true,
+          };
+        }
+        return ans;
+      })
+    );
   };
   const handleChange = (event, newValue) => {
     setQuestion_No(newValue);
@@ -225,6 +212,11 @@ const Test = () => {
     setAnswers(
       answers.map((ans, qno) => {
         if (ans.q_no === question_no) {
+          updateTestAnswer(testId, {
+            ...ans,
+            answer: event.target.id,
+            is_answered: true,
+          });
           return {
             ...ans,
             answer: event.target.id,

@@ -191,7 +191,7 @@ export const getTestAnswers = async (testId) => {
 export const updateTestAnswer = async (testId, answer) => {
   const token = localStorage.getItem("token");
   const bearer = "Bearer " + token;
-  var response = await axios.post(baseUrl + `answer/update/${testId}`, answer, {
+  var response = await axios.put(baseUrl + `answer/update/${testId}`, answer, {
     headers: {
       Authorization: bearer,
     },
