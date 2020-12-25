@@ -286,7 +286,7 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                   <TableCell>
                     {testInfo ? (
                       <Typography>
-                        {new Date(testInfo.createdAt).toLocaleTimeString()}
+                        {new Date(testInfo.end_time).toLocaleTimeString()}
                       </Typography>
                     ) : (
                       <Skeleton animation="wave" height={15} width={125} />

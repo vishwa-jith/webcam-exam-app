@@ -5,6 +5,7 @@ import {
   getTestDetail,
   getTestInfo,
   getTestQuestions,
+  getTestAnswers,
 } from "../../components/utils/requests";
 
 import TestReportView from "./testReport.view";
@@ -29,6 +30,7 @@ const TestReport = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   //useEffect
   useEffect(() => {
+    getTestAnswers(testId).then((ans) => setAnswers(ans));
     if (test_details) {
       setTestDetails(test_details);
     } else {
@@ -38,9 +40,7 @@ const TestReport = () => {
     }
     if (test_info) {
       setTestInfo(test_info);
-      setAnswers(test_info.answers);
       getTestQuestions(testId).then((question) => {
-        console.log(test_info, question);
         setQuestions(question.questions);
       });
     } else {
@@ -49,7 +49,6 @@ const TestReport = () => {
         getTestQuestions(testId).then((question) => {
           setQuestions(question.questions);
         });
-        setAnswers(testinfo[0].answers);
       });
     }
   }, [testId, test_info, test_details]);

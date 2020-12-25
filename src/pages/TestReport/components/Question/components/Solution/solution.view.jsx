@@ -30,11 +30,11 @@ const SolutionView = ({ index, questions, answers, question_no, opt }) => {
         <FormControlLabel
           control={
             questions[question_no].answer_option === index &&
-            answers[question_no] === index ? (
+            answers[question_no].answer === index ? (
               <GreenCheckbox checked={true} />
             ) : questions[question_no].answer_option === index ? (
               <GreenCheckbox checked={true} />
-            ) : answers[question_no] === index ? (
+            ) : answers[question_no].answer === index ? (
               <OrangeCheckbox checked={true} />
             ) : (
               <Checkbox checked={false} />
