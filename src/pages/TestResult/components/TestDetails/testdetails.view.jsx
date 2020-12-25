@@ -77,7 +77,7 @@ const TestDetailsView = ({ testDetails, info }) => {
         <TableCell align="right">{testDetails.duration_in_min} min</TableCell>
         <TableCell align="right">{testDetails.total_marks}</TableCell>
         <TableCell align="right">
-          {new Date(info.createdAt).toDateString()}
+          {new Date(testDetails.start_time).toDateString()}
         </TableCell>
       </TableRow>
       <TableRow style={{ backgroundColor: grey[50] }}>

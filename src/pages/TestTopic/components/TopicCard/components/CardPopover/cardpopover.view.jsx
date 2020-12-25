@@ -28,20 +28,22 @@ const CardPopoverView = ({ anchorE1, testtopicdata, handleAnchorE1Close }) => {
         elevation={1}
       >
         <List dense>
+          {testtopicdata.end_time && (
+            <ListItem
+              button
+              component={NavLink}
+              to={`/testsolution/${testtopicdata.test_id}`}
+            >
+              <ListItemIcon>
+                <AssessmentIcon />
+              </ListItemIcon>
+              <ListItemText>Test Report</ListItemText>
+            </ListItem>
+          )}
           <ListItem
             button
             component={NavLink}
-            to={`/testsolution/${testtopicdata._id}`}
-          >
-            <ListItemIcon>
-              <AssessmentIcon />
-            </ListItemIcon>
-            <ListItemText>Test Report</ListItemText>
-          </ListItem>
-          <ListItem
-            button
-            component={NavLink}
-            to={`/leaderboard/${testtopicdata._id}`}
+            to={`/leaderboard/${testtopicdata.test_id}`}
           >
             <ListItemIcon>
               <TimelineIcon />

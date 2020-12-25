@@ -10,7 +10,7 @@ const LeaderBoard = () => {
   const { testId } = useParams();
   //States
   const [leaderBoard, setLeaderBoard] = useState([]);
-  const [order, setOrder] = useState("asc");
+  const [order, setOrder] = useState("desc");
   const [orderBy, setOrderBy] = useState("score");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
