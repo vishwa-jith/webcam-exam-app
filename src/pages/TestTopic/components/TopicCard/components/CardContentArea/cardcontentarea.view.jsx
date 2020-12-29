@@ -10,15 +10,17 @@ import {
 import TimerIcon from "@material-ui/icons/Timer";
 import HelpIcon from "@material-ui/icons/Help";
 import DoneIcon from "@material-ui/icons/Done";
-import ErrorIcon from "@material-ui/icons/Error";
-import ReceiptIcon from "@material-ui/icons/Receipt";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import WarningIcon from "@material-ui/icons/Warning";
+import RateReviewIcon from "@material-ui/icons/RateReview";
 import { orange, green, teal, deepOrange } from "@material-ui/core/colors";
 
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
-  fullfontcard: {
+  test_name: {
+    fontSize:
+      "calc( 15px + ( 20 - 15 ) * ( ( 100vw - 300px ) / ( 1600 - 300 ) ) )",
     textTransform: "uppercase",
     color: "#555",
   },
@@ -40,7 +42,7 @@ const CardContentAreaView = ({ testtopicdata }) => {
       <List>
         <ListItem>
           <ListItemText>
-            <Typography variant="h6" className={classes.fullfontcard}>
+            <Typography variant="h6" className={classes.test_name}>
               {testtopicdata.topic}
             </Typography>
           </ListItemText>
@@ -112,11 +114,15 @@ const CardContentAreaView = ({ testtopicdata }) => {
           <ListItemSecondaryAction>
             <ListItem>
               <ListItemIcon>
-                <TimerIcon />
+                <ErrorOutlineIcon />
               </ListItemIcon>
               <ListItemText>
                 <Typography className={classes.fortimer}>
-                  {testtopicdata.duration_in_min} min
+                  {`${
+                    testtopicdata.no_of_warning
+                      ? testtopicdata.no_of_warning
+                      : 0
+                  } / 5`}
                 </Typography>
               </ListItemText>
             </ListItem>
@@ -124,7 +130,7 @@ const CardContentAreaView = ({ testtopicdata }) => {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <ReceiptIcon />
+            <RateReviewIcon />
           </ListItemIcon>
           <ListItemText>
             <Typography variant="subtitle1" className={classes.commontextcard}>
@@ -134,11 +140,11 @@ const CardContentAreaView = ({ testtopicdata }) => {
         </ListItem>
         <ListItem>
           <ListItemIcon>
-            <ErrorIcon />
+            <TimerIcon />
           </ListItemIcon>
           <ListItemText>
             <Typography variant="subtitle1" className={classes.commontextcard}>
-              Pass Mark {Math.round(0.35 * testtopicdata.total_marks)}
+              {testtopicdata.duration_in_min} min
             </Typography>
           </ListItemText>
         </ListItem>
