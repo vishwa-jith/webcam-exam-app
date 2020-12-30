@@ -7,10 +7,17 @@ import {
   Button,
   Box,
   Typography,
+  ButtonGroup,
 } from "@material-ui/core";
 import LinkOffIcon from "@material-ui/icons/LinkOff";
 import LinkIcon from "@material-ui/icons/Link";
-import { deepOrange, green, deepPurple } from "@material-ui/core/colors";
+import ClearAllIcon from "@material-ui/icons/ClearAll";
+import {
+  deepOrange,
+  green,
+  deepPurple,
+  orange,
+} from "@material-ui/core/colors";
 
 //Components
 import Question from "../Question";
@@ -34,6 +41,16 @@ const useStyles = makeStyles((theme) => ({
     },
     "&:disabled": {
       backgroundColor: theme.palette.error.light,
+    },
+  },
+  yellow: {
+    color: "white",
+    backgroundColor: orange[500],
+    "&:hover": {
+      backgroundColor: orange[600],
+    },
+    "&:disabled": {
+      backgroundColor: orange[300],
     },
   },
   green: {
@@ -86,6 +103,7 @@ const TestQuestionsView = ({
   handleSubmitAnswers,
   handleWarning,
   handleAnswers,
+  handleClearAnswer,
   handleQuestion,
   handleChange,
   handleClose,
@@ -125,23 +143,38 @@ const TestQuestionsView = ({
           return (
             <TabPanel value={value} index={index}>
               <Grid container justify="flex-end">
-                <Button
-                  variant="contained"
-                  classes={{ root: classes.orange }}
-                  size="small"
-                  onClick={handleWarning}
-                  endIcon={
-                    warning.includes(question_no) ? (
-                      <LinkOffIcon />
-                    ) : (
-                      <LinkIcon />
-                    )
-                  }
-                >
-                  {warning.includes(question_no)
-                    ? "Remove Mark"
-                    : "Mark as Later"}
-                </Button>
+                <ButtonGroup disableElevation>
+                  {done.includes(question_no) && (
+                    <Button
+                      disableElevation
+                      variant="contained"
+                      classes={{ root: classes.yellow }}
+                      size="small"
+                      onClick={handleClearAnswer}
+                      endIcon={<ClearAllIcon />}
+                    >
+                      Clear
+                    </Button>
+                  )}
+                  <Button
+                    disableElevation
+                    variant="contained"
+                    classes={{ root: classes.orange }}
+                    size="small"
+                    onClick={handleWarning}
+                    endIcon={
+                      warning.includes(question_no) ? (
+                        <LinkOffIcon />
+                      ) : (
+                        <LinkIcon />
+                      )
+                    }
+                  >
+                    {warning.includes(question_no)
+                      ? "Remove Mark"
+                      : "Mark as Later"}
+                  </Button>
+                </ButtonGroup>
               </Grid>
               <Question
                 open={open}

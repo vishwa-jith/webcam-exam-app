@@ -205,7 +205,6 @@ const Test = () => {
     setRunCamera(state);
   };
   const handleAnswers = (event) => {
-    console.log(answers);
     if (!done.includes(question_no)) {
       setDone([...done, question_no]);
     }
@@ -221,6 +220,30 @@ const Test = () => {
             ...ans,
             answer: event.target.id,
             is_answered: true,
+          };
+        }
+        return ans;
+      })
+    );
+  };
+  const handleClearAnswer = () => {
+    setDone(done.filter((q_no) => q_no !== question_no));
+    setAnswers(
+      answers.map((ans, qno) => {
+        if (ans.q_no === question_no) {
+          updateTestAnswer(testId, {
+            ...ans,
+            answer: null,
+            is_answered: false,
+          }).then(() =>
+            dispatch(
+              addInfoAlert(`Question number ${question_no + 1} answer cleared`)
+            )
+          );
+          return {
+            ...ans,
+            answer: null,
+            is_answered: false,
           };
         }
         return ans;
@@ -269,6 +292,7 @@ const Test = () => {
         questions={questions}
         question_no={question_no}
         handleAnswers={handleAnswers}
+        handleClearAnswer={handleClearAnswer}
         answers={answers}
         handleQuestion={handleQuestion}
         handleSubmitAnswers={handleSubmitAnswers}

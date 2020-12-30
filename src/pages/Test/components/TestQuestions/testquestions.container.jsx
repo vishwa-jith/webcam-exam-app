@@ -14,6 +14,7 @@ const TestQuestions = ({
   handleSubmitAnswers,
   handleWarning,
   handleAnswers,
+  handleClearAnswer,
   handleQuestion,
   handleChange,
   handleClose,
@@ -32,6 +33,7 @@ const TestQuestions = ({
         handleSubmitAnswers={handleSubmitAnswers}
         handleWarning={handleWarning}
         handleAnswers={handleAnswers}
+        handleClearAnswer={handleClearAnswer}
         handleQuestion={handleQuestion}
         handleChange={handleChange}
         handleClose={handleClose}

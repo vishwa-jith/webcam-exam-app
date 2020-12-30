@@ -21,6 +21,7 @@ const TestView = ({
   questions,
   question_no,
   handleAnswers,
+  handleClearAnswer,
   answers,
   handleQuestion,
   handleSubmitAnswers,
@@ -73,6 +74,7 @@ const TestView = ({
           handleSubmitAnswers={handleSubmitAnswers}
           handleWarning={handleWarning}
           handleAnswers={handleAnswers}
+          handleClearAnswer={handleClearAnswer}
           handleQuestion={handleQuestion}
           handleChange={handleChange}
           handleClose={handleClose}
