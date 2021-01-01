@@ -7,6 +7,7 @@ import IntelligenceChart from "./components/IntelligenceChart";
 import TestTimer from "./components/TestTimer";
 import WebCam from "./components/WebCam";
 import TestQuestions from "./components/TestQuestions";
+import StartDialog from "./components/StartDialog";
 
 const videoConstraints = {
   width: 1280,
@@ -17,7 +18,9 @@ const videoConstraints = {
 const TestView = ({
   webcamRef,
   testInfo,
+  runCamera,
   open,
+  openStartDialog,
   questions,
   question_no,
   handleAnswers,
@@ -38,6 +41,7 @@ const TestView = ({
   openDialog,
   handleClickOpenDialog,
   handleCloseDialog,
+  handleCloseStartDialog,
 }) => {
   return (
     <>
@@ -46,6 +50,13 @@ const TestView = ({
         testInfo={testInfo}
         handleClickOpenDialog={handleClickOpenDialog}
         handleCloseDialog={handleCloseDialog}
+      />
+      <StartDialog
+        openStartDialog={openStartDialog}
+        handleCloseStartDialog={handleCloseStartDialog}
+        webcamRef={webcamRef}
+        runCamera={runCamera}
+        videoConstraints={videoConstraints}
       />
       <Grid
         container

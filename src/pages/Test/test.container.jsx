@@ -52,10 +52,12 @@ const Test = () => {
   const [done, setDone] = useState([]);
   const [warning, setWarning] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
+  const [openStartDialog, setOpenStartDialog] = useState(false);
   const [testInfo, setTestInfo] = useState(null);
   //useEffect
   useEffect(() => {
     setSocket(openSocket("http://localhost:8000/"));
+    setOpenStartDialog(true);
     const start_sec = getTimer(
       new Date(testDetails.test_start_time).toLocaleTimeString().split(":")
     );
@@ -150,6 +152,9 @@ const Test = () => {
   const handleCloseDialog = () => {
     dispatch(visionGained(document.visibilityState));
     setOpenDialog(false);
+  };
+  const handleCloseStartDialog = () => {
+    setOpenStartDialog(false);
   };
   const visibility = () => {
     if (document.visibilityState === "hidden") {
@@ -288,7 +293,9 @@ const Test = () => {
         webcamRef={webcamRef}
         testInfo={testInfo}
         src={src}
+        runCamera={runCamera}
         open={open}
+        openStartDialog={openStartDialog}
         questions={questions}
         question_no={question_no}
         handleAnswers={handleAnswers}
@@ -310,6 +317,7 @@ const Test = () => {
         openDialog={openDialog}
         handleClickOpenDialog={handleClickOpenDialog}
         handleCloseDialog={handleCloseDialog}
+        handleCloseStartDialog={handleCloseStartDialog}
       />
     </>
   );

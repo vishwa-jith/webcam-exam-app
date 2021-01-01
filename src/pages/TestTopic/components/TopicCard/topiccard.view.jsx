@@ -49,7 +49,9 @@ const TopicCardView = function ({
               <CardHeader
                 avatar={<CardHeaderAvatar testtopicdata={testtopicdata} />}
                 title={testtopicdata.test_name}
-                subheader={new Date(testtopicdata.start_time).toDateString()}
+                subheader={new Date(
+                  testtopicdata.test_start_time
+                ).toDateString()}
                 action={
                   <CardHeaderAction handleAnchorE1Click={handleAnchorE1Click} />
                 }

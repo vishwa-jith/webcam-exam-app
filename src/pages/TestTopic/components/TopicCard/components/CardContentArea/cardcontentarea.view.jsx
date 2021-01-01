@@ -105,7 +105,7 @@ const CardContentAreaView = ({ testtopicdata }) => {
               {testtopicdata.is_fraudulant
                 ? "Violation"
                 : !testtopicdata.end_time && testtopicdata.start_time
-                ? "Resume Test"
+                ? "Resume"
                 : testtopicdata.end_time
                 ? "Completed"
                 : "Take Test"}

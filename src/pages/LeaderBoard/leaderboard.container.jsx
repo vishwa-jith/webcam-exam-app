@@ -42,10 +42,10 @@ const LeaderBoard = () => {
           return {
             ...test,
             time_taken: parseInt(parseInt(time[0]) * 60 + parseInt(time[1])),
-            start_time: getTimer(
+            end_time: getTimer(
               new Date(test.end_time).toTimeString().split(":")
             ),
-            end_time: getTimer(
+            start_time: getTimer(
               new Date(test.start_time).toTimeString().split(":")
             ),
           };
