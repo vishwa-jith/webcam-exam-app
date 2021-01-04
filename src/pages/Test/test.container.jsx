@@ -133,7 +133,7 @@ const Test = () => {
   });
   useEffect(() => {
     let timer_image;
-    if (socket && user_id) {
+    if (socket && user_id && !openStartDialog) {
       timer_image = setInterval(() => {
         const imageSrc = webcamRef.current.getScreenshot();
         setSrc(imageSrc);
@@ -144,7 +144,7 @@ const Test = () => {
     return () => {
       clearInterval(timer_image);
     };
-  }, [runCamera, socket, user_id]);
+  }, [runCamera, socket, user_id, openStartDialog]);
   //Event Handlers
   const handleClickOpenDialog = () => {
     setOpenDialog(true);

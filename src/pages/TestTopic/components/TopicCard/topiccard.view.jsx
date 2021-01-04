@@ -79,14 +79,12 @@ const TopicCardView = function ({
             </Collapse>
           )}
         </Card>
-        {open && (
-          <TopicDialog
-            testtopicdata={testtopicdata}
-            Transition={Transition}
-            open={open}
-            handleClose={handleClose}
-          />
-        )}
+        <TopicDialog
+          testtopicdata={testtopicdata}
+          Transition={Transition}
+          open={open}
+          handleClose={handleClose}
+        />
       </Box>
     </Grid>
   );

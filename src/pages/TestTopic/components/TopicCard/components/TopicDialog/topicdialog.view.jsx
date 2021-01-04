@@ -35,7 +35,6 @@ const TopicDialogView = ({ testtopicdata, Transition, open, handleClose }) => {
   //Const
   const history = useHistory();
   const classes = useStyles();
-
   return (
     <>
       <Dialog

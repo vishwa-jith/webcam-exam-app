@@ -8,12 +8,15 @@ import {
   Paper,
   Box,
   Button,
+  Slide,
 } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import { baseUrl } from "../../../../components/constants";
+import VideocamOffIcon from "@material-ui/icons/VideocamOff";
+import { grey, indigo } from "@material-ui/core/colors";
+import { useHistory } from "react-router-dom";
 import Webcam from "react-webcam";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,7 +29,9 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
 }));
-
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 const StartDialogView = ({
   openStartDialog,
   webcamRef,
@@ -34,6 +39,7 @@ const StartDialogView = ({
   handleCloseStartDialog,
   videoConstraints,
 }) => {
+  const history = useHistory();
   const classes = useStyles();
   return (
     <>
@@ -41,6 +47,7 @@ const StartDialogView = ({
         fullScreen
         open={openStartDialog}
         onClose={handleCloseStartDialog}
+        TransitionComponent={Transition}
       >
         <AppBar className={classes.appBar}>
           <Toolbar>
@@ -56,7 +63,12 @@ const StartDialogView = ({
           style={{ height: "100vh" }}
         >
           <Grid item md={8} xs={12}>
-            <Paper elevation={3}>
+            <Paper
+              elevation={3}
+              style={{
+                backgroundColor: grey[50],
+              }}
+            >
               <Box p={1}>
                 <Webcam
                   audio={false}
@@ -65,6 +77,7 @@ const StartDialogView = ({
                       runCamera && !webcamRef.current.getScreenshot() && "none",
                     width: "100%",
                     height: "75vh",
+                    backgroundColor: "black",
                   }}
                   screenshotFormat="image/jpeg"
                   videoConstraints={videoConstraints}
@@ -74,30 +87,49 @@ const StartDialogView = ({
                     style={{
                       width: "100%",
                       height: "75vh",
-                      backgroundImage: `url( ${baseUrl}images/camera_error.png )`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "100% 100%",
+                      backgroundColor: "black",
                     }}
                   ></div>
                 )}
               </Box>
             </Paper>
           </Grid>
-          <Grid container item md={8} xs={11} justify="space-between">
+          <Grid
+            container
+            item
+            md={8}
+            xs={11}
+            justify="space-between"
+            style={{ position: "absolute" }}
+          >
             <Button
               variant="contained"
               disableElevation
-              color="primary"
+              disableRipple
+              style={{ backgroundColor: grey[50], color: indigo[500] }}
               startIcon={<ArrowBackIcon />}
               endIcon={<AssessmentIcon />}
+              onClick={() => history.goBack()}
             >
               Test Topic
             </Button>
+            <Typography
+              variant="h6"
+              style={{ color: "white", alignItems: "center", display: "flex" }}
+            >
+              {runCamera && !webcamRef.current.getScreenshot() && (
+                <>
+                  <VideocamOffIcon style={{ fontSize: "30px" }} />
+                  Camera might start once you allow access.
+                </>
+              )}
+            </Typography>
             <Button
               disabled={runCamera && !webcamRef.current.getScreenshot()}
               variant="contained"
               disableElevation
-              color="primary"
+              disableRipple
+              style={{ backgroundColor: grey[50], color: indigo[500] }}
               onClick={handleCloseStartDialog}
               startIcon={<AssignmentIcon />}
               endIcon={<ArrowForwardIcon />}
