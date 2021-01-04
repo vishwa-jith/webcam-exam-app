@@ -1,6 +1,7 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
-
+import { Grid, Badge } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { deepOrange } from "@material-ui/core/colors";
 //Components
 import VisionDialog from "./components/VisionDialog";
 import IntelligenceChart from "./components/IntelligenceChart";
@@ -8,6 +9,13 @@ import TestTimer from "./components/TestTimer";
 import WebCam from "./components/WebCam";
 import TestQuestions from "./components/TestQuestions";
 import StartDialog from "./components/StartDialog";
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    border: `2px solid ${deepOrange[100]}`,
+    backgroundColor: deepOrange[500],
+    color: "white",
+  },
+}))(Badge);
 
 const videoConstraints = {
   width: 1280,
@@ -66,10 +74,19 @@ const TestView = ({
       >
         <IntelligenceChart intelligence={intelligence} />
         <TestTimer timer={timer} />
-        <WebCam
-          webcamRef={webcamRef}
-          handleCameraVision={handleCameraVision}
-          videoConstraints={videoConstraints}
+        <StyledBadge
+          badgeContent={<p>{`9 / 50`}</p>}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          children={
+            <WebCam
+              webcamRef={webcamRef}
+              handleCameraVision={handleCameraVision}
+              videoConstraints={videoConstraints}
+            />
+          }
         />
       </Grid>
       {questions.length > 0 && (

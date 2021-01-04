@@ -25,7 +25,7 @@ const TestTimerView = ({ timer }) => {
     <>
       <Box m={2}>
         <Grid item>
-          <Paper elevation={3}>
+          <Paper variant="outlined">
             <Box>
               <List>
                 <ListItem>

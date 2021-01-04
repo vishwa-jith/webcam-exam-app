@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   Slide,
+  Tooltip,
 } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import AssessmentIcon from "@material-ui/icons/Assessment";
@@ -102,17 +103,17 @@ const StartDialogView = ({
             justify="space-between"
             style={{ position: "absolute" }}
           >
-            <Button
-              variant="contained"
-              disableElevation
-              disableRipple
-              style={{ backgroundColor: grey[50], color: indigo[500] }}
-              startIcon={<ArrowBackIcon />}
-              endIcon={<AssessmentIcon />}
-              onClick={() => history.goBack()}
-            >
-              Test Topic
-            </Button>
+            <Tooltip title="Test Topic" arrow>
+              <Button
+                variant="contained"
+                disableElevation
+                disableRipple
+                style={{ backgroundColor: grey[50], color: indigo[500] }}
+                startIcon={<ArrowBackIcon />}
+                endIcon={<AssessmentIcon />}
+                onClick={() => history.goBack()}
+              ></Button>
+            </Tooltip>
             <Typography
               variant="h6"
               style={{ color: "white", alignItems: "center", display: "flex" }}
@@ -124,18 +125,18 @@ const StartDialogView = ({
                 </>
               )}
             </Typography>
-            <Button
-              disabled={runCamera && !webcamRef.current.getScreenshot()}
-              variant="contained"
-              disableElevation
-              disableRipple
-              style={{ backgroundColor: grey[50], color: indigo[500] }}
-              onClick={handleCloseStartDialog}
-              startIcon={<AssignmentIcon />}
-              endIcon={<ArrowForwardIcon />}
-            >
-              Enter Test
-            </Button>
+            <Tooltip title="Enter Test" arrow>
+              <Button
+                disabled={runCamera && !webcamRef.current.getScreenshot()}
+                variant="contained"
+                disableElevation
+                disableRipple
+                style={{ backgroundColor: grey[50], color: indigo[500] }}
+                onClick={handleCloseStartDialog}
+                startIcon={<AssignmentIcon />}
+                endIcon={<ArrowForwardIcon />}
+              ></Button>
+            </Tooltip>
           </Grid>
         </Grid>
       </Dialog>
