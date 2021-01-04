@@ -37,7 +37,8 @@ const QuestionView = ({ questions, question_no, answers }) => {
         variant="outlined"
         style={{
           borderColor: `${
-            questions[question_no].answer_option === answers[question_no].answer
+            questions[question_no].answer_option ===
+            answers.filter((answer) => answer.q_no === question_no)[0].answer
               ? green[500]
               : deepOrange[500]
           }`,
@@ -53,7 +54,9 @@ const QuestionView = ({ questions, question_no, answers }) => {
                       style={{
                         backgroundColor: `${
                           questions[question_no].answer_option ===
-                          answers[question_no].answer
+                          answers.filter(
+                            (answer) => answer.q_no === question_no
+                          )[0].answer
                             ? green[500]
                             : deepOrange[500]
                         }`,
@@ -67,7 +70,9 @@ const QuestionView = ({ questions, question_no, answers }) => {
                       variant="h6"
                       className={
                         questions[question_no].answer_option ===
-                        answers[question_no].answer
+                        answers.filter(
+                          (answer) => answer.q_no === question_no
+                        )[0].answer
                           ? classes.green
                           : classes.orange
                       }
