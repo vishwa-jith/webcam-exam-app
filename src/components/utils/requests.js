@@ -198,3 +198,18 @@ export const updateTestAnswer = async (testId, answer) => {
   });
   return response.data;
 };
+//Add Warning
+export const addCamWarning = async (testId) => {
+  const token = localStorage.getItem("token");
+  const bearer = "Bearer " + token;
+  var response = await axios.post(
+    baseUrl + `test-info/add-cam-warning/${testId}`,
+    {},
+    {
+      headers: {
+        Authorization: bearer,
+      },
+    }
+  );
+  return response.data;
+};

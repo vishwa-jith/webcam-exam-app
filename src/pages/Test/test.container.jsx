@@ -8,6 +8,7 @@ import {
   startTest,
   getTestInfo,
   addWarning,
+  addCamWarning,
   getTestAnswers,
   updateTestAnswer,
 } from "../../components/utils/requests";
@@ -106,7 +107,6 @@ const Test = () => {
     if (socket && user_id) {
       socket.on(user_id, (intl) => {
         setInteligence(intl);
-        console.log(intl);
       });
       socket.on(`${user_id}-recognize`, (recog) => {
         console.log(recog);
@@ -120,9 +120,16 @@ const Test = () => {
     if (timer === 10) {
       handleSubmitAnswers();
     }
-    if (testInfo && testInfo.no_of_warning >= 5) {
+    if (
+      testInfo &&
+      (testInfo.no_of_warning >= 5 || testInfo.no_of_cam_warning >= 50)
+    ) {
       dispatch(
-        addWarningAlert("Exam violation determined, Submitting Test...")
+        addWarningAlert(
+          `${
+            testInfo.no_of_warning >= 5 ? "Tab Switch" : "Camera"
+          } violation determined, Submitting Test...`
+        )
       );
       sendAnswers(testId, {
         answers,
@@ -150,6 +157,17 @@ const Test = () => {
       clearInterval(timer_image);
     };
   }, [runCamera, socket, user_id, openStartDialog]);
+  useEffect(() => {
+    if (intelligence && intelligence.no_of_faces !== 1) {
+      addCamWarning(testId).then((res) => {
+        setTestInfo({
+          ...testInfo,
+          no_of_cam_warning: testInfo.no_of_cam_warning + 1,
+        });
+      });
+    }
+    // eslint-disable-next-line
+  }, [intelligence, testId]);
   //Event Handlers
   const handleCapture = (imgSrc) => {
     setCapture(imgSrc);

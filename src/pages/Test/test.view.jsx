@@ -79,7 +79,9 @@ const TestView = ({
         <IntelligenceChart intelligence={intelligence} />
         <TestTimer timer={timer} />
         <StyledBadge
-          badgeContent={<p>{`9 / 50`}</p>}
+          badgeContent={
+            <p>{`${testInfo ? testInfo.no_of_cam_warning : 0} / 50`}</p>
+          }
           anchorOrigin={{
             vertical: "bottom",
             horizontal: "left",
