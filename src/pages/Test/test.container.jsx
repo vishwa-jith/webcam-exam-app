@@ -54,6 +54,7 @@ const Test = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [openStartDialog, setOpenStartDialog] = useState(false);
   const [testInfo, setTestInfo] = useState(null);
+  const [capture, setCapture] = useState(null);
   //useEffect
   useEffect(() => {
     setSocket(openSocket("http://localhost:8000/"));
@@ -105,6 +106,10 @@ const Test = () => {
     if (socket && user_id) {
       socket.on(user_id, (intl) => {
         setInteligence(intl);
+        console.log(intl);
+      });
+      socket.on(`${user_id}-recognize`, (recog) => {
+        console.log(recog);
       });
     }
     if (timer === 300) {
@@ -146,6 +151,9 @@ const Test = () => {
     };
   }, [runCamera, socket, user_id, openStartDialog]);
   //Event Handlers
+  const handleCapture = (imgSrc) => {
+    setCapture(imgSrc);
+  };
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
   };
@@ -155,6 +163,7 @@ const Test = () => {
   };
   const handleCloseStartDialog = () => {
     setOpenStartDialog(false);
+    socket.emit("validate-image", { user_id, imageSrc: capture });
   };
   const visibility = () => {
     if (document.visibilityState === "hidden") {
@@ -298,6 +307,7 @@ const Test = () => {
         openStartDialog={openStartDialog}
         questions={questions}
         question_no={question_no}
+        capture={capture}
         handleAnswers={handleAnswers}
         handleClearAnswer={handleClearAnswer}
         answers={answers}
@@ -318,6 +328,7 @@ const Test = () => {
         handleClickOpenDialog={handleClickOpenDialog}
         handleCloseDialog={handleCloseDialog}
         handleCloseStartDialog={handleCloseStartDialog}
+        handleCapture={handleCapture}
       />
     </>
   );

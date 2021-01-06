@@ -31,6 +31,7 @@ const TestView = ({
   openStartDialog,
   questions,
   question_no,
+  capture,
   handleAnswers,
   handleClearAnswer,
   answers,
@@ -50,6 +51,7 @@ const TestView = ({
   handleClickOpenDialog,
   handleCloseDialog,
   handleCloseStartDialog,
+  handleCapture,
 }) => {
   return (
     <>
@@ -61,7 +63,9 @@ const TestView = ({
       />
       <StartDialog
         openStartDialog={openStartDialog}
+        capture={capture}
         handleCloseStartDialog={handleCloseStartDialog}
+        handleCapture={handleCapture}
         webcamRef={webcamRef}
         runCamera={runCamera}
         videoConstraints={videoConstraints}

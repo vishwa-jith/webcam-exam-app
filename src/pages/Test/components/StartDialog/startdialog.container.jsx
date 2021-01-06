@@ -5,9 +5,11 @@ import { useSelector, shallowEqual } from "react-redux";
 
 const StartDialog = ({
   openStartDialog,
+  capture,
   webcamRef,
   runCamera,
   handleCloseStartDialog,
+  handleCapture,
   videoConstraints,
 }) => {
   const initialNames = {
@@ -37,7 +39,9 @@ const StartDialog = ({
     <>
       <StartDialogView
         openStartDialog={openStartDialog}
+        capture={capture}
         handleCloseStartDialog={handleCloseStartDialog}
+        handleCapture={handleCapture}
         webcamRef={webcamRef}
         runCamera={runCamera}
         videoConstraints={videoConstraints}

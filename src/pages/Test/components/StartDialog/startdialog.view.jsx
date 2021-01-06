@@ -24,6 +24,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import VideocamOffIcon from "@material-ui/icons/VideocamOff";
 import CameraIcon from "@material-ui/icons/Camera";
+import FlipCameraIosIcon from "@material-ui/icons/FlipCameraIos";
 import { useHistory } from "react-router-dom";
 import Webcam from "react-webcam";
 
@@ -42,9 +43,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 const StartDialogView = ({
   openStartDialog,
+  capture,
   webcamRef,
   runCamera,
   handleCloseStartDialog,
+  handleCapture,
   videoConstraints,
   names,
 }) => {
@@ -71,70 +74,58 @@ const StartDialogView = ({
           alignItems="center"
           style={{ height: "100vh" }}
         >
-          <Grid item md={8} xs={12}>
-            <Webcam
-              audio={false}
-              style={{
-                display:
-                  runCamera && !webcamRef.current.getScreenshot() && "none",
-                width: "50%",
-                height: "50vh",
-                backgroundColor: "black",
-              }}
-              screenshotFormat="image/jpeg"
-              videoConstraints={videoConstraints}
-            />
-            {runCamera && !webcamRef.current.getScreenshot() && (
-              <Grid container>
-                <Grid container item md={6} spacing={1}>
-                  <Paper
-                    style={{
-                      backgroundColor: "black",
-                      width: "100%",
-                      height: "50vh",
-                      backgroundImage: `url( ${baseUrl}images/upload/${names._id}-profile.jpg )`,
-                      cursor: "pointer",
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "100% 100%",
-                    }}
-                  >
-                    <Box p={1}>
-                      <List>
-                        <ListItem>
-                          <ListItemIcon>
-                            <Avatar
-                              style={{
-                                fontSize: "30px",
-                                backgroundColor: indigo[500],
-                              }}
-                            >
-                              <CameraIcon />
-                            </Avatar>
-                          </ListItemIcon>
-                          <ListItemText>
-                            <Typography
-                              variant="h6"
-                              style={{
-                                color: "white",
-                              }}
-                            >
-                              Position your frontal face on camera.
-                            </Typography>
-                          </ListItemText>
-                        </ListItem>
-                      </List>
-                    </Box>
-                  </Paper>
-                </Grid>
-                <Grid container item md={6} spacing={1}>
-                  <Paper
-                    style={{
-                      backgroundColor: "black",
-                      width: "100%",
-                      height: "50vh",
-                      cursor: "pointer",
-                    }}
-                  >
+          <Grid item md={8} lg={7} sm={10} xs={10}>
+            <Grid container>
+              <Grid container item md={6} spacing={1}>
+                <Paper
+                  style={{
+                    backgroundColor: "black",
+                    width: "100%",
+                    height: "50vh",
+                    backgroundImage: `url( ${baseUrl}images/upload/${names._id}-profile.jpg )`,
+                    cursor: "pointer",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "100% 100%",
+                  }}
+                >
+                  <Box p={1}>
+                    <List>
+                      <ListItem>
+                        <ListItemIcon>
+                          <Avatar
+                            style={{
+                              fontSize: "30px",
+                              backgroundColor: indigo[500],
+                            }}
+                          >
+                            <CameraIcon />
+                          </Avatar>
+                        </ListItemIcon>
+                        <ListItemText>
+                          <Typography
+                            variant="h6"
+                            style={{
+                              color: "white",
+                            }}
+                          >
+                            Position your frontal face on camera.
+                          </Typography>
+                        </ListItemText>
+                      </ListItem>
+                    </List>
+                  </Box>
+                </Paper>
+              </Grid>
+              <Grid container item md={6} spacing={1}>
+                <Paper
+                  style={{
+                    backgroundColor: "black",
+                    width: "100%",
+                    height: "50vh",
+                    cursor: "pointer",
+                  }}
+                >
+                  {runCamera && !webcamRef.current.getScreenshot() ? (
                     <Box p={1}>
                       <List>
                         <ListItem>
@@ -161,10 +152,35 @@ const StartDialogView = ({
                         </ListItem>
                       </List>
                     </Box>
-                  </Paper>
-                </Grid>
+                  ) : !capture ? (
+                    <Webcam
+                      audio={false}
+                      style={{
+                        display:
+                          runCamera &&
+                          !webcamRef.current.getScreenshot() &&
+                          "none",
+                        width: "100%",
+                        height: "50vh",
+                        backgroundColor: "black",
+                      }}
+                      screenshotFormat="image/jpeg"
+                      videoConstraints={videoConstraints}
+                    />
+                  ) : (
+                    <img
+                      src={capture}
+                      alt="capture profile"
+                      style={{
+                        width: "100%",
+                        height: "50vh",
+                        backgroundColor: "black",
+                      }}
+                    />
+                  )}
+                </Paper>
               </Grid>
-            )}
+            </Grid>
           </Grid>
           <Grid container item md={8} xs={11} justify="space-between">
             <Tooltip title="Test Topic" arrow>
@@ -181,9 +197,29 @@ const StartDialogView = ({
                 Test Topic
               </Button>
             </Tooltip>
-            <Tooltip title="Enter Test" arrow>
+            <Tooltip title={!capture ? "Capture" : "Retake"} arrow>
               <Button
                 disabled={runCamera && !webcamRef.current.getScreenshot()}
+                variant="contained"
+                disableElevation
+                disableRipple
+                color="primary"
+                size="small"
+                startIcon={!capture ? <CameraIcon /> : <FlipCameraIosIcon />}
+                onClick={() =>
+                  handleCapture(
+                    !capture ? webcamRef.current.getScreenshot() : null
+                  )
+                }
+              >
+                {!capture ? "Capture image" : "Retake image"}
+              </Button>
+            </Tooltip>
+            <Tooltip title="Enter Test" arrow>
+              <Button
+                disabled={
+                  !capture || (runCamera && !webcamRef.current.getScreenshot())
+                }
                 variant="contained"
                 disableElevation
                 disableRipple
@@ -193,7 +229,7 @@ const StartDialogView = ({
                 startIcon={<AssignmentIcon />}
                 endIcon={<ArrowForwardIcon />}
               >
-                Enter Test
+                Proceed
               </Button>
             </Tooltip>
           </Grid>
