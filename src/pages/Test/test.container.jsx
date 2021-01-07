@@ -149,9 +149,9 @@ const Test = () => {
       timer_image = setInterval(() => {
         const imageSrc = webcamRef.current.getScreenshot();
         setSrc(imageSrc);
-        setCounter((prevCounter) => prevCounter + 5);
+        setCounter((prevCounter) => prevCounter + 3);
         socket.emit("validate-image", { user_id, imageSrc });
-      }, 5000);
+      }, 3000);
     }
     return () => {
       clearInterval(timer_image);
@@ -162,7 +162,7 @@ const Test = () => {
       addCamWarning(testId).then((res) => {
         setTestInfo({
           ...testInfo,
-          no_of_cam_warning: testInfo.no_of_cam_warning + 1,
+          no_of_cam_warning: testInfo ? testInfo.no_of_cam_warning + 1 : 0,
         });
       });
     }
