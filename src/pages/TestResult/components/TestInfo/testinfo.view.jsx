@@ -16,12 +16,12 @@ import {
   orange,
   deepOrange,
 } from "@material-ui/core/colors";
-import WarningIcon from "@material-ui/icons/Warning";
-import AlarmOnIcon from "@material-ui/icons/AlarmOn";
+import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 import UpdateIcon from "@material-ui/icons/Update";
 import MoodIcon from "@material-ui/icons/Mood";
 import MoodBadIcon from "@material-ui/icons/MoodBad";
-import ScoreIcon from "@material-ui/icons/Score";
+import CameraFrontIcon from "@material-ui/icons/CameraFront";
+import TabIcon from "@material-ui/icons/Tab";
 import { getTime, getTimer } from "../../../../components/utils";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -80,7 +80,7 @@ const TestInfoView = ({ testDetails, testInfo }) => {
                         : red[500],
                   }}
                 >
-                  <ScoreIcon />
+                  <EmojiEventsIcon />
                 </Avatar>
               </TableCell>
               <TableCell component="th" scope="row">
@@ -88,7 +88,7 @@ const TestInfoView = ({ testDetails, testInfo }) => {
               </TableCell>
               <TableCell align="right">
                 <Typography>
-                  {testInfo.score.toFixed(2)}/{testDetails.total_marks}
+                  {`${testInfo.score.toFixed(2)} / ${testDetails.total_marks}`}
                 </Typography>
               </TableCell>
             </TableRow>
@@ -98,14 +98,30 @@ const TestInfoView = ({ testDetails, testInfo }) => {
                   className={classes.avatar}
                   style={{ backgroundColor: orange[500] }}
                 >
-                  <WarningIcon />
+                  <CameraFrontIcon />
                 </Avatar>
               </TableCell>
               <TableCell component="th" scope="row">
-                <Typography>Warnings</Typography>
+                <Typography>Camera Warnings</Typography>
               </TableCell>
               <TableCell align="right">
-                <Typography>{testInfo.no_of_warning}</Typography>
+                <Typography>{`${testInfo.no_of_cam_warning} / 50`}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Avatar
+                  className={classes.avatar}
+                  style={{ backgroundColor: orange[500] }}
+                >
+                  <TabIcon />
+                </Avatar>
+              </TableCell>
+              <TableCell component="th" scope="row">
+                <Typography>Tab Switch Warnings</Typography>
+              </TableCell>
+              <TableCell align="right">
+                <Typography>{`${testInfo.no_of_warning} / 5`}</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -120,21 +136,6 @@ const TestInfoView = ({ testDetails, testInfo }) => {
               <TableCell align="right">
                 <Typography>
                   {`${parseInt(time[0]) * 60 + parseInt(time[1])}`} min
-                </Typography>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Avatar className={classes.avatar}>
-                  <AlarmOnIcon />
-                </Avatar>
-              </TableCell>
-              <TableCell component="th" scope="row">
-                <Typography>Test Completion Time</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography>
-                  {new Date(testInfo.createdAt).toLocaleTimeString()}
                 </Typography>
               </TableCell>
             </TableRow>
