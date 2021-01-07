@@ -6,13 +6,15 @@ import {
   ListItemIcon,
   ListItemSecondaryAction,
   Typography,
+  Tooltip,
 } from "@material-ui/core";
 import TimerIcon from "@material-ui/icons/Timer";
 import HelpIcon from "@material-ui/icons/Help";
 import DoneIcon from "@material-ui/icons/Done";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import CameraFrontIcon from "@material-ui/icons/CameraFront";
 import WarningIcon from "@material-ui/icons/Warning";
+import TabIcon from "@material-ui/icons/Tab";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import { orange, green, teal, deepOrange } from "@material-ui/core/colors";
 
@@ -111,36 +113,67 @@ const CardContentAreaView = ({ testtopicdata }) => {
                 : "Take Test"}
             </Typography>
           </ListItemText>
-          <ListItemSecondaryAction>
-            <ListItem>
-              <ListItemIcon>
-                <ErrorOutlineIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Typography className={classes.fortimer}>
-                  {`${
-                    testtopicdata.no_of_warning
-                      ? testtopicdata.no_of_warning
-                      : 0
-                  } / 5`}
-                </Typography>
-              </ListItemText>
-            </ListItem>
-          </ListItemSecondaryAction>
         </ListItem>
+        {testtopicdata.start_time ? (
+          <ListItem>
+            <ListItemIcon>
+              <Tooltip arrow title="Face Intelligence">
+                <CameraFrontIcon />
+              </Tooltip>
+            </ListItemIcon>
+            <ListItemText>
+              <Typography
+                variant="subtitle1"
+                className={classes.commontextcard}
+              >
+                {`${
+                  testtopicdata.no_of_cam_warning
+                    ? testtopicdata.no_of_cam_warning
+                    : 0
+                } / 50`}
+              </Typography>
+            </ListItemText>
+            <ListItemSecondaryAction>
+              <ListItem>
+                <ListItemIcon>
+                  <Tooltip arrow title="Tab Switch">
+                    <TabIcon />
+                  </Tooltip>
+                </ListItemIcon>
+                <ListItemText>
+                  <Typography className={classes.fortimer}>
+                    {`${
+                      testtopicdata.no_of_warning
+                        ? testtopicdata.no_of_warning
+                        : 0
+                    } / 5`}
+                  </Typography>
+                </ListItemText>
+              </ListItem>
+            </ListItemSecondaryAction>
+          </ListItem>
+        ) : (
+          <ListItem>
+            <ListItemIcon>
+              <Tooltip arrow title="Total Marks">
+                <RateReviewIcon />
+              </Tooltip>
+            </ListItemIcon>
+            <ListItemText>
+              <Typography
+                variant="subtitle1"
+                className={classes.commontextcard}
+              >
+                Total Marks {testtopicdata.total_marks}
+              </Typography>
+            </ListItemText>
+          </ListItem>
+        )}
         <ListItem>
           <ListItemIcon>
-            <RateReviewIcon />
-          </ListItemIcon>
-          <ListItemText>
-            <Typography variant="subtitle1" className={classes.commontextcard}>
-              Total Marks {testtopicdata.total_marks}
-            </Typography>
-          </ListItemText>
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <TimerIcon />
+            <Tooltip arrow title="Test Duration">
+              <TimerIcon />
+            </Tooltip>
           </ListItemIcon>
           <ListItemText>
             <Typography variant="subtitle1" className={classes.commontextcard}>

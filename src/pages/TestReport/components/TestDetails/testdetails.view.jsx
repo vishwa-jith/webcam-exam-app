@@ -15,17 +15,18 @@ import {
 } from "@material-ui/core";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
+import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 import TimerIcon from "@material-ui/icons/Timer";
 import EventIcon from "@material-ui/icons/Event";
 import MoodIcon from "@material-ui/icons/Mood";
+import TabIcon from "@material-ui/icons/Tab";
 import MoodBadIcon from "@material-ui/icons/MoodBad";
-import ScoreIcon from "@material-ui/icons/Score";
-import WarningIcon from "@material-ui/icons/Warning";
 import AlarmOnIcon from "@material-ui/icons/AlarmOn";
 import UpdateIcon from "@material-ui/icons/Update";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import Skeleton from "@material-ui/lab/Skeleton";
+import CameraFrontIcon from "@material-ui/icons/CameraFront";
 import {
   red,
   green,
@@ -170,6 +171,25 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                     )}
                   </TableCell>
                 </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Avatar className={classes.avatar}>
+                      <AlarmOnIcon />
+                    </Avatar>
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    <Typography>Test Start Time</Typography>
+                  </TableCell>
+                  <TableCell>
+                    {testInfo ? (
+                      <Typography>
+                        {new Date(testInfo.start_time).toLocaleTimeString()}
+                      </Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
+                  </TableCell>
+                </TableRow>
               </TableBody>
             </Table>
           </TableContainer>
@@ -212,7 +232,7 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                 <TableRow>
                   <TableCell>
                     <Avatar className={classes.avatar}>
-                      <ScoreIcon />
+                      <EmojiEventsIcon />
                     </Avatar>
                   </TableCell>
                   <TableCell component="th" scope="row">
@@ -239,11 +259,30 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                 <TableRow>
                   <TableCell>
                     <Avatar className={classes.avatar}>
-                      <WarningIcon />
+                      <CameraFrontIcon />
                     </Avatar>
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    <Typography>Warnings</Typography>
+                    <Typography>Camera Warnings</Typography>
+                  </TableCell>
+                  <TableCell>
+                    {testInfo ? (
+                      <Typography style={{ color: orange[500] }}>
+                        {testInfo.no_of_cam_warning}
+                      </Typography>
+                    ) : (
+                      <Skeleton animation="wave" height={15} width={125} />
+                    )}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Avatar className={classes.avatar}>
+                      <TabIcon />
+                    </Avatar>
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    <Typography>Tab Switch Warnings</Typography>
                   </TableCell>
                   <TableCell>
                     {testInfo ? (
