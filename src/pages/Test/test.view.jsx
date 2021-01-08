@@ -9,6 +9,8 @@ import TestTimer from "./components/TestTimer";
 import WebCam from "./components/WebCam";
 import TestQuestions from "./components/TestQuestions";
 import StartDialog from "./components/StartDialog";
+import CameraWarningDialog from "./components/CameraWarningDialog";
+
 const StyledBadge = withStyles((theme) => ({
   badge: {
     border: `2px solid ${deepOrange[100]}`,
@@ -29,6 +31,7 @@ const TestView = ({
   runCamera,
   open,
   openStartDialog,
+  openCameraWarnDialog,
   questions,
   question_no,
   capture,
@@ -39,6 +42,7 @@ const TestView = ({
   handleSubmitAnswers,
   handleCameraVision,
   intelligence,
+  intelligenceDialog,
   timer,
   value,
   handleChange,
@@ -51,6 +55,7 @@ const TestView = ({
   handleClickOpenDialog,
   handleCloseDialog,
   handleCloseStartDialog,
+  handleCloseCameraWarnDialog,
   handleCapture,
 }) => {
   return (
@@ -69,6 +74,12 @@ const TestView = ({
         webcamRef={webcamRef}
         runCamera={runCamera}
         videoConstraints={videoConstraints}
+      />
+      <CameraWarningDialog
+        testInfo={testInfo}
+        intelligenceDialog={intelligenceDialog}
+        openCameraWarnDialog={openCameraWarnDialog}
+        handleCloseCameraWarnDialog={handleCloseCameraWarnDialog}
       />
       <Grid
         container
