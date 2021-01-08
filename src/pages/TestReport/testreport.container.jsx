@@ -13,17 +13,12 @@ import TestReportView from "./testReport.view";
 const TestReport = () => {
   //Const
   const { testId } = useParams();
-  const test_info = useSelector(
-    ({ testDetails }) => testDetails.testInfo,
-    shallowEqual
-  );
   const test_details = useSelector(
     ({ testDetails }) => testDetails.testDetails,
     shallowEqual
   );
   //States
   const [testDetails, setTestDetails] = useState(null);
-  const [testInfo, setTestInfo] = useState(null);
   const [questions, setQuestions] = useState(null);
   const [answers, setAnswers] = useState(null);
   const [page, setPage] = useState(0);
@@ -31,27 +26,25 @@ const TestReport = () => {
   //useEffect
   useEffect(() => {
     getTestAnswers(testId).then((ans) => setAnswers(ans));
-    if (test_details) {
+    if (test_details && test_details.test_id === testId) {
       setTestDetails(test_details);
     } else {
       getTestDetail(testId).then((testdetail) => {
-        setTestDetails(testdetail[0]);
-      });
-    }
-    if (test_info) {
-      setTestInfo(test_info);
-      getTestQuestions(testId).then((question) => {
-        setQuestions(question.questions);
-      });
-    } else {
-      getTestInfo(testId).then((testinfo) => {
-        setTestInfo(testinfo[0]);
-        getTestQuestions(testId).then((question) => {
-          setQuestions(question.questions);
+        getTestInfo(testId).then((testinfo) => {
+          setTestDetails({
+            ...testdetail[0],
+            test_start_time: testdetail[0].start_time,
+            start_time: null,
+            test_id: testdetail[0]._id,
+            ...testinfo[0],
+          });
         });
       });
     }
-  }, [testId, test_info, test_details]);
+    getTestQuestions(testId).then((question) => {
+      setQuestions(question.questions);
+    });
+  }, [testId, test_details]);
   //Event Handlers
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -69,7 +62,6 @@ const TestReport = () => {
         questions={questions}
         answers={answers}
         testDetails={testDetails}
-        testInfo={testInfo}
         handleChangePage={handleChangePage}
         handleChangeRowsPerPage={handleChangeRowsPerPage}
       />

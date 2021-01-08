@@ -2,10 +2,10 @@ import React from "react";
 
 import TestDetailsView from "./testdetails.view";
 
-const TestDetails = ({ testDetails, testInfo }) => {
+const TestDetails = ({ testDetails }) => {
   return (
     <>
-      <TestDetailsView testDetails={testDetails} testInfo={testInfo} />
+      <TestDetailsView testDetails={testDetails} />
     </>
   );
 };

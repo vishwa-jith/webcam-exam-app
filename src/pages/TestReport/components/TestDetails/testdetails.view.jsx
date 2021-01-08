@@ -48,13 +48,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TestDetailsView = ({ testDetails, testInfo }) => {
+const TestDetailsView = ({ testDetails }) => {
   const classes = useStyles();
   const history = useHistory();
-  var time = testInfo
+  var time = testDetails
     ? getTime(
-        getTimer(new Date(testInfo.end_time).toTimeString().split(":")) -
-          getTimer(new Date(testInfo.start_time).toTimeString().split(":"))
+        getTimer(new Date(testDetails.end_time).toTimeString().split(":")) -
+          getTimer(new Date(testDetails.start_time).toTimeString().split(":"))
       ).split(":")
     : 0;
   return (
@@ -162,9 +162,9 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                     <Typography>Test Date</Typography>
                   </TableCell>
                   <TableCell>
-                    {testInfo ? (
+                    {testDetails ? (
                       <Typography>
-                        {new Date(testInfo.createdAt).toDateString()}
+                        {new Date(testDetails.start_time).toDateString()}
                       </Typography>
                     ) : (
                       <Skeleton animation="wave" height={15} width={125} />
@@ -181,9 +181,9 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                     <Typography>Test Start Time</Typography>
                   </TableCell>
                   <TableCell>
-                    {testInfo ? (
+                    {testDetails ? (
                       <Typography>
-                        {new Date(testInfo.start_time).toLocaleTimeString()}
+                        {new Date(testDetails.start_time).toLocaleTimeString()}
                       </Typography>
                     ) : (
                       <Skeleton animation="wave" height={15} width={125} />
@@ -203,7 +203,7 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                 <TableRow>
                   <TableCell>
                     <Avatar className={classes.avatar}>
-                      {testInfo && testInfo.is_fraudulant ? (
+                      {testDetails && testDetails.is_fraudulant ? (
                         <MoodBadIcon />
                       ) : (
                         <MoodIcon />
@@ -214,15 +214,15 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                     <Typography>Status</Typography>
                   </TableCell>
                   <TableCell>
-                    {testInfo ? (
+                    {testDetails ? (
                       <Typography
                         style={{
-                          color: testInfo.is_fraudulant
+                          color: testDetails.is_fraudulant
                             ? deepOrange[500]
                             : green[500],
                         }}
                       >
-                        {testInfo.is_fraudulant ? "Violation" : "Normal"}
+                        {testDetails.is_fraudulant ? "Violation" : "Normal"}
                       </Typography>
                     ) : (
                       <Skeleton animation="wave" height={15} width={125} />
@@ -239,17 +239,18 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                     <Typography>Marks Scored</Typography>
                   </TableCell>
                   <TableCell>
-                    {testDetails && testInfo ? (
+                    {testDetails && testDetails ? (
                       <Typography
                         style={{
                           color:
-                            (testInfo.score / testDetails.total_marks) * 100 >
+                            (testDetails.score / testDetails.total_marks) *
+                              100 >
                             40
                               ? green[500]
                               : red[500],
                         }}
                       >
-                        {testInfo.score.toFixed(2)}/{testDetails.total_marks}
+                        {testDetails.score.toFixed(2)}/{testDetails.total_marks}
                       </Typography>
                     ) : (
                       <Skeleton animation="wave" height={15} width={125} />
@@ -266,9 +267,9 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                     <Typography>Camera Warnings</Typography>
                   </TableCell>
                   <TableCell>
-                    {testInfo ? (
+                    {testDetails ? (
                       <Typography style={{ color: orange[500] }}>
-                        {testInfo.no_of_cam_warning}
+                        {testDetails.no_of_cam_warning}
                       </Typography>
                     ) : (
                       <Skeleton animation="wave" height={15} width={125} />
@@ -285,9 +286,9 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                     <Typography>Tab Switch Warnings</Typography>
                   </TableCell>
                   <TableCell>
-                    {testInfo ? (
+                    {testDetails ? (
                       <Typography style={{ color: orange[500] }}>
-                        {testInfo.no_of_warning}
+                        {testDetails.no_of_warning}
                       </Typography>
                     ) : (
                       <Skeleton animation="wave" height={15} width={125} />
@@ -304,7 +305,7 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                     <Typography>Time Taken</Typography>
                   </TableCell>
                   <TableCell>
-                    {testInfo ? (
+                    {testDetails ? (
                       <Typography>
                         {`${parseInt(time[0]) * 60 + parseInt(time[1])}`} min
                       </Typography>
@@ -323,9 +324,9 @@ const TestDetailsView = ({ testDetails, testInfo }) => {
                     <Typography>Test Completion Time</Typography>
                   </TableCell>
                   <TableCell>
-                    {testInfo ? (
+                    {testDetails ? (
                       <Typography>
-                        {new Date(testInfo.end_time).toLocaleTimeString()}
+                        {new Date(testDetails.end_time).toLocaleTimeString()}
                       </Typography>
                     ) : (
                       <Skeleton animation="wave" height={15} width={125} />
