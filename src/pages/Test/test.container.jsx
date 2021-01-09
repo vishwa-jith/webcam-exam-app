@@ -46,6 +46,7 @@ const Test = () => {
   const [counter, setCounter] = useState(0);
   const [user_id, setuser_id] = useState(null);
   const [intelligence, setInteligence] = useState(null);
+  const [intelligenceDialog, setInteligenceDialog] = useState(null);
   const [open, setOpen] = useState(false);
   const [timer, setTimer] = useState(null);
   const [isTimer, setIsTimer] = useState(false);
@@ -54,6 +55,7 @@ const Test = () => {
   const [warning, setWarning] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [openStartDialog, setOpenStartDialog] = useState(false);
+  const [openCameraWarnDialog, setOpenCameraWarnDialog] = useState(false);
   const [testInfo, setTestInfo] = useState(null);
   const [capture, setCapture] = useState(null);
   //useEffect
@@ -149,9 +151,9 @@ const Test = () => {
       timer_image = setInterval(() => {
         const imageSrc = webcamRef.current.getScreenshot();
         setSrc(imageSrc);
-        setCounter((prevCounter) => prevCounter + 5);
+        setCounter((prevCounter) => prevCounter + 3);
         socket.emit("validate-image", { user_id, imageSrc });
-      }, 5000);
+      }, 3000);
     }
     return () => {
       clearInterval(timer_image);
@@ -162,8 +164,10 @@ const Test = () => {
       addCamWarning(testId).then((res) => {
         setTestInfo({
           ...testInfo,
-          no_of_cam_warning: testInfo.no_of_cam_warning + 1,
+          no_of_cam_warning: testInfo ? testInfo.no_of_cam_warning + 1 : 0,
         });
+        setOpenCameraWarnDialog(true);
+        setInteligenceDialog(intelligence);
       });
     }
     // eslint-disable-next-line
@@ -182,6 +186,9 @@ const Test = () => {
   const handleCloseStartDialog = () => {
     setOpenStartDialog(false);
     socket.emit("validate-image", { user_id, imageSrc: capture });
+  };
+  const handleCloseCameraWarnDialog = () => {
+    setOpenCameraWarnDialog(false);
   };
   const visibility = () => {
     if (document.visibilityState === "hidden") {
@@ -323,6 +330,7 @@ const Test = () => {
         runCamera={runCamera}
         open={open}
         openStartDialog={openStartDialog}
+        openCameraWarnDialog={openCameraWarnDialog}
         questions={questions}
         question_no={question_no}
         capture={capture}
@@ -334,6 +342,7 @@ const Test = () => {
         handleCameraVision={handleCameraVision}
         counter={counter}
         intelligence={intelligence}
+        intelligenceDialog={intelligenceDialog}
         handleClickOpen={handleClickOpen}
         handleClose={handleClose}
         timer={timer}
@@ -346,6 +355,7 @@ const Test = () => {
         handleClickOpenDialog={handleClickOpenDialog}
         handleCloseDialog={handleCloseDialog}
         handleCloseStartDialog={handleCloseStartDialog}
+        handleCloseCameraWarnDialog={handleCloseCameraWarnDialog}
         handleCapture={handleCapture}
       />
     </>

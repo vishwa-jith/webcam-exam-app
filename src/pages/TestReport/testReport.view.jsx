@@ -10,14 +10,13 @@ const TestReportView = ({
   questions,
   answers,
   testDetails,
-  testInfo,
   handleChangePage,
   handleChangeRowsPerPage,
 }) => {
   return (
     <>
       <Grid container justify="center" alignItems="center">
-        <TestDetails testDetails={testDetails} testInfo={testInfo} />
+        <TestDetails testDetails={testDetails} />
         <Grid md={10} xs={10} item justify="flex-end">
           <Box m={1}>
             <TablePagination
