@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useHistory } from "react-router-dom";
 import { useRouteMatch } from "react-router-dom";
 
 //Components
 import HomeSettings from "./components/Home";
+import TestResult from "../TestResult";
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
@@ -70,25 +70,13 @@ const SettingsView = ({ value, handleChange, a11yProps }) => {
             {...a11yProps(1)}
             onClick={() => history.push("/settings/test")}
           />
-          <Tab
-            label="COMPANY DETAILS"
-            {...a11yProps(2)}
-            onClick={() => history.push("/settings/company")}
-          />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         {["/settings/home"].includes(match.path) && <HomeSettings />}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {["/settings/test"].includes(match.path) && (
-          <Typography variant="h6">test Settings</Typography>
-        )}
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        {["/settings/company"].includes(match.path) && (
-          <Typography variant="h6">Company Settings</Typography>
-        )}
+        {["/settings/test"].includes(match.path) && <TestResult />}
       </TabPanel>
     </div>
   );

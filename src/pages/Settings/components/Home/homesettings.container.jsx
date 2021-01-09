@@ -77,10 +77,19 @@ const HomeSettings = () => {
       [name]: value,
     });
   };
+  const updateVisibility = () => {
+    const { default_avatar } = names;
+    updateProfile({ default_avatar: !default_avatar }).then((res) => {
+      dispatch(addSuccessAlert(res.message));
+      setNames({ ...names, default_avatar: !default_avatar });
+      setProfileAnchorEl(null);
+      setIsEdit(false);
+    });
+  };
   const handleOperation = () => {
     const { firstname, lastname } = names;
     if (isEdit) {
-      updateProfile(firstname, lastname).then((res) => {
+      updateProfile({ firstname, lastname }).then((res) => {
         dispatch(addSuccessAlert(res.message));
         setIsEdit(false);
       });
@@ -105,6 +114,7 @@ const HomeSettings = () => {
         uploadType={uploadType}
         handleChange={handleChange}
         handleOperation={handleOperation}
+        updateVisibility={updateVisibility}
         userDetails={userDetails}
         handleImageDialog={handleImageDialog}
         handleCoverPopoverOpen={handleCoverPopoverOpen}

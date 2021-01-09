@@ -5,8 +5,12 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  ListItemSecondaryAction,
+  Switch,
+  Tooltip,
 } from "@material-ui/core";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import FaceIcon from "@material-ui/icons/Face";
 import ImageIcon from "@material-ui/icons/Image";
 
 const ProfilePopoverView = ({
@@ -16,6 +20,7 @@ const ProfilePopoverView = ({
   handleProfilePopoverClose,
   handleProfileUploadClickOpen,
   handleImageDialog,
+  updateVisibility,
 }) => {
   return (
     <>
@@ -62,6 +67,24 @@ const ProfilePopoverView = ({
             </ListItemIcon>
             <ListItemText>View Image</ListItemText>
           </ListItem>
+          <Tooltip title="Default avatar visibility" arrow>
+            <ListItem>
+              <ListItemIcon>
+                <FaceIcon />
+              </ListItemIcon>
+              <ListItemText id="switch-list-label-avatar" primary="" />
+              <ListItemSecondaryAction>
+                <Switch
+                  edge="end"
+                  checked={names.default_avatar}
+                  onChange={updateVisibility}
+                  inputProps={{
+                    "aria-labelledby": "switch-list-label-avatar",
+                  }}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+          </Tooltip>
         </List>
       </Popover>
     </>

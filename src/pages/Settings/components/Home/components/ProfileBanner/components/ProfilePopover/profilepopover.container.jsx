@@ -9,6 +9,7 @@ const ProfilePopover = ({
   handleProfilePopoverClose,
   handleProfileUploadClickOpen,
   handleImageDialog,
+  updateVisibility,
 }) => {
   return (
     <>
@@ -19,6 +20,7 @@ const ProfilePopover = ({
         handleProfilePopoverClose={handleProfilePopoverClose}
         handleProfileUploadClickOpen={handleProfileUploadClickOpen}
         handleImageDialog={handleImageDialog}
+        updateVisibility={updateVisibility}
       />
     </>
   );

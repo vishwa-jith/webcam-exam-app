@@ -34,22 +34,24 @@ const LeaderBoard = () => {
   useEffect(() => {
     getTestLeaderBoard(testId).then((result) => {
       setLeaderBoard(
-        result.map((test) => {
-          const time = getTime(
-            getTimer(new Date(test.end_time).toTimeString().split(":")) -
-              getTimer(new Date(test.start_time).toTimeString().split(":"))
-          ).split(":");
-          return {
-            ...test,
-            time_taken: parseInt(parseInt(time[0]) * 60 + parseInt(time[1])),
-            end_time: getTimer(
-              new Date(test.end_time).toTimeString().split(":")
-            ),
-            start_time: getTimer(
-              new Date(test.start_time).toTimeString().split(":")
-            ),
-          };
-        })
+        result
+          .filter((test) => test.end_time)
+          .map((test) => {
+            const time = getTime(
+              getTimer(new Date(test.end_time).toTimeString().split(":")) -
+                getTimer(new Date(test.start_time).toTimeString().split(":"))
+            ).split(":");
+            return {
+              ...test,
+              time_taken: parseInt(parseInt(time[0]) * 60 + parseInt(time[1])),
+              end_time: getTimer(
+                new Date(test.end_time).toTimeString().split(":")
+              ),
+              start_time: getTimer(
+                new Date(test.start_time).toTimeString().split(":")
+              ),
+            };
+          })
       );
     });
   }, [testId]);

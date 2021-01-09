@@ -17,6 +17,7 @@ const HomeSettingsView = ({
   handleChange,
   handleOperation,
   userDetails,
+  updateVisibility,
   handleImageDialog,
   handleCoverPopoverOpen,
   handleCoverPopoverClose,
@@ -46,6 +47,7 @@ const HomeSettingsView = ({
             handleProfilePopoverClose={handleProfilePopoverClose}
             handleProfileUploadClickOpen={handleProfileUploadClickOpen}
             handleImageDialog={handleImageDialog}
+            updateVisibility={updateVisibility}
           />
           <ProfileEditor isEdit={isEdit} handleOperation={handleOperation} />
           <Grid item container xs={12} component={Box} p={2}>

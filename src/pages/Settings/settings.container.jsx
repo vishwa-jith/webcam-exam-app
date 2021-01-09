@@ -17,9 +17,7 @@ export default function Settings() {
   const [value, setValue] = useState(0);
   //useEffect
   useEffect(() => {
-    if (["/settings/company"].includes(match.path)) {
-      handleChange(null, 2);
-    } else if (["/settings/test"].includes(match.path)) {
+    if (["/settings/test"].includes(match.path)) {
       handleChange(null, 1);
     } else {
       handleChange(null, 0);

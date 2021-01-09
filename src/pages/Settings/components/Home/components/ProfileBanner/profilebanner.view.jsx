@@ -20,6 +20,7 @@ const ProfileBannerView = ({
   names,
   coverAnchorEl,
   profileAnchorEl,
+  updateVisibility,
   handleCoverPopoverOpen,
   handleCoverPopoverClose,
   handleProfilePopoverClose,
@@ -74,6 +75,7 @@ const ProfileBannerView = ({
         handleProfilePopoverClose={handleProfilePopoverClose}
         handleProfileUploadClickOpen={handleProfileUploadClickOpen}
         handleImageDialog={handleImageDialog}
+        updateVisibility={updateVisibility}
       />
     </>
   );

@@ -17,12 +17,14 @@ const TestResult = () => {
     getTestTopics().then((data) => {
       setTestTopic(data.topics);
       setTestInfo(
-        data.info.map((info) => {
-          const testDetails = data.topics.filter(
-            (topic) => topic._id === info.test_id
-          )[0];
-          return { ...info, ...testDetails };
-        })
+        data.info
+          .filter((info) => info.end_time)
+          .map((info) => {
+            const testDetails = data.topics.filter(
+              (topic) => topic._id === info.test_id
+            )[0];
+            return { ...info, ...testDetails };
+          })
       );
       setIsLoading(false);
     });

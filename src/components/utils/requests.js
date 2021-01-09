@@ -151,18 +151,14 @@ export const uploadImage = async (file, type) => {
   return response.data;
 };
 //Update Profile Details
-export const updateProfile = async (firstname, lastname) => {
+export const updateProfile = async (profile) => {
   const token = localStorage.getItem("token");
   const bearer = "Bearer " + token;
-  var response = await axios.post(
-    baseUrl + `users/update-profile`,
-    { firstname, lastname },
-    {
-      headers: {
-        Authorization: bearer,
-      },
-    }
-  );
+  var response = await axios.post(baseUrl + `users/update-profile`, profile, {
+    headers: {
+      Authorization: bearer,
+    },
+  });
   return response.data;
 };
 //Test Detail

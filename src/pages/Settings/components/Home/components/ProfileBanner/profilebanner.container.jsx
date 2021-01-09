@@ -6,6 +6,7 @@ const ProfileBanner = ({
   names,
   coverAnchorEl,
   profileAnchorEl,
+  updateVisibility,
   handleCoverPopoverOpen,
   handleCoverPopoverClose,
   handleProfilePopoverClose,
@@ -19,6 +20,7 @@ const ProfileBanner = ({
         names={names}
         coverAnchorEl={coverAnchorEl}
         profileAnchorEl={profileAnchorEl}
+        updateVisibility={updateVisibility}
         handleProfilePopoverOpen={handleProfilePopoverOpen}
         handleCoverPopoverOpen={handleCoverPopoverOpen}
         handleCoverPopoverClose={handleCoverPopoverClose}
