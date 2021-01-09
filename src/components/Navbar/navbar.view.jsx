@@ -8,11 +8,12 @@ import {
   Typography,
   Divider,
   IconButton,
+  Avatar,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { drawerWidth } from "../constants";
+import { drawerWidth, baseUrl } from "../constants";
 
 //Components
 import SideBarView from "./components/sidebar";
@@ -112,6 +113,7 @@ const NavbarView = ({
               {open ? <ChevronLeftIcon /> : <MenuIcon />}
             </IconButton>
           )}
+          <Avatar src={`${baseUrl}images/logo.svg`} alt="Logo" />
           <Typography variant="h6" noWrap>
             Exam App
           </Typography>
