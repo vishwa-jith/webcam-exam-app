@@ -129,3 +129,9 @@ The virtual world is becoming a huge barrier for students to take their examinat
 | <b> Institute        | Sri Sairam Engineering College |
 | <b> Email id         | vishwajith567@gmail.com        |
 | <b> Department       | Computer Science Engineering   |
+
+| <b>Name of Developer | <b> Suresh Krishnaa R          |
+| :------------------- | :----------------------------- |
+| <b> Institute        | Sri Sairam Engineering College |
+| <b> Email id         | shyrams1346@gmail.com          |
+| <b> Department       | Computer Science Engineering   |
